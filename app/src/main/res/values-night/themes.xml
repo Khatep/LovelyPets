@@ -1,0 +1,39 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.LovelyPets" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/purple_200</item>
+        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorOnPrimary">@color/black</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/teal_200</item>
+        <item name="colorSecondaryVariant">@color/teal_200</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <!-- Customize your theme here. -->
+    </style>
+
+    <style name="Theme.LovelyPets.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+    <style name="Theme.NavDraw4.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+    <style name="Theme.NavDraw4.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+    <style name="welcome_to_">
+        <item name="android:textSize">36sp</item>
+        <item name="android:textColor">#F3E9D2</item>
+    </style>
+    <style name="we_are_offe">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">#F3E9D2</item>
+    </style>
+    <style name="already_have">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">#F3E9D2</item>
+    </style>
+    <style name="sign_up">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">#E5938C</item>
+    </style>
+</resources>

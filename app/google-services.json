@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "282521122953",
+    "project_id": "lovely-pets-app",
+    "storage_bucket": "lovely-pets-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:282521122953:android:647ea22e7b77b0aeacae58",
+        "android_client_info": {
+          "package_name": "com.example.lovelypets"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "282521122953-96hlqirini6qlpu25o9o4kgjf9mkvmc0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAe6aNQSntXELpkvNt6azrgWFJ5bsZhjq0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "282521122953-96hlqirini6qlpu25o9o4kgjf9mkvmc0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

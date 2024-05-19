@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.lovelypets">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.LovelyPets">
+        <activity
+            android:name=".passwordreset.PasswordResetActivity"
+            android:exported="false"
+            android:theme="@style/Theme.LovelyPets.NoActionBar"/>
+        <activity
+            android:name=".authentications.LoginWithGoogleActivity"
+            android:exported="false"
+            android:theme="@style/Theme.LovelyPets.NoActionBar" />
+        <activity
+            android:name=".emailconfirmations.EmailConfirmActivity"
+            android:exported="false"
+            android:theme="@style/Theme.LovelyPets.NoActionBar" />
+        <activity
+            android:name=".authentications.InputDataForUserActivity"
+            android:exported="true"
+            android:theme="@style/Theme.LovelyPets.NoActionBar">
+
+        </activity>
+        <activity
+            android:name=".WelcomeActivity"
+            android:exported="true"
+            android:theme="@style/Theme.LovelyPets.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".authentications.AuthenticationWithGoogleAccountActivity"
+            android:exported="false"
+            android:theme="@style/Theme.LovelyPets.NoActionBar" />
+        <activity
+            android:name=".authentications.SignupEmailActivity"
+            android:exported="false"
+            android:theme="@style/Theme.LovelyPets.NoActionBar">
+
+        </activity>
+        <activity
+            android:name=".authentications.LoginEmailActivity"
+            android:exported="false"
+            android:theme="@style/Theme.LovelyPets.NoActionBar">
+
+        </activity>
+        <activity
+            android:name=".LovelyPetsApplicationActivity"
+            android:exported="false"
+            android:theme="@style/Theme.LovelyPets.NoActionBar">
+
+        </activity>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
+    </application>
+
+</manifest>

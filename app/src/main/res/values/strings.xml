@@ -1,0 +1,81 @@
+<resources>
+    <string name="app_name">LovelyPets</string>
+    <string name="slogan">all for your little friends</string>
+
+    <string name="this_is_home_fragment">This is Home</string>
+    <string name="this_is_category_fragment">This is Category</string>
+    <string name="this_is_search_fragment">This is Search</string>
+    <string name="this_is_cart_fragment">This is Cart</string>
+    <string name="this_is_profile_fragment">This is Profile</string>
+
+    <string name="title_home">Home</string>
+    <string name="title_category">Category</string>
+    <string name="title_search">Search</string>
+    <string name="title_cart">Cart</string>
+    <string name="title_profile">Profile</string>
+
+    <string name="username">Username</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+    <string name="students">Students</string>
+    <string name="title_settings">Settings</string>
+    <string name="title_share">Share</string>
+    <string name="title_aboutus">About Us</string>
+    <string name="title_logout">Log out</string>
+    <string name="login">Login</string>
+    <string name="password">Password</string>
+    <string name="email">Email</string>
+
+    <string name="signup">Sign up</string>
+    <string name="click_to_login">Click to login\n</string>
+    <string name="click_to_signup">Click to Sign up</string>
+    <string name="cancel">Cancel</string>
+    <string name="create_a_new_account">Create a new account</string>
+    <string name="convention">I have read and accept the \n Terms of Use and Privacy Policy </string>
+    <string name="google">Google</string>
+    <string name="signup_with_google">Sign up with Google</string>
+    <string name="continue_with_email">Continue with email</string>
+    <string name="please_fill_form">Please fill form\n</string>
+    <string name="name">Name</string>
+    <string name="age">Age</string>
+    <string name="birth_date">Birth date</string>
+    <string name="surname">Surname</string>
+    <string name="birth_date_format">Birth date</string>
+    <string name="phone_number">Phone number</string>
+    <string name="submit">Submit</string>
+    <string name="check_your_email_and_input_code">Check your email, and input code</string>
+    <string name="gender">Gender</string>
+
+    <string name="error_email_empty">Error: email is empty</string>
+    <string name="error_password_empty">Error: password is empty</string>
+    <string name="error_incorrect_email">Error: email is incorrect</string>
+    <string name="error_incorrect_password_length">Error: incorrect password length</string>
+    <string name="content_description_end_icon">Content description end icon\n</string>
+    <string name="login_nice_to_see_you_again">Nice to see you again!</string>
+    <string name="login_now">Login Now</string>
+    <string name="do_you_have_an_account_login">Do you have an account? Login</string>
+    <string name="dont_have_an_account_sign_up">Don\'t have an account? Sign up</string>
+    <string name="calendar">Calendar</string>
+    <string name="name_and_surname">Name Surname</string>
+    <string name="error_name_and_surname_empty">Error: Name and surname are empty</string>
+    <string name="error_birth_date_empty">Error: Birth date is empty</string>
+    <string name="error_phone_number_empty">Error: Phone number is empty</string>
+    <string name="error_gender_empty">Error: Gender is empty</string>
+    <string name="login_with_google">Login with google</string>
+    <string name="login_to_your_account_using_the_previously_selected_authorization_method">Login to your account with using the previously selected authorization method</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="back">Back</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="provide_your_account_s_email_for_which_you_want_to_reset_your_password">Provide your account\'s email for which you want to reset your password!</string>
+    <string name="error_user_already_exists">Error: user with this email already exists</string>
+    <string name="welcome_to_">Welcome to Lovely Pets</string>
+    <string name="we_are_offe">We are offering pets around the city.\n There are also delivery service.\n Additionally, you can find products\n for them.</string>
+    <string name="already_have">Already have an account?</string>
+    <string name="login_upper">LOGIN</string>
+    <string name="logotype">Logotype</string>
+</resources>

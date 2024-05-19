@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.example.lovelypets.fragments.HomeFragment"
+        android:label="Home"/>
+
+    <fragment
+        android:id="@+id/nav_category"
+        android:name="com.example.lovelypets.fragments.CategoryFragment"
+        android:label="Category"
+         />
+
+    <fragment
+        android:id="@+id/nav_search"
+        android:name="com.example.lovelypets.fragments.SearchFragment"
+        android:label="Search"
+        />
+
+    <fragment
+        android:id="@+id/nav_cart"
+        android:name="com.example.lovelypets.fragments.CartFragment"
+        android:label="Cart"
+        />
+
+    <fragment
+        android:id="@+id/nav_profile"
+        android:name="com.example.lovelypets.fragments.ProfileFragment"
+        android:label="Profile"
+        />
+
+</navigation>
