@@ -16,7 +16,7 @@ import androidx.core.view.MenuItemCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
-import com.example.lovelypets.authentications.LoginEmailActivity;
+import com.example.lovelypets.authentications.LoginActivity;
 import com.example.lovelypets.fragments.CartFragment;
 import com.example.lovelypets.fragments.CategoryFragment;
 import com.example.lovelypets.fragments.HomeFragment;
@@ -118,7 +118,7 @@ public class LovelyPetsApplicationActivity extends AppCompatActivity {
                 bottomNavigationView.setSelectedItemId(R.id.menuItemProfile);
             } else if (item.getItemId() == R.id.nav_logout) {
                 FirebaseAuth.getInstance().signOut();
-                Intent intent = new Intent(LovelyPetsApplicationActivity.this, LoginEmailActivity.class);
+                Intent intent = new Intent(LovelyPetsApplicationActivity.this, LoginActivity.class);
                 startActivity(intent);
                 finish();
                 return true;

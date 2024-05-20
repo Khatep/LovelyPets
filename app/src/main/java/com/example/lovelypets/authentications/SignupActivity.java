@@ -16,7 +16,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.lovelypets.LovelyPetsApplicationActivity;
 import com.example.lovelypets.R;
@@ -25,10 +27,20 @@ import com.example.lovelypets.dto.FirebaseAuthUserDTO;
 import com.example.lovelypets.emailconfirmations.EmailConfirmActivity;
 import com.example.lovelypets.verifications.SendCodeToEmailTask;
 import com.example.lovelypets.verifications.VerificationCodeListener;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -36,11 +48,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.Objects;
-import java.util.concurrent.atomic.AtomicBoolean;
 
-
-public class SignupEmailActivity extends AppCompatActivity implements VerificationCodeListener, UserExistenceChecker {
-    private ImageView cancelImageView;
+public class SignupActivity extends AppCompatActivity implements VerificationCodeListener, UserExistenceChecker {
+    private ImageView backArrowImageView;
     private TextInputEditText editTextEmail, editTextPassword;
     private TextInputLayout emailLayout, passwordLayout;
     private Button signupButton;
@@ -50,6 +60,10 @@ public class SignupEmailActivity extends AppCompatActivity implements Verificati
     private TextView loginGotextView;
     private CheckBox conventionCheckBox;
     private FirebaseAuthUserDTO firebaseAuthUserDTO;
+    ConstraintLayout googleLayout;
+    FirebaseDatabase firebaseDatabase;
+    GoogleSignInOptions gso;
+    GoogleSignInClient googleSignInClient;
     @Override
     public void onStart() {
         super.onStart();
@@ -64,17 +78,24 @@ public class SignupEmailActivity extends AppCompatActivity implements Verificati
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_signup_email);
+        setContentView(R.layout.activity_signup_new);
         emailLayout = findViewById(R.id.email_layout);
         passwordLayout = findViewById(R.id.password_layout);
         editTextEmail = findViewById(R.id.signup_email);
         editTextPassword = findViewById(R.id.signup_password);
-        signupButton = findViewById(R.id.btn_signup);
+        signupButton = findViewById(R.id.signup_button);
         mAuth = FirebaseAuth.getInstance();
-        progressBar = findViewById(R.id.signup_bar);
+        progressBar = findViewById(R.id.progress_bar);
         loginGotextView = findViewById(R.id.login_go);
-        cancelImageView = findViewById(R.id.cancel_icon);
+        backArrowImageView = findViewById(R.id.back_arrow);
         conventionCheckBox = findViewById(R.id.convention_checkbox);
+
+        googleLayout = findViewById(R.id.google_frame_layout);
+
+        gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail().build();
+        googleSignInClient = GoogleSignIn.getClient(this, gso);
 
         editTextEmail.setOnClickListener(v -> {
             emailLayout.setError(null);
@@ -85,7 +106,7 @@ public class SignupEmailActivity extends AppCompatActivity implements Verificati
         });
 
         loginGotextView.setOnClickListener(v -> {
-            Intent intent = new Intent(getApplicationContext(), LoginWithGoogleActivity.class);
+            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
             startActivity(intent);
             finish();
         });
@@ -140,25 +161,73 @@ public class SignupEmailActivity extends AppCompatActivity implements Verificati
             });
         });
 
-        cancelImageView.setOnClickListener(v -> {
+        googleLayout.setOnClickListener(v -> {
+            authenticationWithGoogle();
+        });
+
+        backArrowImageView.setOnClickListener(v -> {
             Intent intent = new Intent(getApplicationContext(), WelcomeActivity.class);
             startActivity(intent);
             finish();
         });
 
-        String fullText = getResources().getString(R.string.do_you_have_an_account_login);
+        String fullText = getResources().getString(R.string.already_have_login_here);
 
         SpannableString spannableString = new SpannableString(fullText);
-        int startIndex = fullText.indexOf("Login");
+        int startIndex = fullText.indexOf("LOGIN here");
         if (startIndex != -1) {
-            int color = getResources().getColor(R.color.purple_500);
-            spannableString.setSpan(new ForegroundColorSpan(color), startIndex, startIndex + "Login".length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            int color = getResources().getColor(R.color.light_red_color);
+            spannableString.setSpan(new ForegroundColorSpan(color), startIndex, startIndex + "LOGIN here".length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
-
         TextView textView = loginGotextView;
         textView.setText(spannableString);
     }
 
+    private void authenticationWithGoogle() {
+        Intent signInIntent = googleSignInClient.getSignInIntent();
+        startActivityForResult(signInIntent, 1000);
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1000) {
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            if(task.isSuccessful()) {
+                Toast.makeText(getApplicationContext(), "onActivityResult::task worked successful", Toast.LENGTH_SHORT).show();
+                try {
+                    GoogleSignInAccount account = task.getResult(ApiException.class);
+                    firebaseAuthWithGoogle(account);
+                } catch (ApiException e) {
+                    Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                Toast.makeText(getApplicationContext(), "onActivityResult::task didn't work successful", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+    private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
+        AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
+        Task<AuthResult> authResultTask = mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(getApplicationContext(), "firebaseAuthWithGoogle::onComplete::task worked successful", Toast.LENGTH_SHORT).show();
+                            //Log.d("TAG", "signInWithCredential:success");
+                            checkIfUserExists(acct.getEmail(), exists -> {
+                                if (exists) {
+                                    startActivity(new Intent(SignupActivity.this, LovelyPetsApplicationActivity.class));
+                                } else {
+                                    startActivity(new Intent(SignupActivity.this, InputDataForUserActivity.class));
+                                }
+                            });
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Toast.makeText(getApplicationContext(), "firebaseAuthWithGoogle::onComplete::task didn't work successful", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+    }
     @Override
     public void checkIfUserExists(String email, final OnUserExistsListener listener) {
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("users");
@@ -179,6 +248,7 @@ public class SignupEmailActivity extends AppCompatActivity implements Verificati
     public void sendCodeToEmail(FirebaseAuthUserDTO firebaseAuthUserDTO) {
         SendCodeToEmailTask sendCodeToEmailTask = new SendCodeToEmailTask(this, firebaseAuthUserDTO);
         sendCodeToEmailTask.execute();
+        Toast.makeText(getApplicationContext(), "Code send to email", Toast.LENGTH_SHORT).show();
     }
 
     @Override

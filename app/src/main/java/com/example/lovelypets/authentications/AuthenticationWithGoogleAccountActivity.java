@@ -68,7 +68,6 @@ public class AuthenticationWithGoogleAccountActivity extends AppCompatActivity i
                 return;
             }
             signUpWithGoogle();
-
         });
 
         conventionCheckBox.setOnClickListener(v -> {
@@ -77,13 +76,13 @@ public class AuthenticationWithGoogleAccountActivity extends AppCompatActivity i
         });
 
         signUpEmailTextView.setOnClickListener(v -> {
-            Intent intent = new Intent(getApplicationContext(), SignupEmailActivity.class);
+            Intent intent = new Intent(getApplicationContext(), SignupActivity.class);
             startActivity(intent);
             finish();
         });
 
         loginGotextView.setOnClickListener(v -> {
-            Intent intent = new Intent(getApplicationContext(), LoginWithGoogleActivity.class);
+            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
             startActivity(intent);
             finish();
         });

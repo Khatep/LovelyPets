@@ -7,8 +7,9 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.lovelypets.authentications.LoginWithGoogleActivity;
-import com.example.lovelypets.authentications.AuthenticationWithGoogleAccountActivity;
+import com.example.lovelypets.authentications.LoginActivity;
+
+import com.example.lovelypets.authentications.SignupActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -36,13 +37,13 @@ public class WelcomeActivity extends AppCompatActivity {
         signupButton = findViewById(R.id.welcome_signup_go_button);
 
         loginTextView.setOnClickListener(v -> {
-            Intent intent = new Intent(getApplicationContext(), LoginWithGoogleActivity.class);
+            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
             startActivity(intent);
             finish();
         });
 
         signupButton.setOnClickListener(v -> {
-            Intent intent = new Intent(getApplicationContext(), AuthenticationWithGoogleAccountActivity.class);
+            Intent intent = new Intent(getApplicationContext(), SignupActivity.class);
             startActivity(intent);
             finish();
         });

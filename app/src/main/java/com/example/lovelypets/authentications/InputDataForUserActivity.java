@@ -57,7 +57,7 @@ public class InputDataForUserActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_input_data_for_user);
+        setContentView(R.layout.activity_input_data_for_user_new);
         FirebaseApp.initializeApp(getApplicationContext());
         nameAndSurnameLayout = findViewById(R.id.name_and_surname_layout);
         birthDateLayout = findViewById(R.id.birth_date_layout);
@@ -67,7 +67,7 @@ public class InputDataForUserActivity extends AppCompatActivity {
         nameAndSurnameEditText = findViewById(R.id.name_and_surname_editText);
         birthDateEditText = findViewById(R.id.birth_date);
         phoneEditText = findViewById(R.id.phone);
-        submitButton = findViewById(R.id.submitButton);
+        submitButton = findViewById(R.id.submit_button);
         progressBar = findViewById(R.id.progress_bar);
         countryCodePicker = findViewById(R.id.country_code);
         mAuth = FirebaseAuth.getInstance();
@@ -92,13 +92,13 @@ public class InputDataForUserActivity extends AppCompatActivity {
         birthDateEditText.setOnClickListener(v -> showDatePickerDialog());
 
         countryCodePicker.setOnClickListener(v -> {
-            countryCodePicker.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.spinner_outline_selector_only_purple));
+            countryCodePicker.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.selector_outline_light_red_corner_4dp));
         });
 
         countryCodePicker.setDialogEventsListener(new CountryCodePicker.DialogEventsListener() {
             @Override
             public void onCcpDialogOpen(Dialog dialog) {
-                countryCodePicker.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.spinner_outline_selector_only_purple));
+                countryCodePicker.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.selector_outline_light_red_corner_4dp));
             }
 
             @Override

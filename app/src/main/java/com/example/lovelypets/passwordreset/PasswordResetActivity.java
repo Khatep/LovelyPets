@@ -12,8 +12,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.lovelypets.R;
-import com.example.lovelypets.WelcomeActivity;
-import com.example.lovelypets.authentications.LoginEmailActivity;
+import com.example.lovelypets.authentications.LoginActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputEditText;
@@ -44,7 +43,7 @@ public class PasswordResetActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progress_bar);
 
         cancelImageView.setOnClickListener(v -> {
-            Intent intent = new Intent(getApplicationContext(), LoginEmailActivity.class);
+            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
             startActivity(intent);
             finish();
         });
@@ -64,7 +63,7 @@ public class PasswordResetActivity extends AppCompatActivity {
                     public void onSuccess(Void unused) {
                         Toast.makeText(PasswordResetActivity.this, "Password reset instructions send.",
                                 Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(getApplicationContext(), LoginEmailActivity.class);
+                        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                         startActivity(intent);
                         finish();
                     }

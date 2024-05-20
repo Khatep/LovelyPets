@@ -9,7 +9,7 @@
     android:background="#F3E9D2"
     android:orientation="vertical"
     android:padding="5dp"
-    tools:context=".authentications.SignupEmailActivity">
+    tools:context=".authentications.SignupActivity">
 
     <ImageView
         android:id="@+id/cancel_icon"

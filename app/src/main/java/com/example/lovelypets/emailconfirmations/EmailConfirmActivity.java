@@ -14,15 +14,12 @@ import android.widget.Toast;
 
 import com.example.lovelypets.R;
 import com.example.lovelypets.authentications.InputDataForUserActivity;
-import com.example.lovelypets.authentications.SignupEmailActivity;
+import com.example.lovelypets.authentications.SignupActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.firebase.auth.FirebaseAuth;
 
-import java.util.Objects;
-import java.util.concurrent.atomic.AtomicBoolean;
-
 public class EmailConfirmActivity extends AppCompatActivity {
-    private ImageView cancelImageView;
+    private ImageView backArrowImageView;
     private EditText digit1, digit2, digit3, digit4, digit5, digit6;
     private Button submitButton;
     private FirebaseAuth mAuth;
@@ -31,8 +28,8 @@ public class EmailConfirmActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_email_confirm);
-        cancelImageView = findViewById(R.id.cancel_icon);
+        setContentView(R.layout.activity_email_confirm_new);
+        backArrowImageView = findViewById(R.id.back_arrow);
         digit1 = findViewById(R.id.digit1);
         digit2 = findViewById(R.id.digit2);
         digit3 = findViewById(R.id.digit3);
@@ -40,7 +37,7 @@ public class EmailConfirmActivity extends AppCompatActivity {
         digit5 = findViewById(R.id.digit5);
         digit6 = findViewById(R.id.digit6);
         progressBar = findViewById(R.id.progress_bar);
-        submitButton = findViewById(R.id.submitButton);
+        submitButton = findViewById(R.id.submit_button);
 
         mAuth = FirebaseAuth.getInstance();
         // Add text change listeners to move focus to the next EditText
@@ -51,8 +48,8 @@ public class EmailConfirmActivity extends AppCompatActivity {
         digit5.addTextChangedListener(new GenericTextWatcher(digit5, digit6));
         digit6.addTextChangedListener(new GenericTextWatcher(digit6, null));
 
-        cancelImageView.setOnClickListener(v -> {
-            Intent intent = new Intent(getApplicationContext(), SignupEmailActivity.class);
+        backArrowImageView.setOnClickListener(v -> {
+            Intent intent = new Intent(getApplicationContext(), SignupActivity.class);
             startActivity(intent);
             finish();
 
@@ -96,7 +93,7 @@ public class EmailConfirmActivity extends AppCompatActivity {
                         // Sign in success, update UI with the signed-in user's information
                         //FirebaseUser user = mAuth.getCurrentUser();
                         //sendCodeToEmail();
-                        Toast.makeText(EmailConfirmActivity.this, "Account created", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(EmailConfirmActivity.this, "Account created", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(getApplicationContext(), InputDataForUserActivity.class);
                         intent.putExtra("confirmation_code", enteredCode);
                         intent.putExtra("email", email);

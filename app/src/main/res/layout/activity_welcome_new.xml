@@ -70,8 +70,7 @@
         android:backgroundTint="@color/milk_color"
         android:fontFamily="@font/coiny"
         android:gravity="center"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
+
         android:text="@string/signup"
         android:textColor="@color/light_red_color"
 

@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="we_are_offe">We are offering pets around the city. There are also delivery service. Additionally, you can find products for them.</string>
+    <string name="or_login_with">Or login with</string>
+    <string name="cat">Cat</string>
+    <string name="i_agree_with_Terms_and_conditions">I agree with Terms And Conditions</string>
+    <string name="or_signup_with">or sign up with</string>
+    <string name="we_have_send_a_code">We have sent a code, please check your email</string>
 </resources>
