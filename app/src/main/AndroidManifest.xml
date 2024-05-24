@@ -3,6 +3,8 @@
     package="com.example.lovelypets">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+
 
     <application
         android:allowBackup="true"
@@ -15,10 +17,7 @@
             android:name=".passwordreset.PasswordResetActivity"
             android:exported="false"
             android:theme="@style/Theme.LovelyPets.NoActionBar"/>
-        <activity
-            android:name=".authentications.LoginWithGoogleActivity"
-            android:exported="false"
-            android:theme="@style/Theme.LovelyPets.NoActionBar" />
+
         <activity
             android:name=".emailconfirmations.EmailConfirmActivity"
             android:exported="false"

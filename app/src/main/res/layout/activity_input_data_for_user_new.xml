@@ -92,7 +92,8 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/name_and_surname_editText"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/comfortaa" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -118,6 +119,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:focusable="false"
+            android:fontFamily="@font/comfortaa"
             android:onClick="showDatePickerDialog" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -142,7 +144,7 @@
             android:layout_marginTop="21.5dp"
             android:layout_marginEnd="5dp"
             android:background="@drawable/border_outlined_box"
-            android:padding="9dp"
+            android:padding="10.5dp"
             app:ccpDialog_keyboardAutoPopup="true"
             app:ccp_arrowSize="16sp"
             app:ccp_autoDetectCountry="true"
@@ -172,6 +174,7 @@
                 android:id="@+id/phone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/comfortaa"
                 android:inputType="phone" />
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
@@ -196,6 +199,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@null"
+            android:fontFamily="@font/comfortaa"
             android:hint="@string/gender"
             android:inputType="none" />
 

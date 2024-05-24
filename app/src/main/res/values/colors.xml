@@ -15,5 +15,6 @@
 
     <color name="light_red_color">#E5938C</color>
     <color name="milk_color">#F3E9D2</color>
+    <color name="blue_background">#2884AA</color>
 
 </resources>

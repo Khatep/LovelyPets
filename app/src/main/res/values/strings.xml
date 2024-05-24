@@ -1,5 +1,6 @@
 <resources>
-    <string name="app_name">LovelyPets</string>
+    <string name="app_name" translatable="false">LovelyPets</string>
+    <string name="app_name_with_space" translatable="false">Lovely\nPets</string>
     <string name="slogan">all for your little friends</string>
 
     <string name="this_is_home_fragment">This is Home</string>
@@ -86,4 +87,18 @@
     <string name="i_agree_with_Terms_and_conditions">I agree with Terms and Conditions</string>
     <string name="or_signup_with">or sign up with</string>
     <string name="we_have_send_a_code">We have sent a code, please check your email</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="full_text_about_us">Welcome to “Lovely Pets” Pet Shop, your one-stop destination for all your pet needs! We have been dedicated to providing top-quality products and services to pet owners in our community. Our mission is to ensure that every pet has a happy, healthy, and fulfilling life. We were inspired by the idea that every pet could find its new home</string>
+    <string name="title_our_story">Our story</string>
+    <string name="full_text_our_story"><![CDATA[This mobile app was founded by Kalymova Zhansaya & Khatep Nurgali for Samsung Innovation Campus. In this project we included our acknowledge of Android developing. \nThank you all for amazing opportunity to gain education in java android development sphere.]]></string>
+    <string name="social_media_text">Find us on social media</string>
+    <string name="category_icon">category icon</string>
+    <string name="example_text">"Example "</string>
+    <string name="profile_name">Profile name</string>
+    <string name="profile_email">Profile email</string>
+    <string name="empty_text"> </string>
+
+    <string name="population_label">Population: %1$d</string>
+    <string name="whiskas_85_1">Корм Whiskas\nкусочки в желе индейка\n85 г 1 шт</string>
 </resources>

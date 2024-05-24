@@ -188,9 +188,6 @@ public class LoginActivity extends AppCompatActivity implements UserExistenceChe
         SpannableString spannableString = new SpannableString(fullText);
         int startIndex = fullText.indexOf("SIGN UP here");
         if (startIndex != -1) {
-            int color = getResources().getColor(R.color.light_red_color);
-            // Устанавливаем цвет для части текста с помощью ForegroundColorSpan
-            spannableString.setSpan(new ForegroundColorSpan(color), startIndex, startIndex + "SIGN UP here".length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             spannableString.setSpan(new StyleSpan(Typeface.BOLD), startIndex, startIndex + "SIGN UP here".length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
         TextView textView = signupGoTextView;

@@ -1,12 +1,14 @@
 package com.example.lovelypets.authentications;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
+import android.text.style.StyleSpan;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -174,10 +176,9 @@ public class SignupActivity extends AppCompatActivity implements VerificationCod
         String fullText = getResources().getString(R.string.already_have_login_here);
 
         SpannableString spannableString = new SpannableString(fullText);
-        int startIndex = fullText.indexOf("LOGIN here");
+        int startIndex = fullText.indexOf("LOG");
         if (startIndex != -1) {
-            int color = getResources().getColor(R.color.light_red_color);
-            spannableString.setSpan(new ForegroundColorSpan(color), startIndex, startIndex + "LOGIN here".length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            spannableString.setSpan(new StyleSpan(Typeface.BOLD), startIndex, startIndex + "LOGIN here".length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
         TextView textView = loginGotextView;
         textView.setText(spannableString);

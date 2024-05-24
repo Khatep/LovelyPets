@@ -27,22 +27,21 @@
                     android:id="@+id/nav_profile"
                     android:icon="@drawable/ic_baseline_person_24dp"
                     android:title="@string/title_profile" />
-
         </group>
 
         <group android:checkableBehavior="single" android:id="@+id/g1" >
-                <item
+           <!--     <item
                     android:id="@+id/nav_settings"
                     android:icon="@drawable/ic_baseline_settings_24dp"
-                    android:title="@string/title_settings" />
+                    android:title="@string/title_settings" />-->
 
-                <item
+             <!--   <item
                     android:id="@+id/nav_share"
                     android:icon="@drawable/ic_baseline_share_24dp"
-                    android:title="@string/title_share" />
+                    android:title="@string/title_share" />-->
 
                 <item
-                    android:id="@+id/nav_aboutus"
+                    android:id="@+id/nav_about_us"
                     android:icon="@drawable/ic_baseline_aboutus_24dp"
                     android:title="@string/title_aboutus" />
 

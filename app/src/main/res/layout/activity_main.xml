@@ -10,7 +10,7 @@
     tools:context=".LovelyPetsApplicationActivity">
 
     <include
-        android:id="@+id/include3"
+        android:id="@+id/app_bar_main"
         layout="@layout/app_bar_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -22,7 +22,7 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <include
-        android:id="@+id/include"
+        android:id="@+id/activity_bottom"
         layout="@layout/activity_bottom"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

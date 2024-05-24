@@ -1,5 +1,8 @@
 package com.example.lovelypets.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import androidx.annotation.NonNull;
 
 import com.example.lovelypets.enums.AuthProvider;
@@ -11,7 +14,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
-public class User {
+public class User implements Parcelable {
     private String email;
     private String password;
     private String name;
@@ -21,15 +24,6 @@ public class User {
     private Gender gender;
     private AuthProvider authProvider;
     private final List<?> products = new ArrayList<>();
-
-    public User(String email, String password, String name, String surname, LocalDate birthDate, String phoneNumber) {
-        this.email = email;
-        this.password = password;
-        this.name = name;
-        this.surname = surname;
-        this.birthDate = birthDate;
-        this.phoneNumber = phoneNumber;
-    }
 
     public User(String email, String password, String name, String surname, LocalDate birthDate, String phoneNumber, Gender gender, AuthProvider authProvider) {
         this.email = email;
@@ -41,6 +35,58 @@ public class User {
         this.gender = gender;
         this.authProvider = authProvider;
     }
+
+    public User() {
+        this.email = "email";
+        this.name = "name";
+        this.surname = "surname";
+        this.birthDate = LocalDate.of(2021, 5, 20);
+        this.phoneNumber = "phoneNumber";
+        this.password = "password";
+        this.gender = Gender.MALE;
+        this.authProvider = AuthProvider.GOOGLE;
+    }
+
+    protected User(Parcel in) {
+        email = in.readString();
+        password = in.readString();
+        name = in.readString();
+        surname = in.readString();
+        phoneNumber = in.readString();
+        gender = Gender.valueOf(in.readString());
+        authProvider = AuthProvider.valueOf(in.readString());
+        birthDate = (LocalDate) in.readSerializable();
+    }
+
+    public static final Creator<User> CREATOR = new Creator<User>() {
+        @Override
+        public User createFromParcel(Parcel in) {
+            return new User(in);
+        }
+
+        @Override
+        public User[] newArray(int size) {
+            return new User[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(email);
+        parcel.writeString(password);
+        parcel.writeString(name);
+        parcel.writeString(surname);
+        parcel.writeString(phoneNumber);
+        parcel.writeString(gender.name());
+        parcel.writeString(authProvider.name());
+        parcel.writeSerializable(birthDate);
+    }
+
 
     public String getEmail() {
         return email;
@@ -89,7 +135,6 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
-
 
     public List<?> getProducts() {
         return products;

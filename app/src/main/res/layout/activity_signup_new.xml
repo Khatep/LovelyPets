@@ -133,10 +133,10 @@
         android:checked="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/agree_term"
-        app:layout_constraintHorizontal_bias="0.835"
+        app:layout_constraintHorizontal_bias="0.883"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/password_layout"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintVertical_bias="0.012">
 
     </CheckBox>
 
@@ -144,6 +144,7 @@
         android:id="@+id/agree_term"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/comfortaa"
         android:gravity="center"
         android:text="@string/i_agree_with_Terms_and_conditions"
         android:textColor="@color/light_red_color"
@@ -237,6 +238,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:layout_marginEnd="5dp"
+            android:fontFamily="@font/comfortaa"
             android:text="@string/or_signup_with"
             android:textColor="@color/light_red_color"
             android:textSize="15sp"
@@ -298,8 +300,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
+            android:fontFamily="@font/comfortaa"
             android:text="@string/google"
-            android:textColor="@color/black"
+            android:textColor="@color/light_red_color"
             android:textSize="15sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -314,8 +317,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="22dp"
+        android:fontFamily="@font/comfortaa"
         android:gravity="center"
         android:text="@string/already_have_login_here"
+        android:textColor="@color/light_red_color"
         android:textSize="15sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"

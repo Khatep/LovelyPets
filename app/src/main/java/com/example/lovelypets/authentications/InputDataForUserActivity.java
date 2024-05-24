@@ -208,7 +208,6 @@ public class InputDataForUserActivity extends AppCompatActivity {
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Log.d("EXCEPTIONNNNNN", e.toString());
                     Toast.makeText(getApplicationContext(), "submitForm::push::addOnSuccessListener::onFailure::fail", Toast.LENGTH_LONG).show();
                     progressBar.setVisibility(View.GONE);
                     submitButton.setVisibility(View.VISIBLE);
