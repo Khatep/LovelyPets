@@ -8,7 +8,7 @@
     android:paddingTop="140dp"
     android:paddingBottom="140dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".fragments.CategoryFragment">
+    tools:context=".fragments.category.CategoryFragment">
 
     <GridLayout
         android:layout_width="match_parent"
@@ -23,7 +23,7 @@
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cat_cardView"
-            android:layout_width="wrap_content"
+            android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:clickable="true"
             android:focusable="true"
@@ -48,14 +48,14 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:contentDescription="@string/cat"
-                    android:src="@drawable/ic_baseline_animals_category_cat" />
+                    android:src="@drawable/ic_baseline_animals_category_cat"
+                    android:contentDescription="@string/cat"/>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/dog_cardView"
-            android:layout_width="wrap_content"
+            android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:clickable="true"
             android:focusable="true"
@@ -79,13 +79,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_baseline_animals_category_dog"
-                    android:contentDescription="@string/cat" />
+                    android:contentDescription="@string/dog" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/fish_cardView"
-            android:layout_width="wrap_content"
+            android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:clickable="true"
             android:focusable="true"
@@ -109,13 +109,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_baseline_animals_category_fish"
-                    android:contentDescription="@string/cat" />
+                    android:contentDescription="@string/fish" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/hamster_cardView"
-            android:layout_width="wrap_content"
+            android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:clickable="true"
             android:focusable="true"
@@ -139,7 +139,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_baseline_animals_category_hamster_"
-                    android:contentDescription="@string/cat" />
+                    android:contentDescription="@string/hamster" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 

@@ -7,14 +7,11 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SwitchCompat;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.GravityCompat;
 import androidx.core.view.MenuItemCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
@@ -23,12 +20,11 @@ import com.example.lovelypets.authentications.LoginActivity;
 import com.example.lovelypets.enums.AuthProvider;
 import com.example.lovelypets.enums.Gender;
 import com.example.lovelypets.fragments.AboutUsFragment;
-import com.example.lovelypets.fragments.CartFragment;
-import com.example.lovelypets.fragments.CategoryFragment;
+import com.example.lovelypets.fragments.cart.CartFragment;
+import com.example.lovelypets.fragments.category.CategoryFragment;
 import com.example.lovelypets.fragments.HomeFragment;
 import com.example.lovelypets.fragments.ProfileFragment;
 import com.example.lovelypets.fragments.SearchFragment;
-import com.example.lovelypets.models.Category;
 import com.example.lovelypets.models.User;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
@@ -50,17 +46,19 @@ public class LovelyPetsApplicationActivity extends AppCompatActivity {
     private final FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private DatabaseReference currentUserRef;
     private DatabaseReference usersRef;
-    private TextView userEmailtextView;
     private HomeFragment homeFragment = new HomeFragment();
     private CategoryFragment categoryFragment = new CategoryFragment();
     private SearchFragment searchFragment = new SearchFragment();
     private CartFragment cartFragment = new CartFragment();
     private ProfileFragment profileFragment = new ProfileFragment();
     private AboutUsFragment aboutUsFragment = new AboutUsFragment();
-    NavigationView burgerNavigationView;
-    BottomNavigationView bottomNavigationView;
+    private NavigationView burgerNavigationView;
+    private BottomNavigationView bottomNavigationView;
     private Toolbar toolbar;
 
+    private void createForDogs() {
+        DatabaseReference ref = firebaseDatabase.getReference().child("products");
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,6 +82,8 @@ public class LovelyPetsApplicationActivity extends AppCompatActivity {
                 findUserByEmail(email);
             }
         }
+
+        //createForCats();
     }
 
     private void findUserByEmail(String userEmail) {
@@ -132,7 +132,7 @@ public class LovelyPetsApplicationActivity extends AppCompatActivity {
                             AuthProvider.valueOf(Objects.requireNonNull(snapshot.child("authProvider").getValue()).toString())
                     );
                     updateUserUI();
-                    transferUserToProfileFragment();
+                    transferUserInformationToProfileFragment();
                 } else {
                     Log.d("Tag", "User details not found");
                 }
@@ -144,7 +144,7 @@ public class LovelyPetsApplicationActivity extends AppCompatActivity {
         });
     }
 
-    public void transferUserToProfileFragment() {
+    public void transferUserInformationToProfileFragment() {
         Bundle bundle = new Bundle();
         bundle.putParcelable("currentUser", currentUser);
         profileFragment.setArguments(bundle);
@@ -181,13 +181,7 @@ public class LovelyPetsApplicationActivity extends AppCompatActivity {
         mSlideTextView.setText("5");
         mSlideTextView.setGravity(Gravity.CENTER);
         mSlideTextView.setTypeface(null, Typeface.BOLD);
-
-        mSlideTextView.setTextColor(getResources().getColor(R.color.teal_200, getApplication().getTheme()));
-
-        SwitchCompat mGallerySwitch = (SwitchCompat) MenuItemCompat.getActionView(burgerNavigationView.getMenu().findItem(R.id.nav_category));
-        mGallerySwitch.setGravity(Gravity.CENTER);
-        mGallerySwitch.setChecked(true);
-        mGallerySwitch.setOnCheckedChangeListener((buttonView, isChecked) -> Toast.makeText(getApplicationContext(), String.valueOf(isChecked), Toast.LENGTH_LONG).show());
+        mSlideTextView.setTextColor(getResources().getColor(R.color.light_red_color, getApplication().getTheme()));
 
         burgerNavigationView.setNavigationItemSelectedListener(item -> {
             Fragment f = null;
@@ -284,3 +278,22 @@ public class LovelyPetsApplicationActivity extends AppCompatActivity {
         }
     }
 }
+
+
+
+
+/*
+   private void createForCats() {
+        DatabaseReference ref = firebaseDatabase.getReference().child("products");
+        ref.push().setValue(new Product("wiskas", "Корм Whiskas кусочки в желе индейка 85 г 1 шт", "Tasty food wiskas for cat", "-Ny_LM4uk1vMRE3__kdO", 150L));
+        ref.push().setValue(new Product("felix", "Корм Felix кусочки в желе ягненок 75 г 1 шт", "Tasty food Felix for cat", "-Ny_LM4uk1vMRE3__kdO", 109L));
+        ref.push().setValue(new Product("darling", "Корм Darling влажный для взрослых кошек с курицей в подливе 75 гр", "Tasty food darling for cat", "-Ny_LM4uk1vMRE3__kdO", 130L));
+        ref.push().setValue(new Product("home_for_cat", "URAGAN туалет-домик, лоток с решеткой", "Home and toilet for cat", "-Ny_LM4uk1vMRE3__kdO", 4301L));
+        ref.push().setValue(new Product("pate", "Корм Gourmet Gold паштет курица 85 гр", "Tasty food pate for cat", "-Ny_LM4uk1vMRE3__kdO", 509L));
+        ref.push().setValue(new Product("bowl", "Двойная миска PANDA DT271 300 мл серый", "Double bowl for animals", "-Ny_LM4uk1vMRE3__kdO", 1996L));
+        ref.push().setValue(new Product("filler", "Наполнитель Природный бентонит 15", "Filler for cats", "-Ny_LM4uk1vMRE3__kdO", 4413L));
+        ref.push().setValue(new Product("whiskas2", "Корм Whiskas для кошек Говядина 1.9 кг", "Tasty food whiskas for cat", "-Ny_LM4uk1vMRE3__kdO", 4399L));
+        ref.push().setValue(new Product("selafort", "Средство Селафорт для кошек от блох, 45 мг 0.75 мл", "Selafort medicine for cat", "-Ny_LM4uk1vMRE3__kdO", 2344L));
+        ref.push().setValue(new Product("velcro", "Лакомство Кошачья мята липучка 30 г 1 шт", "Tasty velcro for cat", "-Ny_LM4uk1vMRE3__kdO", 415L));
+    }
+* */

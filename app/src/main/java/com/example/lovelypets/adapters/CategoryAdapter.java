@@ -10,14 +10,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.lovelypets.R;
 import com.example.lovelypets.models.Category;
+import com.example.lovelypets.view_holders.CategoryViewHolder;
 import com.google.android.material.imageview.ShapeableImageView;
 
 import java.util.List;
 
-public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder> {
+public class CategoryAdapter extends RecyclerView.Adapter<CategoryViewHolder> {
 
-    private List<Category> categories;
-    private OnItemClickListener listener;
+    private final List<Category> categories;
+    private final OnItemClickListener listener;
 
     public interface OnItemClickListener {
         void onItemClick(Category category);
@@ -45,18 +46,5 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     @Override
     public int getItemCount() {
         return categories.size();
-    }
-
-    public static class CategoryViewHolder extends RecyclerView.ViewHolder {
-        ShapeableImageView imageView;
-
-        public CategoryViewHolder(@NonNull View itemView) {
-            super(itemView);
-            imageView = itemView.findViewById(R.id.listImage);
-        }
-
-        public void bind(final Category category, final OnItemClickListener listener) {
-            itemView.setOnClickListener(v -> listener.onItemClick(category));
-        }
     }
 }

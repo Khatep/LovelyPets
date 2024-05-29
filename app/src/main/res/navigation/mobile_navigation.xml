@@ -12,7 +12,7 @@
 
     <fragment
         android:id="@+id/nav_category"
-        android:name="com.example.lovelypets.fragments.CategoryFragment"
+        android:name="com.example.lovelypets.fragments.category.CategoryFragment"
         android:label="Category"
          />
 
@@ -24,7 +24,7 @@
 
     <fragment
         android:id="@+id/nav_cart"
-        android:name="com.example.lovelypets.fragments.CartFragment"
+        android:name="com.example.lovelypets.fragments.cart.CartFragment"
         android:label="Cart"
         />
 

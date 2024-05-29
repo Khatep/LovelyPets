@@ -99,6 +99,24 @@
     <string name="profile_email">Profile email</string>
     <string name="empty_text"> </string>
 
-    <string name="population_label">Population: %1$d</string>
-    <string name="whiskas_85_1">Корм Whiskas\nкусочки в желе индейка\n85 г 1 шт</string>
+    <string name="price_label">%1$d KZT</string>
+    <string name="whiskas_85_1">Корм Whiskas\nкусочки в желе индейка 85 г 1 шт</string>
+    <string name="price">Price</string>
+    <string name="favourite">Favourite</string>
+    <string name="product_image">Product image</string>
+    <string name="product_name">Product name</string>
+    <string name="product_description">Product description</string>
+    <string name="add_to_basket">Add to basket</string>
+    <string name="currency_kzt">KZT</string>
+    <string name="description">Description</string>
+    <string name="purchase">Purchase</string>
+    <string name="total_0_kzt">Total: 0 KZT</string>
+    <string name="hamster">Hamster</string>
+    <string name="fish">Fish</string>
+    <string name="dog">Dog</string>
+    <string name="card_number">CARD NUMBER</string>
+    <string name="cardholder_name">CARDHOLDER`S NAME</string>
+    <string name="month_and_year">MM/YY</string>
+    <string name="cvv">CVV</string>
+    <string name="pay">PAY</string>
 </resources>

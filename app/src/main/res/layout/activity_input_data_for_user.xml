@@ -1,139 +1,150 @@
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F3E9D2"
-    android:gravity="center_horizontal"
-    android:orientation="vertical"
-    android:padding="5dp">
+    android:background="@color/milk_color">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="360dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="60dp">
+    <View
+        android:id="@+id/half_circle"
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/light_red_half_circle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
-        <ImageView
-            android:id="@+id/logo_app"
-            android:layout_width="123dp"
-            android:layout_height="135dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_gravity="start|top"
-            android:contentDescription="@string/cancel"
-            android:padding="5dp"
-            android:src="@drawable/logo_app"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
-
-        <TextView
-            android:id="@+id/appTitle"
-            android:layout_width="210dp"
-            android:layout_height="46dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
-            android:fontFamily="@font/allerta"
-            android:text="@string/app_name"
-            android:textAlignment="center"
-            android:textColor="#3F51B5"
-            android:textSize="30sp"
-            android:typeface="normal"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.897"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.346" />
-
-        <TextView
-            android:id="@+id/slogan"
-            android:layout_width="235dp"
-            android:layout_height="23dp"
-            android:fontFamily="@font/allerta"
-            android:text="@string/slogan"
-            android:textAlignment="center"
-            android:textColor="#000000"
-            android:textSize="15sp"
-            android:typeface="normal"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.968"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/appTitle"
-            app:layout_constraintVertical_bias="0.277" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <TextView
+    <ImageView
+        android:id="@+id/cat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/please_fill_form"
-        android:textSize="24sp"
+
+        android:layout_gravity="start|top"
+        android:contentDescription="@string/cat"
+        android:padding="5dp"
+        android:src="@drawable/ic_baseline_animals_cat"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.006" />
+
+    <!--<ImageButton
+        android:id="@+id/back_arrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/light_red_color"
+        android:contentDescription="@string/back"
+        android:padding="5dp"
+        android:src="@drawable/ic_baseline_back_left_arrow"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.105"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.07" />-->
+
+    <TextView
+        android:id="@+id/create_account"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="25dp"
+        android:fontFamily="@font/coiny"
+        android:gravity="center"
+        android:text="@string/fill_form"
+        android:textColor="@color/light_red_color"
+        android:textSize="27sp"
         android:textStyle="bold"
-        android:textColor="@color/black"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="16dp"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/half_circle"
+        app:layout_constraintVertical_bias="0.068" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/name_and_surname_layout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
         android:layout_marginEnd="15dp"
-        android:layout_height="wrap_content"
-        app:errorEnabled="true"
-
+        android:hint="@string/name_and_surname"
         app:endIconMode="clear_text"
-        app:startIconDrawable="@drawable/ic_baseline_person_30dp"
+        app:errorEnabled="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/create_account"
+        app:layout_constraintVertical_bias="0.074"
         app:startIconContentDescription="@string/content_description_end_icon"
-        android:hint="@string/name_and_surname">
+        app:startIconDrawable="@drawable/ic_baseline_person_30dp">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/name_and_surname_editText"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/comfortaa" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/birth_date_layout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
         android:layout_marginEnd="15dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        app:errorEnabled="true"
         android:hint="@string/birth_date_format"
-        app:startIconDrawable="@drawable/ic_baseline_calendar_30dp"
-        app:startIconContentDescription="@string/calendar">
+        app:errorEnabled="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/name_and_surname_layout"
+        app:layout_constraintVertical_bias="0.041"
+        app:startIconContentDescription="@string/calendar"
+        app:startIconDrawable="@drawable/ic_baseline_calendar_30dp">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/birth_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:focusable="false"
+            android:fontFamily="@font/comfortaa"
             android:onClick="showDatePickerDialog" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <LinearLayout
+        android:id="@+id/linearLayout2"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        >
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/birth_date_layout"
+        app:layout_constraintVertical_bias="0.0">
 
         <com.hbb20.CountryCodePicker
             android:id="@+id/country_code"
-            android:background="@drawable/border_outlined_box"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
-            android:layout_marginEnd="5dp"
             android:layout_marginTop="21.5dp"
-            android:padding="9dp"
+            android:layout_marginEnd="5dp"
+            android:background="@drawable/border_outlined_box"
+            android:padding="10.5dp"
             app:ccpDialog_keyboardAutoPopup="true"
             app:ccp_arrowSize="16sp"
             app:ccp_autoDetectCountry="true"
@@ -163,6 +174,7 @@
                 android:id="@+id/phone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/comfortaa"
                 android:inputType="phone" />
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
@@ -171,10 +183,16 @@
         android:id="@+id/gender_layout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
         android:layout_marginEnd="15dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:background="@color/milk_color"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
+        app:layout_constraintVertical_bias="0.066"
         app:startIconDrawable="@drawable/ic_baseline_gender">
 
         <AutoCompleteTextView
@@ -182,36 +200,64 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@null"
+            android:fontFamily="@font/comfortaa"
             android:hint="@string/gender"
-            android:inputType="none"
-            />
+            android:inputType="none" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <ProgressBar
-        android:id="@+id/progress_bar"
-        android:layout_marginTop="24.7dp"
-        android:visibility="gone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-    </ProgressBar>
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/submitButton"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout2"
         android:layout_width="match_parent"
+
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/purple_500"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gender_layout"
+        app:layout_constraintVertical_bias="0.418">
 
-        android:paddingTop="12dp"
-        android:paddingBottom="12dp"
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="9dp"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.461">
 
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="15dp"
+        </ProgressBar>
 
-        android:textColor="@color/white"
-        android:textStyle="bold"
-        android:text="@string/submit"
-        app:cornerRadius="30dp" />
-</LinearLayout>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/submit_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+
+            android:layout_marginEnd="50dp"
+            android:backgroundTint="@color/light_red_color"
+            android:fontFamily="@font/coiny"
+            android:gravity="center"
+
+            android:text="@string/submit"
+
+            android:textColor="@color/milk_color"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            app:cornerRadius="12dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+

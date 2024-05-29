@@ -23,7 +23,7 @@ public class User implements Parcelable {
     private String phoneNumber;
     private Gender gender;
     private AuthProvider authProvider;
-    private final List<?> products = new ArrayList<>();
+    private final List<Product> products = new ArrayList<>();
 
     public User(String email, String password, String name, String surname, LocalDate birthDate, String phoneNumber, Gender gender, AuthProvider authProvider) {
         this.email = email;
@@ -136,7 +136,7 @@ public class User implements Parcelable {
         this.password = password;
     }
 
-    public List<?> getProducts() {
+    public List<Product> getProducts() {
         return products;
     }
 

@@ -28,7 +28,7 @@ public class EmailConfirmActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_email_confirm_new);
+        setContentView(R.layout.activity_email_confirm);
         backArrowImageView = findViewById(R.id.back_arrow);
         digit1 = findViewById(R.id.digit1);
         digit2 = findViewById(R.id.digit2);

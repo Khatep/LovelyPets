@@ -29,7 +29,7 @@
 
         </activity>
         <activity
-            android:name=".WelcomeActivity"
+            android:name=".welcome_page.WelcomeActivity"
             android:exported="true"
             android:theme="@style/Theme.LovelyPets.NoActionBar">
             <intent-filter>

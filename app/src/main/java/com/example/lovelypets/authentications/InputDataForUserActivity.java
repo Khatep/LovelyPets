@@ -8,7 +8,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -57,7 +56,7 @@ public class InputDataForUserActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_input_data_for_user_new);
+        setContentView(R.layout.activity_input_data_for_user);
         FirebaseApp.initializeApp(getApplicationContext());
         nameAndSurnameLayout = findViewById(R.id.name_and_surname_layout);
         birthDateLayout = findViewById(R.id.birth_date_layout);
@@ -200,19 +199,14 @@ public class InputDataForUserActivity extends AppCompatActivity {
         if (!email.isEmpty() && !password.isEmpty() && !name.isEmpty() && !surname.isEmpty() && !birthDate.isEmpty() && !phoneNumber.isEmpty()) {
             //submit to a server
             User user = new User(email, password, name, surname, LocalDate.of(year, month, day), phoneNumber, gender, authProvider);
-            myRef.push().setValue(user).addOnSuccessListener(new OnSuccessListener<Void>() {
-                @Override
-                public void onSuccess(Void unused) {
-                    Toast.makeText(getApplicationContext(), "submitForm::push::addOnSuccessListener::onSuccess::success", Toast.LENGTH_LONG).show();
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(getApplicationContext(), "submitForm::push::addOnSuccessListener::onFailure::fail", Toast.LENGTH_LONG).show();
-                    progressBar.setVisibility(View.GONE);
-                    submitButton.setVisibility(View.VISIBLE);
-                }
-            });
+            myRef.push().setValue(user)
+                    .addOnSuccessListener(unused -> {
+                        Toast.makeText(getApplicationContext(), "Successful", Toast.LENGTH_LONG).show();
+                    }).addOnFailureListener(e -> {
+                        Toast.makeText(getApplicationContext(), "Fail", Toast.LENGTH_LONG).show();
+                        progressBar.setVisibility(View.GONE);
+                        submitButton.setVisibility(View.VISIBLE);
+                    });
             goToNextActivity();
         } else {
             Toast.makeText(this, "Please fill out all fields", Toast.LENGTH_SHORT).show();

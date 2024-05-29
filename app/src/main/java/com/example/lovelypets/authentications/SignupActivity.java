@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.TextUtils;
-import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
 import android.view.View;
 import android.widget.Button;
@@ -24,7 +23,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.lovelypets.LovelyPetsApplicationActivity;
 import com.example.lovelypets.R;
-import com.example.lovelypets.WelcomeActivity;
+import com.example.lovelypets.welcome_page.WelcomeActivity;
 import com.example.lovelypets.dto.FirebaseAuthUserDTO;
 import com.example.lovelypets.emailconfirmations.EmailConfirmActivity;
 import com.example.lovelypets.verifications.SendCodeToEmailTask;
@@ -80,7 +79,7 @@ public class SignupActivity extends AppCompatActivity implements VerificationCod
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_signup_new);
+        setContentView(R.layout.activity_signup);
         emailLayout = findViewById(R.id.email_layout);
         passwordLayout = findViewById(R.id.password_layout);
         editTextEmail = findViewById(R.id.signup_email);
