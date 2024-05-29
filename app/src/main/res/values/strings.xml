@@ -22,13 +22,16 @@
     <string name="nav_header_title">Android Studio</string>
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
+
     <string name="action_settings">Settings</string>
     <string name="students">Students</string>
+
     <string name="title_settings">Settings</string>
     <string name="title_share">Share</string>
     <string name="title_aboutus">About Us</string>
     <string name="title_logout">Log out</string>
     <string name="login">Login</string>
+
     <string name="password">Password</string>
     <string name="email">Email</string>
 
@@ -54,10 +57,6 @@
     <string name="check_your_email_and_input_code">Check your email, and input code</string>
     <string name="gender">Gender</string>
 
-    <string name="error_email_empty">Error: email is empty</string>
-    <string name="error_password_empty">Error: password is empty</string>
-    <string name="error_incorrect_email">Error: email is incorrect</string>
-    <string name="error_incorrect_password_length">Error: incorrect password length</string>
     <string name="content_description_end_icon">Content description end icon\n</string>
     <string name="login_nice_to_see_you_again">Nice to see you again!</string>
     <string name="login_now">Login Now</string>
@@ -65,10 +64,21 @@
     <string name="dont_have_an_account_sign_up">Don\'t you have an account? SIGN UP here</string>
     <string name="calendar">Calendar</string>
     <string name="name_and_surname">Name Surname</string>
+
+
+    <string name="error_email_empty">Error: email is empty</string>
+    <string name="error_password_empty">Error: password is empty</string>
+    <string name="error_incorrect_email">Error: email is incorrect</string>
+    <string name="error_incorrect_password_length">Error: incorrect password length</string>
     <string name="error_name_and_surname_empty">Error: Name and surname are empty</string>
     <string name="error_birth_date_empty">Error: Birth date is empty</string>
     <string name="error_phone_number_empty">Error: Phone number is empty</string>
     <string name="error_gender_empty">Error: Gender is empty</string>
+    <string name="error_card_number_empty">Error: Card number is empty</string>
+    <string name="error_card_cardholder_name_empty">Error: Cardholder`s name is empty</string>
+    <string name="error_card_date_empty">Error: Card MM/YY is empty</string>
+    <string name="error_card_cvv_empty">Error: Card CVV is empty</string>
+
     <string name="login_with_google">Login with google</string>
     <string name="login_to_your_account_using_the_previously_selected_authorization_method">Login to your account with using the previously selected authorization method</string>
     <string name="reset_password">Reset Password</string>
@@ -99,6 +109,24 @@
     <string name="profile_email">Profile email</string>
     <string name="empty_text"> </string>
 
-    <string name="population_label">Population: %1$d</string>
-    <string name="whiskas_85_1">Корм Whiskas\nкусочки в желе индейка\n85 г 1 шт</string>
+    <string name="price_label">%1$d KZT</string>
+    <string name="whiskas_85_1">Корм Whiskas\nкусочки в желе индейка 85 г 1 шт</string>
+    <string name="price">Price</string>
+    <string name="favourite">Favourite</string>
+    <string name="product_image">Product image</string>
+    <string name="product_name">Product name</string>
+    <string name="product_description">Product description</string>
+    <string name="add_to_basket">Add to basket</string>
+    <string name="currency_kzt">KZT</string>
+    <string name="description">Description</string>
+    <string name="purchase">Purchase</string>
+    <string name="total_0_kzt">Total: 0 KZT</string>
+    <string name="hamster">Hamster</string>
+    <string name="fish">Fish</string>
+    <string name="dog">Dog</string>
+    <string name="card_number">CARD NUMBER</string>
+    <string name="cardholder_name">CARDHOLDER`S NAME</string>
+    <string name="month_and_year">MM/YY</string>
+    <string name="cvv">CVV</string>
+    <string name="pay">PAY</string>
 </resources>

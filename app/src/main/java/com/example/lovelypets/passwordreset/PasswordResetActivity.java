@@ -22,7 +22,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import java.util.Objects;
 
 public class PasswordResetActivity extends AppCompatActivity {
-    ImageView cancelImageView;
+    ImageView backArrowImageView;
     Button resetButton, backButton;
     TextInputEditText editTextEmail;
     FirebaseAuth mAuth;
@@ -34,7 +34,7 @@ public class PasswordResetActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_password_reset);
 
-        cancelImageView = findViewById(R.id.cancel_icon);
+        backArrowImageView = findViewById(R.id.back_arrow);
         resetButton = findViewById(R.id.btnReset);
         //backButton = findViewById(R.id.btnForgotPasswordBack);
         emailLayout = findViewById(R.id.email_layout);
@@ -42,7 +42,7 @@ public class PasswordResetActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         progressBar = findViewById(R.id.progress_bar);
 
-        cancelImageView.setOnClickListener(v -> {
+        backArrowImageView.setOnClickListener(v -> {
             Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
             startActivity(intent);
             finish();

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/milk_color"
-    tools:context=".fragments.CategoryDetailFragment">
+    tools:context=".fragments.category.CategoryDetailFragment">
 
     <ImageButton
         android:id="@+id/back_arrow"

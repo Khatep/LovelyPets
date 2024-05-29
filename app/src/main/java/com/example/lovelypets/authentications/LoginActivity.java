@@ -1,14 +1,11 @@
 package com.example.lovelypets.authentications;
 
-import static androidx.fragment.app.FragmentManager.TAG;
-
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.TextUtils;
-import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
 import android.util.Log;
 import android.view.View;
@@ -25,7 +22,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.lovelypets.LovelyPetsApplicationActivity;
 import com.example.lovelypets.R;
-import com.example.lovelypets.WelcomeActivity;
+import com.example.lovelypets.welcome_page.WelcomeActivity;
 import com.example.lovelypets.passwordreset.PasswordResetActivity;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -76,7 +73,7 @@ public class LoginActivity extends AppCompatActivity implements UserExistenceChe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login_new);
+        setContentView(R.layout.activity_login);
 
         emailLayout = findViewById(R.id.email_layout);
         passwordLayout = findViewById(R.id.password_layout);

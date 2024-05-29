@@ -12,7 +12,6 @@
                 <item
                     android:id="@+id/nav_category"
                     android:icon="@drawable/ic_baseline_category_24dp"
-                    app:actionViewClass="androidx.appcompat.widget.SwitchCompat"
                     android:title="@string/title_category" />
                 <item
                     android:id="@+id/nav_search"
