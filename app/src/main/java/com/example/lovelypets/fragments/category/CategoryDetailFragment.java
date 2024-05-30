@@ -103,20 +103,16 @@ public class CategoryDetailFragment extends Fragment implements OnProductClickLi
                 productList.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     assert getArguments() != null;
-                    try {
-                        if (snapshot.exists() && (Objects.requireNonNull(snapshot.child("categoryId").getValue()).toString()).equals( Objects.requireNonNull(requireArguments().getString(ARG_CATEGORY_ID)))) {
-                            Product product;
-                            product = new Product(
-                                    Objects.requireNonNull(snapshot.child("iconName").getValue()).toString(),
-                                    Objects.requireNonNull(snapshot.child("name").getValue()).toString(),
-                                    Objects.requireNonNull(snapshot.child("description").getValue()).toString(),
-                                    Objects.requireNonNull(snapshot.child("categoryId").getValue()).toString(),
-                                    Long.parseLong((String.valueOf(snapshot.child("price").getValue()))));
+                    if (snapshot.exists() && (Objects.requireNonNull(snapshot.child("categoryId").getValue()).toString()).equals( Objects.requireNonNull(requireArguments().getString(ARG_CATEGORY_ID)))) {
+                        Product product;
+                        product = new Product(
+                                Objects.requireNonNull(snapshot.child("iconName").getValue()).toString(),
+                                Objects.requireNonNull(snapshot.child("name").getValue()).toString(),
+                                Objects.requireNonNull(snapshot.child("description").getValue()).toString(),
+                                Objects.requireNonNull(snapshot.child("categoryId").getValue()).toString(),
+                                Long.parseLong((String.valueOf(snapshot.child("price").getValue()))));
 
-                            productList.add(product);
-                        }
-                    } catch (NullPointerException e) {
-                        return;
+                        productList.add(product);
                     }
                 }
 

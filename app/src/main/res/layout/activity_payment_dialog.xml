@@ -3,7 +3,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".LovelyPetsApplicationActivity">
@@ -11,7 +14,10 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="340dp"
         android:layout_height="600dp"
+<<<<<<< HEAD
         android:background="@color/milk_color"
+=======
+>>>>>>> origin/master
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.494"
@@ -44,7 +50,11 @@
             app:boxCornerRadiusBottomStart="10dp"
             app:boxCornerRadiusTopEnd="10dp"
             app:boxCornerRadiusTopStart="10dp"
+<<<<<<< HEAD
             app:endIconMode="custom"
+=======
+            app:endIconMode="clear_text"
+>>>>>>> origin/master
             app:errorEnabled="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -58,7 +68,12 @@
                 android:id="@+id/card_number"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+<<<<<<< HEAD
                 android:fontFamily="@font/comfortaa" />
+=======
+                android:fontFamily="@font/comfortaa"
+                android:inputType="number"/>
+>>>>>>> origin/master
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -125,9 +140,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/comfortaa"
+<<<<<<< HEAD
                     android:gravity="center" />
             </com.google.android.material.textfield.TextInputLayout>
 
+=======
+                    android:gravity="center"
+                    android:inputType="number" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+>>>>>>> origin/master
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/cvv_layout"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -142,7 +165,10 @@
                 app:boxCornerRadiusTopEnd="10dp"
                 app:boxCornerRadiusTopStart="10dp"
                 app:errorEnabled="true"
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/master
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
@@ -161,6 +187,7 @@
 
         </LinearLayout>
 
+<<<<<<< HEAD
         <ProgressBar
             android:id="@+id/progress_bar"
             android:layout_width="wrap_content"
@@ -174,6 +201,20 @@
             app:layout_constraintVertical_bias="0.956">
 
         </ProgressBar>
+=======
+      <!--  <Button
+            android:id="@+id/pay_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/pay"
+            android:fontFamily="@font/coiny"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout5"
+            app:layout_constraintVertical_bias="0.0" />-->
+>>>>>>> origin/master
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/pay_button"
@@ -182,7 +223,11 @@
             android:layout_marginStart="50dp"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="50dp"
+<<<<<<< HEAD
             android:backgroundTint="@color/violet"
+=======
+            android:backgroundTint="@color/light_red_color"
+>>>>>>> origin/master
             android:fontFamily="@font/coiny"
             android:gravity="center"
             android:text="@string/pay"

@@ -3,11 +3,14 @@ package com.example.lovelypets.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.annotation.NonNull;
+
 import com.example.lovelypets.enums.AuthProvider;
 import com.example.lovelypets.enums.Gender;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -20,7 +23,7 @@ public class User implements Parcelable {
     private String phoneNumber;
     private Gender gender;
     private AuthProvider authProvider;
-    private final List<Product> cart = new ArrayList<>();
+    private final List<Product> products = new ArrayList<>();
 
     public User(String email, String password, String name, String surname, LocalDate birthDate, String phoneNumber, Gender gender, AuthProvider authProvider) {
         this.email = email;
@@ -83,6 +86,8 @@ public class User implements Parcelable {
         parcel.writeString(authProvider.name());
         parcel.writeSerializable(birthDate);
     }
+
+
     public String getEmail() {
         return email;
     }
@@ -131,8 +136,8 @@ public class User implements Parcelable {
         this.password = password;
     }
 
-    public List<Product> getCart() {
-        return cart;
+    public List<Product> getProducts() {
+        return products;
     }
 
     public Gender getGender() {
@@ -156,12 +161,12 @@ public class User implements Parcelable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(email, user.email) && Objects.equals(password, user.password) && Objects.equals(name, user.name) && Objects.equals(surname, user.surname) && Objects.equals(birthDate, user.birthDate) && Objects.equals(phoneNumber, user.phoneNumber) && gender == user.gender && authProvider == user.authProvider && Objects.equals(cart, user.cart);
+        return Objects.equals(email, user.email) && Objects.equals(password, user.password) && Objects.equals(name, user.name) && Objects.equals(surname, user.surname) && Objects.equals(birthDate, user.birthDate) && Objects.equals(phoneNumber, user.phoneNumber) && gender == user.gender && authProvider == user.authProvider && Objects.equals(products, user.products);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(email, password, name, surname, birthDate, phoneNumber, gender, authProvider, cart);
+        return Objects.hash(email, password, name, surname, birthDate, phoneNumber, gender, authProvider, products);
     }
 
     @Override
@@ -175,7 +180,7 @@ public class User implements Parcelable {
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", gender=" + gender +
                 ", authProvider=" + authProvider +
-                ", products=" + cart +
+                ", products=" + products +
                 '}';
     }
 }
