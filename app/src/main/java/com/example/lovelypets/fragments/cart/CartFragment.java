@@ -1,6 +1,5 @@
 package com.example.lovelypets.fragments.cart;
 
-import android.app.Dialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -8,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -21,6 +21,7 @@ import com.example.lovelypets.event_listeners.OnDeleteIconClickListener;
 import com.example.lovelypets.event_listeners.OnProductClickListener;
 import com.example.lovelypets.fragments.product_detail.ProductDetailFragment;
 import com.example.lovelypets.models.Product;
+import com.example.lovelypets.payment.PaymentDialogActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -32,16 +33,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class CartFragment extends Fragment implements OnProductClickListener, OnDeleteIconClickListener {
+public class CartFragment extends Fragment implements OnProductClickListener, OnDeleteIconClickListener, CartProductListProvider {
     private RecyclerView cartRecycleView;
     private TextView totalPriceTextView;
     private List<Product> cartProductList;
-    private DatabaseReference cartRef;
+    private DatabaseReference cartRef, usersReference;
     private Button purchaseButton;
     private double totalPrice;
     private final FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-    private DatabaseReference usersReference;
     private String[] userId = {"default"};
+    private List<Product> productList = new ArrayList<>();
 
     public CartFragment() {
         // Required empty public constructor
@@ -68,7 +69,7 @@ public class CartFragment extends Fragment implements OnProductClickListener, On
                         userId[0] = snapshot.getKey();
                         assert userId[0] != null;
                         Log.d("User ID", userId[0]);
-                        cartProductList = getCartProductList();
+                        cartProductList = loadCartProductList();
                         setCartRecycleView();
                         return;
                     }
@@ -94,8 +95,7 @@ public class CartFragment extends Fragment implements OnProductClickListener, On
         cartRecycleView.setAdapter(new ProductAdapterForCartFragment(getContext(), cartProductList, this, this));
     }
 
-    public List<Product> getCartProductList() {
-        List<Product> productList = new ArrayList<>();
+    public List<Product> loadCartProductList() {
         cartRef = FirebaseDatabase.getInstance().getReference("users").child(userId[0]).child("cart");
         cartRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -130,6 +130,15 @@ public class CartFragment extends Fragment implements OnProductClickListener, On
         return productList;
     }
 
+    @Override
+    public List<Product> getProductList() {
+        return productList;
+    }
+
+    @Override
+    public double getTotalPrice() {
+        return totalPrice;
+    }
     @Override
     public void onProductClicked(Product product) {
         ProductDetailFragment productDetailFragment = ProductDetailFragment.newInstance(
@@ -173,16 +182,12 @@ public class CartFragment extends Fragment implements OnProductClickListener, On
     }
 
     public void showCustomDialog() {
-        Dialog dialog = new Dialog(requireContext());
-        dialog.setContentView(R.layout.activity_payment_dialog);
-
-      /*  TextView titleTextView = dialog.findViewById(R.id.dialogTitle);
-        TextView messageTextView = dialog.findViewById(R.id.dialogMessage);
-        titleTextView.setText("Anime Girl");
-        messageTextView.setText("Do you like anime?");*/
-
-        Button btn = dialog.findViewById(R.id.pay_button);
-        btn.setOnClickListener(v -> dialog.cancel());
-        dialog.show();
+        if (cartProductList.isEmpty()) {
+            Toast.makeText(requireContext(), "Cart is empty", Toast.LENGTH_SHORT).show();
+        } else {
+            System.out.println(cartProductList.size());
+            PaymentDialogActivity dialog = new PaymentDialogActivity(requireContext(), this);
+            dialog.show();
+        }
     }
 }
