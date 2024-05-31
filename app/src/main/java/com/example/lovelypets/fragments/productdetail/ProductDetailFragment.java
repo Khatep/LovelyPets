@@ -1,4 +1,4 @@
-package com.example.lovelypets.fragments.product_detail;
+package com.example.lovelypets.fragments.productdetail;
 
 import android.os.Bundle;
 
@@ -57,7 +57,6 @@ public class ProductDetailFragment extends Fragment {
      * @return A new instance of fragment ProductDetailFragment.
      */
     public static ProductDetailFragment newInstance(String iconName, String name, String description, String categoryId, Long price) {
-        Log.d("Tag", "iconName :: " + iconName);
         ProductDetailFragment fragment = new ProductDetailFragment();
         Bundle args = new Bundle();
         args.putString(ARG_ICON_NAME, iconName);
@@ -127,7 +126,6 @@ public class ProductDetailFragment extends Fragment {
                 favouriteIconView.setImageResource(R.drawable.ic_baseline_favourite_liked);
             }
         });
-
         return view;
     }
 

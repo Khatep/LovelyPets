@@ -36,13 +36,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
 
-    <TextView
-        android:id="@+id/user_email"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center|bottom"
-        />
-
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/burger_nav_view"
         android:layout_width="wrap_content"
@@ -52,6 +45,5 @@
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header_main"
         app:menu="@menu/burger_nav_menu"/>
-
 
 </androidx.drawerlayout.widget.DrawerLayout>

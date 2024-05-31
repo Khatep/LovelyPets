@@ -11,10 +11,11 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.lovelypets.R;
-import com.example.lovelypets.event_listeners.OnProductClickListener;
-import com.example.lovelypets.view_holders.ProductViewHolderForCategoryDetailFragment;
+import com.example.lovelypets.eventlisteners.OnProductClickListener;
+import com.example.lovelypets.viewholders.ProductViewHolderForCategoryDetailFragment;
 import com.example.lovelypets.models.Product;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProductAdapterForCategoryDetailFragment extends RecyclerView.Adapter<ProductViewHolderForCategoryDetailFragment> {
@@ -80,5 +81,20 @@ public class ProductAdapterForCategoryDetailFragment extends RecyclerView.Adapte
     @Override
     public int getItemCount() {
         return products.size();
+    }
+
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
+        notifyDataSetChanged();
+    }
+    public void setFilteredList(List<Product> filteredList) {
+        this.products = filteredList;
+        notifyDataSetChanged();
+    }
+
+    public void clearList() {
+        this.products = new ArrayList<>();
+        notifyDataSetChanged();
     }
 }

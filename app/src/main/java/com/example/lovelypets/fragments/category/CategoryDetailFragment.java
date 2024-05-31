@@ -16,8 +16,8 @@ import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.example.lovelypets.R;
 import com.example.lovelypets.adapters.ProductAdapterForCategoryDetailFragment;
-import com.example.lovelypets.event_listeners.OnProductClickListener;
-import com.example.lovelypets.fragments.product_detail.ProductDetailFragment;
+import com.example.lovelypets.eventlisteners.OnProductClickListener;
+import com.example.lovelypets.fragments.productdetail.ProductDetailFragment;
 import com.example.lovelypets.models.Product;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -84,7 +84,7 @@ public class CategoryDetailFragment extends Fragment implements OnProductClickLi
         }
 
         RecyclerView recyclerView = view.findViewById(R.id.recyclerview);
-        List<Product> products = getListOfProducts();
+        List<Product> products = loadListOfProducts();
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);  // 2 columns
         recyclerView.setLayoutManager(gridLayoutManager);
@@ -94,7 +94,7 @@ public class CategoryDetailFragment extends Fragment implements OnProductClickLi
         return view;
     }
 
-    private List<Product> getListOfProducts() {
+    private List<Product> loadListOfProducts() {
         List<Product> productList = new ArrayList<>();
         productsReference = firebaseDatabase.getReference().child("products");
         productsReference.addValueEventListener(new ValueEventListener() {
@@ -103,16 +103,21 @@ public class CategoryDetailFragment extends Fragment implements OnProductClickLi
                 productList.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     assert getArguments() != null;
-                    if (snapshot.exists() && (Objects.requireNonNull(snapshot.child("categoryId").getValue()).toString()).equals( Objects.requireNonNull(requireArguments().getString(ARG_CATEGORY_ID)))) {
-                        Product product;
-                        product = new Product(
-                                Objects.requireNonNull(snapshot.child("iconName").getValue()).toString(),
-                                Objects.requireNonNull(snapshot.child("name").getValue()).toString(),
-                                Objects.requireNonNull(snapshot.child("description").getValue()).toString(),
-                                Objects.requireNonNull(snapshot.child("categoryId").getValue()).toString(),
-                                Long.parseLong((String.valueOf(snapshot.child("price").getValue()))));
 
-                        productList.add(product);
+                    try {
+                        if (snapshot.exists() && (Objects.requireNonNull(snapshot.child("categoryId").getValue()).toString()).equals( Objects.requireNonNull(requireArguments().getString(ARG_CATEGORY_ID)))) {
+                            Product product;
+                            product = new Product(
+                                    Objects.requireNonNull(snapshot.child("iconName").getValue()).toString(),
+                                    Objects.requireNonNull(snapshot.child("name").getValue()).toString(),
+                                    Objects.requireNonNull(snapshot.child("description").getValue()).toString(),
+                                    Objects.requireNonNull(snapshot.child("categoryId").getValue()).toString(),
+                                    Long.parseLong((String.valueOf(snapshot.child("price").getValue()))));
+
+                            productList.add(product);
+                        }
+                    } catch (NullPointerException e) {
+                        return;
                     }
                 }
 

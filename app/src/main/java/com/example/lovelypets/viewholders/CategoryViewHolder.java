@@ -1,4 +1,4 @@
-package com.example.lovelypets.view_holders;
+package com.example.lovelypets.viewholders;
 
 import android.view.View;
 

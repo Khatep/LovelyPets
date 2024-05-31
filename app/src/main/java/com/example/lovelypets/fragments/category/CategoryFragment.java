@@ -14,7 +14,8 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.lovelypets.R;
-import com.example.lovelypets.fragments.category.CategoryDetailFragment;
+import com.example.lovelypets.eventlisteners.OnBackPressedListener;
+import com.example.lovelypets.exit_alert_dialog.ExitDialogActivity;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -23,7 +24,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.Objects;
 
-public class CategoryFragment extends Fragment {
+public class CategoryFragment extends Fragment implements OnBackPressedListener {
     private final FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private DatabaseReference categoriesReference;
     private  RecyclerView recyclerView;
@@ -86,5 +87,15 @@ public class CategoryFragment extends Fragment {
             transaction.addToBackStack(null);
             transaction.commit();
         });
+    }
+
+    public void showExitDialog() {
+        ExitDialogActivity dialog = new ExitDialogActivity(requireContext());
+        dialog.show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        showExitDialog();
     }
 }

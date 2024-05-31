@@ -9,15 +9,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.lovelypets.R;
+import com.example.lovelypets.eventlisteners.OnBackPressedListener;
+import com.example.lovelypets.exit_alert_dialog.ExitDialogActivity;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link AboutUsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class AboutUsFragment extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
+public class AboutUsFragment extends Fragment implements OnBackPressedListener {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -62,5 +62,15 @@ public class AboutUsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_about_us, container, false);
+    }
+
+    public void showExitDialog() {
+        ExitDialogActivity dialog = new ExitDialogActivity(requireContext());
+        dialog.show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        showExitDialog();
     }
 }

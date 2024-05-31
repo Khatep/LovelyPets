@@ -1,5 +1,7 @@
 package com.example.lovelypets.models;
 
+import com.example.lovelypets.enums.ProductType;
+
 import java.util.Objects;
 
 public class Product {
@@ -8,6 +10,16 @@ public class Product {
     private String description;
     private String categoryId;
     private Long price;
+    private ProductType productType;
+
+    public Product(String iconName, String name, String description, String categoryId, Long price, ProductType productType) {
+        this.iconName = iconName;
+        this.name = name;
+        this.description = description;
+        this.categoryId = categoryId;
+        this.price = price;
+        this.productType = productType;
+    }
 
     public Product(String iconName, String name, String description, String categoryId, Long price) {
         this.iconName = iconName;
@@ -16,6 +28,7 @@ public class Product {
         this.categoryId = categoryId;
         this.price = price;
     }
+
 
     public String getIconName() {
         return iconName;
@@ -57,26 +70,36 @@ public class Product {
         this.price = price;
     }
 
+    public ProductType getProductType() {
+        return productType;
+    }
+
+    public void setProductType(ProductType productType) {
+        this.productType = productType;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Product)) return false;
         Product product = (Product) o;
-        return getIconName() == product.getIconName() && Objects.equals(getName(), product.getName()) && Objects.equals(getDescription(), product.getDescription()) && Objects.equals(getCategoryId(), product.getCategoryId()) && Objects.equals(getPrice(), product.getPrice());
+        return Objects.equals(getIconName(), product.getIconName()) && Objects.equals(getName(), product.getName()) && Objects.equals(getDescription(), product.getDescription()) && Objects.equals(getCategoryId(), product.getCategoryId()) && Objects.equals(getPrice(), product.getPrice()) && getProductType() == product.getProductType();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getIconName(), getName(), getDescription(), getCategoryId(), getPrice());
+        return Objects.hash(getIconName(), getName(), getDescription(), getCategoryId(), getPrice(), getProductType());
     }
+
     @Override
     public String toString() {
         return "Product{" +
-                "iconName=" + iconName +
+                "iconName='" + iconName + '\'' +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", categoryId='" + categoryId + '\'' +
                 ", price=" + price +
+                ", productType=" + productType +
                 '}';
     }
 }

@@ -23,11 +23,11 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.lovelypets.LovelyPetsApplicationActivity;
 import com.example.lovelypets.R;
-import com.example.lovelypets.welcome_page.WelcomeActivity;
+import com.example.lovelypets.welcomepage.WelcomeActivity;
 import com.example.lovelypets.dto.FirebaseAuthUserDTO;
 import com.example.lovelypets.emailconfirmations.EmailConfirmActivity;
-import com.example.lovelypets.verifications.SendCodeToEmailTask;
-import com.example.lovelypets.verifications.VerificationCodeListener;
+import com.example.lovelypets.emailsenders.confirmcodegenerate.SendCodeToEmailTask;
+import com.example.lovelypets.emailsenders.confirmcodegenerate.VerificationCodeGeneratedListener;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -50,7 +50,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.Objects;
 
-public class SignupActivity extends AppCompatActivity implements VerificationCodeListener, UserExistenceChecker {
+public class SignupActivity extends AppCompatActivity implements VerificationCodeGeneratedListener, UserExistenceChecker {
     private ImageView backArrowImageView;
     private TextInputEditText editTextEmail, editTextPassword;
     private TextInputLayout emailLayout, passwordLayout;

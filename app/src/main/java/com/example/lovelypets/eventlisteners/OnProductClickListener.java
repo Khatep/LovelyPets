@@ -1,4 +1,4 @@
-package com.example.lovelypets.event_listeners;
+package com.example.lovelypets.eventlisteners;
 
 import com.example.lovelypets.models.Product;
 

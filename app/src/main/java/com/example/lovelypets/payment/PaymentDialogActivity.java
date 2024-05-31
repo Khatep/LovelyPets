@@ -9,10 +9,15 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
 import com.example.lovelypets.R;
+import com.example.lovelypets.dto.FirebaseAuthUserDTO;
+import com.example.lovelypets.emailsenders.confirmcodegenerate.SendCodeToEmailTask;
+import com.example.lovelypets.emailsenders.receiptgenerate.ReceiptGeneratedListener;
+import com.example.lovelypets.emailsenders.receiptgenerate.SendReceiptToEmailTask;
 import com.example.lovelypets.fragments.cart.CartProductListProvider;
 import com.example.lovelypets.models.Order;
 import com.example.lovelypets.models.Product;
@@ -30,7 +35,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 
-public class PaymentDialogActivity extends Dialog {
+public class PaymentDialogActivity extends Dialog implements ReceiptGeneratedListener {
     private TextInputEditText cardNumberTextInputEditText, cardholderNameTextInputEditText, monthAndYearTextInputEditText, cvvTextInputEditText;
     private TextInputLayout cardNumberInputLayout, cardholderNameInputLayout, monthAndYearInputLayout, cvvInputLayout;
     private List<Product> orderProductList;
@@ -41,6 +46,7 @@ public class PaymentDialogActivity extends Dialog {
     private DatabaseReference usersReference, orderReference, cartReference;
     private ProgressBar progressBar;
     private CartProductListProvider cartProductListProvider;
+    private ReceiptGeneratedListener receiptGeneratedListener;
 
     public PaymentDialogActivity(@NonNull Context context, CartProductListProvider cartProductListProvider) {
         super(context);
@@ -134,7 +140,7 @@ public class PaymentDialogActivity extends Dialog {
         }
 
         orderReference.push().setValue(order).addOnSuccessListener(unused -> {
-
+            sendReceiptToEmail(new FirebaseAuthUserDTO(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getEmail(), "not_important"), order);
         }).addOnFailureListener(e -> {
 
         });
@@ -177,5 +183,13 @@ public class PaymentDialogActivity extends Dialog {
                 Log.e("Clear Cart", "Failed to clear user cart", task.getException());
             }
         });
+    }
+
+    public void sendReceiptToEmail(FirebaseAuthUserDTO firebaseAuthUserDTO, Order order) {
+        SendReceiptToEmailTask sendReceiptToEmailTask = new SendReceiptToEmailTask(this, firebaseAuthUserDTO, order);
+        sendReceiptToEmailTask.execute();}
+    @Override
+    public void onReceiptGenerated() {
+
     }
 }

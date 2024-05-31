@@ -1,4 +1,4 @@
-package com.example.lovelypets.view_holders;
+package com.example.lovelypets.viewholders;
 
 import android.content.Context;
 import android.view.View;
@@ -10,8 +10,8 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.lovelypets.R;
-import com.example.lovelypets.event_listeners.OnDeleteIconClickListener;
-import com.example.lovelypets.event_listeners.OnProductClickListener;
+import com.example.lovelypets.eventlisteners.OnDeleteIconClickListener;
+import com.example.lovelypets.eventlisteners.OnProductClickListener;
 import com.example.lovelypets.models.Product;
 
 import java.util.List;

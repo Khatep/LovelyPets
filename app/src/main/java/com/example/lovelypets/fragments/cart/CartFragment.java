@@ -17,9 +17,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.lovelypets.R;
 import com.example.lovelypets.adapters.ProductAdapterForCartFragment;
-import com.example.lovelypets.event_listeners.OnDeleteIconClickListener;
-import com.example.lovelypets.event_listeners.OnProductClickListener;
-import com.example.lovelypets.fragments.product_detail.ProductDetailFragment;
+import com.example.lovelypets.eventlisteners.OnBackPressedListener;
+import com.example.lovelypets.eventlisteners.OnDeleteIconClickListener;
+import com.example.lovelypets.eventlisteners.OnProductClickListener;
+import com.example.lovelypets.exit_alert_dialog.ExitDialogActivity;
+import com.example.lovelypets.fragments.productdetail.ProductDetailFragment;
 import com.example.lovelypets.models.Product;
 import com.example.lovelypets.payment.PaymentDialogActivity;
 import com.google.firebase.auth.FirebaseAuth;
@@ -33,7 +35,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class CartFragment extends Fragment implements OnProductClickListener, OnDeleteIconClickListener, CartProductListProvider {
+public class CartFragment extends Fragment implements OnProductClickListener, OnDeleteIconClickListener, CartProductListProvider, OnBackPressedListener {
     private RecyclerView cartRecycleView;
     private TextView totalPriceTextView;
     private List<Product> cartProductList;
@@ -61,6 +63,7 @@ public class CartFragment extends Fragment implements OnProductClickListener, On
         cartRecycleView = view.findViewById(R.id.cart_list_view);
         totalPriceTextView = view.findViewById(R.id.total_price_text);
         purchaseButton = view.findViewById(R.id.purchase_button);
+
         usersReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -189,5 +192,15 @@ public class CartFragment extends Fragment implements OnProductClickListener, On
             PaymentDialogActivity dialog = new PaymentDialogActivity(requireContext(), this);
             dialog.show();
         }
+    }
+
+    public void showExitDialog() {
+        ExitDialogActivity dialog = new ExitDialogActivity(requireContext());
+        dialog.show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        showExitDialog();
     }
 }

@@ -10,8 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.lovelypets.R;
 import com.example.lovelypets.models.Category;
-import com.example.lovelypets.view_holders.CategoryViewHolder;
-import com.google.android.material.imageview.ShapeableImageView;
+import com.example.lovelypets.viewholders.CategoryViewHolder;
 
 import java.util.List;
 

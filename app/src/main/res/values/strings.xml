@@ -129,4 +129,20 @@
     <string name="month_and_year">MM/YY</string>
     <string name="cvv">CVV</string>
     <string name="pay">PAY</string>
+    <string name="search_here">Search here</string>
+    <string name="close_the_app">Close the LovelyPets app?</string>
+    <string name="close">CLOSE</string>
+    <string name="cancel_upper">CANCEL</string>
+    <string name="data_not_found">Data not found</string>
+    <string name="instagram_text">lovelypets</string>
+    <string name="email_text">lovelypets@gmail.com</string>
+    <string name="number_text">+77712858606</string>
+    <string name="filter">Filter</string>
+    <string name="filter_features">Filter features:</string>
+    <string name="foods">Foods</string>
+    <string name="hygiene_cosmetics">Hygiene, cosmetics</string>
+    <string name="cages_feeders_bowls">Cages, feeders, bowls</string>
+    <string name="fillers_hay_sawdusters">Fillers, hay, sawdusters</string>
+    <string name="toys">Toys</string>
+    <string name="medicines_and_vitamins">Medicines and vitamins</string>
 </resources>

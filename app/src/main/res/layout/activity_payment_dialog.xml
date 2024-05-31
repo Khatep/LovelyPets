@@ -39,6 +39,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:layout_marginEnd="15dp"
+            app:boxStrokeColor="@color/violet"
+            app:cursorColor="@color/violet"
+            app:hintTextColor="@color/violet"
             android:hint="@string/card_number"
             app:boxCornerRadiusBottomEnd="10dp"
             app:boxCornerRadiusBottomStart="10dp"
@@ -58,7 +61,6 @@
                 android:id="@+id/card_number"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
                 android:fontFamily="@font/comfortaa" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -70,6 +72,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:layout_marginEnd="15dp"
+            app:boxStrokeColor="@color/violet"
+            app:cursorColor="@color/violet"
+            app:hintTextColor="@color/violet"
             android:hint="@string/cardholder_name"
             app:boxCornerRadiusBottomEnd="10dp"
             app:boxCornerRadiusBottomStart="10dp"
@@ -109,6 +114,9 @@
                 android:layout_width="140dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
+                app:boxStrokeColor="@color/violet"
+                app:cursorColor="@color/violet"
+                app:hintTextColor="@color/violet"
                 android:hint="@string/month_and_year"
                 app:boxCornerRadiusBottomEnd="10dp"
                 app:boxCornerRadiusBottomStart="10dp"
@@ -137,6 +145,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="15dp"
+                app:boxStrokeColor="@color/violet"
+                app:cursorColor="@color/violet"
+                app:hintTextColor="@color/violet"
                 android:layout_weight="1"
                 android:hint="@string/cvv"
                 app:boxCornerRadiusBottomEnd="10dp"

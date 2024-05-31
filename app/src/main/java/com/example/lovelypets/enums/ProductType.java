@@ -1,0 +1,5 @@
+package com.example.lovelypets.enums;
+
+public enum ProductType {
+    ALL, FOODS, HYGIENE_COSMETICS, CAGES_FEEDERS_BOWLS, FILLERS_HAY_SAWDUSTERS, TOYS, CLOTHES, MEDICINES_VITAMINS
+}

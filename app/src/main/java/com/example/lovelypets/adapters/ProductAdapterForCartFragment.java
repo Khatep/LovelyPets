@@ -11,10 +11,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.lovelypets.R;
-import com.example.lovelypets.event_listeners.OnDeleteIconClickListener;
-import com.example.lovelypets.event_listeners.OnProductClickListener;
+import com.example.lovelypets.eventlisteners.OnDeleteIconClickListener;
+import com.example.lovelypets.eventlisteners.OnProductClickListener;
 import com.example.lovelypets.models.Product;
-import com.example.lovelypets.view_holders.ProductViewHolderForCartFragment;
+import com.example.lovelypets.viewholders.ProductViewHolderForCartFragment;
 
 import java.util.List;
 

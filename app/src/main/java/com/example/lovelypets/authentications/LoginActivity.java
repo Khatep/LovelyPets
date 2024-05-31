@@ -22,7 +22,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.lovelypets.LovelyPetsApplicationActivity;
 import com.example.lovelypets.R;
-import com.example.lovelypets.welcome_page.WelcomeActivity;
+import com.example.lovelypets.welcomepage.WelcomeActivity;
 import com.example.lovelypets.passwordreset.PasswordResetActivity;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;

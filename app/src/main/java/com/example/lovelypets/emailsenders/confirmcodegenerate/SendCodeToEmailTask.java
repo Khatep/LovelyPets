@@ -1,4 +1,4 @@
-package com.example.lovelypets.verifications;
+package com.example.lovelypets.emailsenders.confirmcodegenerate;
 
 import static android.content.ContentValues.TAG;
 
@@ -6,8 +6,6 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.example.lovelypets.dto.FirebaseAuthUserDTO;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Properties;
 import java.util.Random;
@@ -21,23 +19,23 @@ import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
 
 public class SendCodeToEmailTask extends AsyncTask<Void, Void, Void> {
-    private final VerificationCodeListener verificationCodeListener;
+    private final VerificationCodeGeneratedListener verificationCodeGeneratedListener;
     String fromEmail = "lovelypetssupteam@gmail.com";
     String emailHost = "smtp.gmail.com";
     String smtpPort = "465";
     private Integer verificationCode;
     private final FirebaseAuthUserDTO firebaseAuthUserDTO;
 
-    public SendCodeToEmailTask(VerificationCodeListener verificationCodeListener, FirebaseAuthUserDTO firebaseAuthUserDTO) {
+    public SendCodeToEmailTask(VerificationCodeGeneratedListener verificationCodeGeneratedListener, FirebaseAuthUserDTO firebaseAuthUserDTO) {
         super();
-        this.verificationCodeListener = verificationCodeListener;
+        this.verificationCodeGeneratedListener = verificationCodeGeneratedListener;
         this.firebaseAuthUserDTO = firebaseAuthUserDTO;
     }
 
     @Override
     protected Void doInBackground(Void... voids) {
         try {
-            sendVerificationEmail();
+            sendVerificationCodeToEmail();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -50,11 +48,7 @@ public class SendCodeToEmailTask extends AsyncTask<Void, Void, Void> {
         // Handle any post-execution tasks here
     }
 
-    private void sendVerificationEmail() {
-        /*FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        assert user != null;*/
-
-        //String userEmail = user.getEmail();
+    private void sendVerificationCodeToEmail() {
         String userEmail = firebaseAuthUserDTO.getEmail();
         Properties properties = new Properties();
         properties.put("mail.smtp.host", emailHost);
@@ -84,7 +78,7 @@ public class SendCodeToEmailTask extends AsyncTask<Void, Void, Void> {
             message.setSubject("Verification Code");
 
             verificationCode = generateCode();
-            verificationCodeListener.onVerificationCodeGenerated(verificationCode);
+            verificationCodeGeneratedListener.onVerificationCodeGenerated(verificationCode);
 
             message.setText("Hello, " + "\n"+
                     "\n" +

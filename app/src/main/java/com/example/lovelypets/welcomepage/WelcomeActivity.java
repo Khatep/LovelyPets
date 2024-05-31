@@ -1,4 +1,4 @@
-package com.example.lovelypets.welcome_page;
+package com.example.lovelypets.welcomepage;
 
 import androidx.appcompat.app.AppCompatActivity;
 

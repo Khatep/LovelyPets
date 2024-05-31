@@ -10,8 +10,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.lovelypets.R;
+import com.example.lovelypets.eventlisteners.OnBackPressedListener;
+import com.example.lovelypets.exit_alert_dialog.ExitDialogActivity;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements OnBackPressedListener {
     @Override
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container,
@@ -23,5 +25,16 @@ public class HomeFragment extends Fragment {
 
         // Inflate the layout for this fragment
         return view;
+    }
+
+
+    public void showExitDialog() {
+        ExitDialogActivity dialog = new ExitDialogActivity(requireContext());
+        dialog.show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        showExitDialog();
     }
 }

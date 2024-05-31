@@ -1,24 +1,115 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F3E9D2"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".fragments.SearchFragment">
+    tools:context=".fragments.SearchFragment"
+    android:orientation="vertical">
 
-    <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="70dp"
+        android:orientation="horizontal">
+
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/searchView"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+
+            app:iconifiedByDefault="false"
+            android:background="@drawable/border_outlined_box"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.028"
+            app:queryHint="@string/search_here">
+        </androidx.appcompat.widget.SearchView>
+
+        <ImageButton
+            android:id="@+id/filter_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/milk_color"
+            android:layout_gravity="start|top"
+            android:contentDescription="@string/back"
+            android:padding="5dp"
+            android:src="@drawable/ic_baseline_filter"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.097"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
+            app:layout_constraintVertical_bias="0.338" />
+
+    </LinearLayout>
+
+
+  <!--  <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/filter_layout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:layout_width="95dp"
+        android:layout_height="wrap_content"
+        android:background="@color/milk_color"
+        app:boxCornerRadiusBottomEnd="10dp"
+        app:boxCornerRadiusBottomStart="10dp"
+        app:boxCornerRadiusTopEnd="10dp"
+        app:boxCornerRadiusTopStart="10dp">
+
+        <AutoCompleteTextView
+            android:id="@+id/gender_auto_complete"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:fontFamily="@font/comfortaa"
+            android:hint="@string/filter"
+            android:inputType="none" />
+
+    </com.google.android.material.textfield.TextInputLayout>-->
 
     <TextView
-        android:id="@+id/search_fragment_textView"
+        android:id="@+id/data_not_found_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="@string/data_not_found"
+        android:textSize="30sp"
+        android:fontFamily="@font/coiny"
+        android:layout_gravity="center"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:textSize="20sp"
-        android:text="@string/this_is_search_fragment" />
+        app:layout_constraintEnd_toEndOf="@+id/nested_scroll_view"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </TextView>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nested_scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.49">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/search_list_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:paddingBottom="60dp"
+            app:layout_constraintBottom_toBottomOf="@+id/scrollView2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/category_name" />
+
+    </androidx.core.widget.NestedScrollView>
+</LinearLayout>

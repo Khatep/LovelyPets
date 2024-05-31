@@ -17,10 +17,11 @@ import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
 import com.example.lovelypets.R;
-import com.example.lovelypets.enums.Gender;
+import com.example.lovelypets.eventlisteners.OnBackPressedListener;
+import com.example.lovelypets.exit_alert_dialog.ExitDialogActivity;
 import com.example.lovelypets.models.User;
 
-public class ProfileFragment extends Fragment {
+public class ProfileFragment extends Fragment implements OnBackPressedListener {
     private static final int PICK_IMAGE_REQUEST = 1;
     private static final String PROFILE_IMAGE_URI_KEY = "profile_image_uri";
     private User currentUser;
@@ -101,5 +102,15 @@ public class ProfileFragment extends Fragment {
                     .putString(PROFILE_IMAGE_URI_KEY, uri.toString())
                     .apply();
         }
+    }
+
+    public void showExitDialog() {
+        ExitDialogActivity dialog = new ExitDialogActivity(requireContext());
+        dialog.show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        showExitDialog();
     }
 }
