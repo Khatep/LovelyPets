@@ -13,9 +13,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LovelyPets">
         <activity
-            android:name=".HUI"
-            android:exported="false" />
-        <activity
             android:name=".passwordreset.PasswordResetActivity"
             android:exported="false"
             android:theme="@style/Theme.LovelyPets.NoActionBar" />
@@ -37,10 +34,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".authentications.AuthenticationWithGoogleAccountActivity"
-            android:exported="false"
-            android:theme="@style/Theme.LovelyPets.NoActionBar" />
         <activity
             android:name=".authentications.SignupActivity"
             android:exported="false"
