@@ -145,4 +145,9 @@
     <string name="fillers_hay_sawdusters">Fillers, hay, sawdusters</string>
     <string name="toys">Toys</string>
     <string name="medicines_and_vitamins">Medicines and vitamins</string>
+    <string name="order_status">Order Status</string>
+    <string name="order_number">order №number</string>
+    <string name="order_detail">Order detail</string>
+    <string name="arrow_next">Next arrow icon</string>
+    <string name="cart_is_empty">Cart is empty</string>
 </resources>

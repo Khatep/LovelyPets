@@ -3,7 +3,8 @@
     package="com.example.lovelypets">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
 
     <application
         android:allowBackup="true"
@@ -12,6 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.LovelyPets">
+
         <activity
             android:name=".passwordreset.PasswordResetActivity"
             android:exported="false"
@@ -23,7 +25,9 @@
         <activity
             android:name=".authentications.InputDataForUserActivity"
             android:exported="true"
-            android:theme="@style/Theme.LovelyPets.NoActionBar"></activity>
+            android:theme="@style/Theme.LovelyPets.NoActionBar">
+
+        </activity>
         <activity
             android:name=".welcomepage.WelcomeActivity"
             android:exported="true"
@@ -34,18 +38,25 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".authentications.SignupActivity"
             android:exported="false"
-            android:theme="@style/Theme.LovelyPets.NoActionBar"></activity>
+            android:theme="@style/Theme.LovelyPets.NoActionBar">
+
+        </activity>
         <activity
             android:name=".authentications.LoginActivity"
             android:exported="false"
-            android:theme="@style/Theme.LovelyPets.NoActionBar"></activity>
+            android:theme="@style/Theme.LovelyPets.NoActionBar">
+
+        </activity>
         <activity
             android:name=".LovelyPetsApplicationActivity"
             android:exported="false"
-            android:theme="@style/Theme.LovelyPets.NoActionBar"></activity>
+            android:theme="@style/Theme.LovelyPets.NoActionBar">
+
+        </activity>
 
         <meta-data
             android:name="preloaded_fonts"

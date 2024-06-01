@@ -45,6 +45,7 @@ public class CartFragment extends Fragment implements OnProductClickListener, On
     private final FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private String[] userId = {"default"};
     private List<Product> productList = new ArrayList<>();
+    private TextView cartIsEmptyTextView;
 
     public CartFragment() {
         // Required empty public constructor
@@ -61,6 +62,7 @@ public class CartFragment extends Fragment implements OnProductClickListener, On
 
         View view = inflater.inflate(R.layout.fragment_cart, container, false);
         cartRecycleView = view.findViewById(R.id.cart_list_view);
+        cartIsEmptyTextView = view.findViewById(R.id.cart_is_empty_text);
         totalPriceTextView = view.findViewById(R.id.total_price_text);
         purchaseButton = view.findViewById(R.id.purchase_button);
 

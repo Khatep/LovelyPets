@@ -140,7 +140,7 @@ public class PaymentDialogActivity extends Dialog implements ReceiptGeneratedLis
         }
 
         orderReference.push().setValue(order).addOnSuccessListener(unused -> {
-            sendReceiptToEmail(new FirebaseAuthUserDTO(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getEmail(), "not_important"), order);
+            sendReceiptToEmail(new FirebaseAuthUserDTO(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getEmail(), "null"), order);
         }).addOnFailureListener(e -> {
 
         });

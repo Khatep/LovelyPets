@@ -8,7 +8,7 @@
     android:orientation="vertical"
     android:padding="1dp">
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:id="@+id/scrollView2"
         android:layout_width="match_parent"
         android:layout_height="450dp"
@@ -33,7 +33,23 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/category_name" />
 
-    </ScrollView>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <TextView
+        android:id="@+id/cart_is_empty_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/coiny"
+        android:text="@string/cart_is_empty"
+        android:textSize="30sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </TextView>
 
     <LinearLayout
         android:id="@+id/total_price"
