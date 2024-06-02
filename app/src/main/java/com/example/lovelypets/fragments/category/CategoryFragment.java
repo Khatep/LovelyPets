@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.lovelypets.R;
 import com.example.lovelypets.eventlisteners.OnBackPressedListener;
-import com.example.lovelypets.exit_alert_dialog.ExitDialogActivity;
+import com.example.lovelypets.exitalertdialog.ExitDialogActivity;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;

@@ -67,17 +67,18 @@ public class Order {
         return products;
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Order)) return false;
         Order order = (Order) o;
-        return Objects.equals(getOrderNumber(), order.getOrderNumber()) && Objects.equals(getDateOfCreated(), order.getDateOfCreated()) && Objects.equals(getAddressOfDelivery(), order.getAddressOfDelivery()) && Objects.equals(getTotalPrice(), order.getTotalPrice()) && Objects.equals(getProducts(), order.getProducts());
+        return Objects.equals(getOrderNumber(), order.getOrderNumber()) && Objects.equals(getDateOfCreated(), order.getDateOfCreated()) && Objects.equals(getAddressOfDelivery(), order.getAddressOfDelivery()) && Objects.equals(getTotalPrice(), order.getTotalPrice()) && getOrderStatus() == order.getOrderStatus() && Objects.equals(getProducts(), order.getProducts());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getOrderNumber(), getDateOfCreated(), getAddressOfDelivery(), getTotalPrice(), getProducts());
+        return Objects.hash(getOrderNumber(), getDateOfCreated(), getAddressOfDelivery(), getTotalPrice(), getOrderStatus(), getProducts());
     }
 
     @Override
@@ -87,6 +88,7 @@ public class Order {
                 ", dateOfCreated=" + dateOfCreated +
                 ", addressOfDelivery='" + addressOfDelivery + '\'' +
                 ", totalPrice=" + totalPrice +
+                ", orderStatus=" + orderStatus +
                 ", products=" + products +
                 '}';
     }

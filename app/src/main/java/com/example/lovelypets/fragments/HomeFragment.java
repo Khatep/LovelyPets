@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.example.lovelypets.R;
 import com.example.lovelypets.eventlisteners.OnBackPressedListener;
-import com.example.lovelypets.exit_alert_dialog.ExitDialogActivity;
+import com.example.lovelypets.exitalertdialog.ExitDialogActivity;
 
 public class HomeFragment extends Fragment implements OnBackPressedListener {
     @Override

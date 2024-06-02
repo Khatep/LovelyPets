@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 
 import com.example.lovelypets.R;
 import com.example.lovelypets.eventlisteners.OnBackPressedListener;
-import com.example.lovelypets.exit_alert_dialog.ExitDialogActivity;
+import com.example.lovelypets.exitalertdialog.ExitDialogActivity;
 
 /**
  * A simple {@link Fragment} subclass.

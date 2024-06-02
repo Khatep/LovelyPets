@@ -29,9 +29,9 @@ public class ProductViewHolderForCartFragment extends RecyclerView.ViewHolder {
 
     public ProductViewHolderForCartFragment(Context context, List<Product> products, @NonNull View productView, OnProductClickListener onProductClickListener, OnDeleteIconClickListener onDeleteIconClickListener) {
         super(productView);
-        this.onProductClickListener = onProductClickListener;
         this.context = context;
         this.products = products;
+        this.onProductClickListener = onProductClickListener;
         this.onDeleteIconClickListener = onDeleteIconClickListener;
 
         deleteIconView = productView.findViewById(R.id.delete_icon);

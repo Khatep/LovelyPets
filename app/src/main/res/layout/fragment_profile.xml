@@ -38,10 +38,10 @@
             android:layout_width="200dp"
             android:layout_height="200dp"
             android:layout_marginTop="65sp"
-            android:src="@drawable/ic_baseline_woman"
             android:contentDescription="@string/cat"
             android:padding="5dp"
             android:scaleType="centerCrop"
+            android:src="@drawable/ic_baseline_woman"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"
@@ -53,9 +53,6 @@
             app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
             app:strokeColor="@color/black"
             app:strokeWidth="2dp" />
-
-
-        <!-- Добавьте другие поля для отображения информации о пользователе -->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -88,4 +85,55 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/profile_name"
         app:layout_constraintVertical_bias="0.015" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/history_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
+        android:backgroundTint="@color/light_red_color"
+        android:fontFamily="@font/coiny"
+        android:gravity="center"
+        android:text="@string/history"
+        android:textColor="@color/white"
+        android:textSize="22sp"
+        app:cornerRadius="12dp"
+        app:icon="@drawable/ic_baseline_history"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.791" />
+
+    <!--<LinearLayout
+        android:id="@+id/linearLayout6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/light_red_color"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profile_email">
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/light_red_color"
+            android:src="@drawable/ic_baseline_history"
+            android:contentDescription="@string/history" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/coiny"
+            android:gravity="center"
+            android:text="@string/history"
+            android:textSize="30sp" />
+    </LinearLayout>-->
+
 </androidx.constraintlayout.widget.ConstraintLayout>

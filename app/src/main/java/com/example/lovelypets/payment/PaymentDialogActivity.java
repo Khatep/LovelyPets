@@ -132,8 +132,8 @@ public class PaymentDialogActivity extends Dialog implements ReceiptGeneratedLis
         });
     }
     private void createOrder(String userId) {
-        orderReference = usersReference.child(userId).child("order");
-        Order order = new Order(getRandomNumber(), LocalDate.now(), "almaty, 1 mkr", cartProductListProvider.getTotalPrice());
+        orderReference = usersReference.child(userId).child("orders");
+        Order order = new Order(getRandomNumber(), LocalDate.now(), "null", cartProductListProvider.getTotalPrice());
 
         for (Product p : cartProductListProvider.getProductList()) {
             order.getProducts().add(p);

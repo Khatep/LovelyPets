@@ -150,4 +150,10 @@
     <string name="order_detail">Order detail</string>
     <string name="arrow_next">Next arrow icon</string>
     <string name="cart_is_empty">Cart is empty</string>
+    <string name="order_number_label">№ %1$d</string>
+    <string name="history">History</string>
+    <string name="you_purchased">You purchased</string>
+    <string name="date">Date</string>
+    <string name="total_price">Total price</string>
+    <string name="payment_method">Payment method</string>
 </resources>

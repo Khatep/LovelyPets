@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -23,18 +24,30 @@ public class ProductAdapterForCartFragment extends RecyclerView.Adapter<ProductV
     List<Product> products;
     private final OnProductClickListener onProductClickListener;
     private final OnDeleteIconClickListener onDeleteIconClickListener;
+    private String whichFragment;
 
     public ProductAdapterForCartFragment(Context context, List<Product> products, OnProductClickListener onProductClickListener, OnDeleteIconClickListener onDeleteIconClickListener) {
+        this.whichFragment = "CART_FRAGMENT";
         this.context = context;
         this.products = products;
         this.onProductClickListener = onProductClickListener;
         this.onDeleteIconClickListener = onDeleteIconClickListener;
     }
 
+    public ProductAdapterForCartFragment(Context context, List<Product> products, OnProductClickListener onProductClickListener) {
+        this.whichFragment = "ORDER_DETAIL_FRAGMENT";
+        this.context = context;
+        this.products = products;
+        this.onProductClickListener = onProductClickListener;
+        this.onDeleteIconClickListener = null;
+    }
+
     @NonNull
     @Override
     public ProductViewHolderForCartFragment onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ProductViewHolderForCartFragment(context, products, LayoutInflater.from(context).inflate(R.layout.product_item_for_cart, parent, false), onProductClickListener, onDeleteIconClickListener);
+        return new ProductViewHolderForCartFragment(context, products,
+                LayoutInflater.from(context).inflate(R.layout.product_item_for_cart,
+                parent, false), onProductClickListener, onDeleteIconClickListener);
     }
 
     @Override
@@ -61,6 +74,9 @@ public class ProductAdapterForCartFragment extends RecyclerView.Adapter<ProductV
             }
         });
 
+        if (whichFragment.equals("ORDER_DETAIL_FRAGMENT")) {
+            holder.deleteIconView.setVisibility(View.GONE);
+        }
         holder.deleteIconView.setOnClickListener(v -> {
                 Product clickedProduct = products.get(holder.getAdapterPosition());
                 Log.d("delete icon clicked", clickedProduct.toString());
@@ -70,7 +86,6 @@ public class ProductAdapterForCartFragment extends RecyclerView.Adapter<ProductV
 
     private int getMinmapResIdByName(String iconName) {
         String pkgName = context.getPackageName();
-
         int resId = context.getResources().getIdentifier(iconName, "mipmap", pkgName);
         Log.i("CustomListView", "Res Name : " + iconName + "==> Res Id = " + resId);
         return resId;

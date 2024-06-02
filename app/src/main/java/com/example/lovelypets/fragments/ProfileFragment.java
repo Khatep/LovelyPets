@@ -8,17 +8,22 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.bumptech.glide.Glide;
 import com.example.lovelypets.R;
 import com.example.lovelypets.eventlisteners.OnBackPressedListener;
-import com.example.lovelypets.exit_alert_dialog.ExitDialogActivity;
+import com.example.lovelypets.exitalertdialog.ExitDialogActivity;
+import com.example.lovelypets.fragments.orderhistory.OrderHistoryDetailFragment;
+import com.example.lovelypets.fragments.orderhistory.OrderHistoryFragment;
 import com.example.lovelypets.models.User;
 
 public class ProfileFragment extends Fragment implements OnBackPressedListener {
@@ -28,15 +33,17 @@ public class ProfileFragment extends Fragment implements OnBackPressedListener {
     private ImageView profileImageView;
     private TextView profileNameTextView, profileEmailTextView;
     private Uri profileImageUri;
+    private Button historyButton;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
-
+        requireActivity().setTitle("Profile");
         profileImageView = view.findViewById(R.id.profile_image);
         profileNameTextView = view.findViewById(R.id.profile_name);
         profileEmailTextView = view.findViewById(R.id.profile_email);
+        historyButton = view.findViewById(R.id.history_button);
 
         if (getArguments() != null) {
             currentUser = getArguments().getParcelable("currentUser");
@@ -55,6 +62,14 @@ public class ProfileFragment extends Fragment implements OnBackPressedListener {
                 loadImage(profileImageUri);
             }
         }
+
+        historyButton.setOnClickListener(v -> {
+            OrderHistoryFragment orderHistoryFragment = OrderHistoryFragment.newInstance();
+            FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.fragment_container, orderHistoryFragment);
+            transaction.addToBackStack(null);
+            transaction.commit();
+        });
 
         return view;
     }

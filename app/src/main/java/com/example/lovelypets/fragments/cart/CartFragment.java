@@ -20,7 +20,7 @@ import com.example.lovelypets.adapters.ProductAdapterForCartFragment;
 import com.example.lovelypets.eventlisteners.OnBackPressedListener;
 import com.example.lovelypets.eventlisteners.OnDeleteIconClickListener;
 import com.example.lovelypets.eventlisteners.OnProductClickListener;
-import com.example.lovelypets.exit_alert_dialog.ExitDialogActivity;
+import com.example.lovelypets.exitalertdialog.ExitDialogActivity;
 import com.example.lovelypets.fragments.productdetail.ProductDetailFragment;
 import com.example.lovelypets.models.Product;
 import com.example.lovelypets.payment.PaymentDialogActivity;
@@ -120,18 +120,25 @@ public class CartFragment extends Fragment implements OnProductClickListener, On
                     productList.add(product);
                     totalPrice += product.getPrice();
                 }
+
                 totalPriceTextView.setText("Total: " + (int) totalPrice + " KZT");
+
+                if (cartProductList.isEmpty()) {
+                    cartIsEmptyTextView.setVisibility(View.VISIBLE);
+                } else {
+                    cartIsEmptyTextView.setVisibility(View.GONE);
+                }
 
                 if (cartRecycleView != null && cartRecycleView.getAdapter() != null) {
                     cartRecycleView.getAdapter().notifyDataSetChanged();
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 // Handle possible errors.
             }
         });
+
         return productList;
     }
 
@@ -164,10 +171,6 @@ public class CartFragment extends Fragment implements OnProductClickListener, On
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
                     String cartProductName = String.valueOf(childSnapshot.child("name").getValue());
-
-                    System.out.println(cartProductName);
-                    System.out.println(product.getName());
-
                     if (cartProductName.equals(product.getName())) {
                         // Product found! Delete it.
                         childSnapshot.getRef().removeValue().addOnCompleteListener(task -> {
@@ -190,7 +193,6 @@ public class CartFragment extends Fragment implements OnProductClickListener, On
         if (cartProductList.isEmpty()) {
             Toast.makeText(requireContext(), "Cart is empty", Toast.LENGTH_SHORT).show();
         } else {
-            System.out.println(cartProductList.size());
             PaymentDialogActivity dialog = new PaymentDialogActivity(requireContext(), this);
             dialog.show();
         }

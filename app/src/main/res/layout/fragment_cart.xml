@@ -26,14 +26,12 @@
             android:id="@+id/cart_list_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
             android:paddingBottom="20dp"
             app:layout_constraintBottom_toBottomOf="@+id/scrollView2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/category_name" />
-
-
+            app:layout_constraintTop_toBottomOf="@+id/category_name"
+            tools:listitem="@layout/product_item_for_cart"/>
     </androidx.core.widget.NestedScrollView>
 
     <TextView
@@ -42,13 +40,13 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/coiny"
         android:text="@string/cart_is_empty"
+        android:textColor="@color/light_red_color"
         android:textSize="30sp"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
     </TextView>
 
     <LinearLayout
@@ -95,7 +93,7 @@
         android:gravity="center"
 
         android:text="@string/purchase"
-        android:textColor="@color/milk_color"
+        android:textColor="@color/white"
         android:textSize="22sp"
         android:textStyle="bold"
         app:cornerRadius="12dp"

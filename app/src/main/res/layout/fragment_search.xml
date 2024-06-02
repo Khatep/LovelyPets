@@ -50,7 +50,6 @@
 
     </LinearLayout>
 
-
     <TextView
         android:id="@+id/data_not_found_text"
         android:layout_width="wrap_content"
@@ -58,13 +57,13 @@
         android:text="@string/data_not_found"
         android:textSize="30sp"
         android:fontFamily="@font/coiny"
+        android:textColor="@color/light_red_color"
         android:layout_gravity="center"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/nested_scroll_view"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
     </TextView>
 
     <androidx.core.widget.NestedScrollView

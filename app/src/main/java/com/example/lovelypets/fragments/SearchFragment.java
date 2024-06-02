@@ -22,7 +22,7 @@ import com.example.lovelypets.adapters.ProductAdapterForCategoryDetailFragment;
 import com.example.lovelypets.enums.ProductType;
 import com.example.lovelypets.eventlisteners.OnBackPressedListener;
 import com.example.lovelypets.eventlisteners.OnProductClickListener;
-import com.example.lovelypets.exit_alert_dialog.ExitDialogActivity;
+import com.example.lovelypets.exitalertdialog.ExitDialogActivity;
 import com.example.lovelypets.fragments.productdetail.ProductDetailFragment;
 import com.example.lovelypets.models.Product;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -35,7 +35,6 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
 
 public class SearchFragment extends Fragment implements OnProductClickListener, OnBackPressedListener {
     private SearchView searchView;
@@ -91,7 +90,6 @@ public class SearchFragment extends Fragment implements OnProductClickListener, 
                 bottomSheetDialog.show();
             }
         });
-
 
 
         return view;
@@ -171,7 +169,6 @@ public class SearchFragment extends Fragment implements OnProductClickListener, 
 
         if (searchView != null)
             searchView.setQuery("", false);
-
     }
 
     public void showExitDialog() {

@@ -1,14 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="10dp"
-    tools:context=".LovelyPetsApplicationActivity">
-
-    <androidx.cardview.widget.CardView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/order_item_for_order_history_fragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -36,12 +30,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
                 android:fontFamily="@font/comfortaa"
                 android:text="@string/order_status"
                 android:textAlignment="viewStart"
                 android:textAllCaps="false"
                 android:textColor="@color/black"
-                android:textSize="22sp" />
+                android:textStyle="bold"
+                android:textSize="20sp" />
 
             <LinearLayout
                 android:id="@+id/order_products_images"
@@ -87,6 +83,7 @@
                     android:layout_gravity="start"
                     android:contentDescription="@string/username"
                     android:scaleType="fitCenter"
+                    android:layout_marginEnd="5dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@+id/linearLayout"
                     app:layout_constraintHorizontal_bias="0.0"
@@ -127,7 +124,7 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/name"
+                android:id="@+id/order_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -136,7 +133,7 @@
                 android:textAlignment="viewStart"
                 android:textAllCaps="false"
                 android:textColor="@color/black"
-                android:textSize="11sp" />
+                android:textSize="14sp" />
 
             <View
                 android:layout_width="match_parent"
@@ -160,13 +157,13 @@
                     android:textAlignment="viewStart"
                     android:textAllCaps="false"
                     android:textColor="@color/black"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     android:layout_weight="1"/>
 
                 <ImageView
                     android:id="@+id/next_arrow"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
                     android:layout_marginTop="3dp"
                     android:layout_gravity="end|center_vertical"
                     android:contentDescription="@string/arrow_next"
@@ -179,8 +176,6 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.0" />
 
-            </LinearLayout>
-
         </LinearLayout>
-    </androidx.cardview.widget.CardView>
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

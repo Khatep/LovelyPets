@@ -41,7 +41,7 @@ public class ProductDetailFragment extends Fragment {
     private static final String ARG_CATEGORY_ID = "category_id";
     private static final String ARG_PRICE = "price";
     private boolean isLiked = false;
-    private String[] userId = {"default"};
+    private final String[] userId = {"default"};
     private final FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private DatabaseReference usersReference;
 
@@ -71,11 +71,11 @@ public class ProductDetailFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            String iconName = getArguments().getString(ARG_ICON_NAME);
-            String name = getArguments().getString(ARG_NAME);
-            String description = getArguments().getString(ARG_DESCRIPTION);
-            String categoryId = getArguments().getString(ARG_CATEGORY_ID);
-            Long price = getArguments().getLong(ARG_PRICE);
+            iconName = getArguments().getString(ARG_ICON_NAME);
+            name = getArguments().getString(ARG_NAME);
+            description = getArguments().getString(ARG_DESCRIPTION);
+            categoryId = getArguments().getString(ARG_CATEGORY_ID);
+            price = getArguments().getLong(ARG_PRICE);
         }
     }
 
@@ -91,30 +91,18 @@ public class ProductDetailFragment extends Fragment {
         TextView priceTextView = view.findViewById(R.id.product_price);
         Button addToCartButton = view.findViewById(R.id.add_to_basket);
 
-        assert getArguments() != null;
-        iconName = getArguments().getString(ARG_ICON_NAME);
-        name = getArguments().getString(ARG_NAME);
-        description = getArguments().getString(ARG_DESCRIPTION);
-        categoryId = getArguments().getString(ARG_CATEGORY_ID);
-        price = getArguments().getLong(ARG_PRICE);
-
         favouriteIconView.setImageResource(R.drawable.ic_baseline_favourite_default);
         nameTextView.setText(name);
         descriptionTextView.setText(description);
-        priceTextView.setText(String.valueOf(price) + " KZT");
+        priceTextView.setText(price + " KZT");
 
         int imageId = this.getMinmapResIdByName(iconName);
         productImageView.setImageResource(imageId);
 
-        addToCartButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Assuming userId is retrieved from a user session or similar method
-                ///String userId ="default";  // Replace with actual method to get the user ID
-                if(!userId[0].equals("default")) {
-                    addProductToCart(userId[0]);
-                }
-                return;
+        addToCartButton.setOnClickListener(v -> {
+            // Assuming userId is retrieved from a user session or similar method
+            if(!userId[0].equals("default")) {
+                addProductToCart(userId[0]);
             }
         });
 
@@ -133,7 +121,6 @@ public class ProductDetailFragment extends Fragment {
         Log.d("userId", userId);
         DatabaseReference cartRef = FirebaseDatabase.getInstance().getReference("users").child(userId).child("cart");
         Product product = new Product(iconName, name, description, categoryId, price);
-        System.out.println(product);
         cartRef.push().setValue(product).addOnSuccessListener(unused -> {
             Log.d("add product to cart", "Successful");
             return;
@@ -152,9 +139,7 @@ public class ProductDetailFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     assert snapshot != null;
-                    System.out.println(snapshot);
                     if (snapshot.exists() && Objects.equals(snapshot.child("email").getValue(), userEmail)) {
-                        Log.d("If state", "I am here3");
                         Log.d("Snapshot get key", snapshot.getKey());
                         userId[0] = snapshot.getKey();
                         return;

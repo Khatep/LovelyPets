@@ -1,5 +1,9 @@
 package com.example.lovelypets;
 
+
+
+import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
+
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -26,6 +30,7 @@ import com.example.lovelypets.fragments.category.CategoryFragment;
 import com.example.lovelypets.fragments.HomeFragment;
 import com.example.lovelypets.fragments.ProfileFragment;
 import com.example.lovelypets.fragments.SearchFragment;
+import com.example.lovelypets.logs.SystemPropertyUtil;
 import com.example.lovelypets.models.Product;
 import com.example.lovelypets.models.User;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -329,10 +334,6 @@ public class LovelyPetsApplicationActivity extends AppCompatActivity {
         }
     }
 }
-
-
-
-
 /*
    private void createForCats() {
         DatabaseReference ref = firebaseDatabase.getReference().child("products");

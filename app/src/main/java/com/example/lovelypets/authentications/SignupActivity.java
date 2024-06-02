@@ -208,23 +208,20 @@ public class SignupActivity extends AppCompatActivity implements VerificationCod
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
         Task<AuthResult> authResultTask = mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            Toast.makeText(getApplicationContext(), "firebaseAuthWithGoogle::onComplete::task worked successful", Toast.LENGTH_SHORT).show();
-                            //Log.d("TAG", "signInWithCredential:success");
-                            checkIfUserExists(acct.getEmail(), exists -> {
-                                if (exists) {
-                                    startActivity(new Intent(SignupActivity.this, LovelyPetsApplicationActivity.class));
-                                } else {
-                                    startActivity(new Intent(SignupActivity.this, InputDataForUserActivity.class));
-                                }
-                            });
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Toast.makeText(getApplicationContext(), "firebaseAuthWithGoogle::onComplete::task didn't work successful", Toast.LENGTH_SHORT).show();
-                        }
+                .addOnCompleteListener(this, task -> {
+                    if (task.isSuccessful()) {
+                        Toast.makeText(getApplicationContext(), "firebaseAuthWithGoogle::onComplete::task worked successful", Toast.LENGTH_SHORT).show();
+                        //Log.d("TAG", "signInWithCredential:success");
+                        checkIfUserExists(acct.getEmail(), exists -> {
+                            if (exists) {
+                                startActivity(new Intent(SignupActivity.this, LovelyPetsApplicationActivity.class));
+                            } else {
+                                startActivity(new Intent(SignupActivity.this, InputDataForUserActivity.class));
+                            }
+                        });
+                    } else {
+                        // If sign in fails, display a message to the user.
+                        Toast.makeText(getApplicationContext(), "firebaseAuthWithGoogle::onComplete::task didn't work successful", Toast.LENGTH_SHORT).show();
                     }
                 });
     }

@@ -1,18 +1,13 @@
-package com.example.lovelypets.exit_alert_dialog;
+package com.example.lovelypets.exitalertdialog;
 
 import static androidx.core.app.ActivityCompat.finishAffinity;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -32,12 +27,7 @@ public class ExitDialogActivity extends Dialog {
 
         cancel = findViewById(R.id.cancel_text);
         close = findViewById(R.id.close_text);
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
+        cancel.setOnClickListener(v -> dismiss());
 
         close.setOnClickListener(v -> finishAffinity(Objects.requireNonNull(getOwnerActivity())));
 
