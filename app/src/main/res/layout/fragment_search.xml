@@ -86,7 +86,9 @@
             app:layout_constraintBottom_toBottomOf="@+id/scrollView2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/category_name" />
+            app:layout_constraintTop_toBottomOf="@+id/category_name"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            tools:listitem="@layout/product_item_for_category_detail"/>
 
     </androidx.core.widget.NestedScrollView>
 </LinearLayout>

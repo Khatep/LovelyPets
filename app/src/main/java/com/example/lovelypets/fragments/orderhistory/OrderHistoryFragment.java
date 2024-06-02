@@ -43,7 +43,6 @@ public class OrderHistoryFragment extends Fragment implements OnOrderClickListen
     private DatabaseReference ordersRef, usersReference;
     private final FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private String[] userId = {"default"};
-    private Toolbar toolbar;
     public OrderHistoryFragment() {
         // Required empty public constructor
     }
@@ -73,7 +72,6 @@ public class OrderHistoryFragment extends Fragment implements OnOrderClickListen
                     if (snapshot.exists() && Objects.equals(snapshot.child("email").getValue(), userEmail)) {
                         userId[0] = snapshot.getKey();
                         assert userId[0] != null;
-                        Log.d("User ID", userId[0]);
                         loadOrderList();
                         setOrderRecycleView();
                         return;
@@ -83,7 +81,7 @@ public class OrderHistoryFragment extends Fragment implements OnOrderClickListen
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                //TODO
             }
         });
         return view;
@@ -132,7 +130,7 @@ public class OrderHistoryFragment extends Fragment implements OnOrderClickListen
 
                         @Override
                         public void onCancelled(@NonNull DatabaseError error) {
-
+                            //TODO
                         }
                     });
                 }
