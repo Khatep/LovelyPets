@@ -140,11 +140,11 @@
     <string name="filter">Filter</string>
     <string name="filter_features">Filter features:</string>
     <string name="foods">Foods</string>
-    <string name="hygiene_cosmetics">Hygiene, cosmetics</string>
+    <string name="hygiene">Hygiene</string>
     <string name="cages_feeders_bowls">Cages, feeders, bowls</string>
-    <string name="fillers_hay_sawdusters">Fillers, hay, sawdusters</string>
+    <string name="fillers">Fillers</string>
     <string name="toys">Toys</string>
-    <string name="medicines_and_vitamins">Medicines and vitamins</string>
+    <string name="medicines">Medicines</string>
     <string name="order_status">Order Status</string>
     <string name="order_number">order №number</string>
     <string name="order_detail">Order detail</string>
@@ -157,4 +157,18 @@
     <string name="total_price">Total price</string>
     <string name="payment_method">Payment method</string>
     <string name="our_partners">Our partners</string>
+    <string name="popular">Popular</string>
+    <string name="why_you_have_to_chose_us">Why you have to chose us?</string>
+    <string name="equipment">Equipment</string>
+    <string name="pets">Pets</string>
+    <string name="leash">Leash</string>
+    <string name="apply">Apply</string>
+    <string name="high_quality_products">High-quality products</string>
+    <string name="high_quality_products_answer">We offer only tested and certified products for your pets, so you can be sure of their safety and quality.</string>
+    <string name="convenient_service_question">Convenient service question</string>
+    <string name="convenient_service_question_answer">Our app is intuitive and easy to use, allowing you to quickly find and order everything you need for your pets from home.</string>
+    <string name="discounts_from_partners_question">Discounts from partners</string>
+    <string name="discounts_from_partners_answer">We partner with leading manufacturers and stores to offer you exclusive discounts and promotions on a wide range of products.</string>
+    <string name="support_24_7_question">Support 24/7</string>
+    <string name="support_24_7_answer">Our support team is available around the clock to help you with any questions and provide the best experience using our app.</string>
 </resources>

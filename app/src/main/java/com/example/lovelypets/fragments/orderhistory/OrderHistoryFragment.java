@@ -116,8 +116,8 @@ public class OrderHistoryFragment extends Fragment implements OnOrderClickListen
                                         Objects.requireNonNull(productSnapshot.child("name").getValue()).toString(),
                                         Objects.requireNonNull(productSnapshot.child("description").getValue()).toString(),
                                         Objects.requireNonNull(productSnapshot.child("categoryId").getValue()).toString(),
-                                        Long.parseLong(Objects.requireNonNull(productSnapshot.child("price").getValue()).toString())
-                                        //ProductType.valueOf(Objects.requireNonNull(productSnapshot.child("productType").getValue()).toString())
+                                        Long.parseLong(Objects.requireNonNull(productSnapshot.child("price").getValue()).toString()),
+                                        ProductType.valueOf(Objects.requireNonNull(productSnapshot.child("productType").getValue()).toString())
                                 );
                                 products.add(product);
                             }

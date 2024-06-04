@@ -2,6 +2,7 @@ package com.example.lovelypets.fragments;
 
 import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import androidx.appcompat.widget.SearchView;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -25,45 +27,57 @@ import com.example.lovelypets.eventlisteners.OnProductClickListener;
 import com.example.lovelypets.exitalertdialog.ExitDialogActivity;
 import com.example.lovelypets.fragments.productdetail.ProductDetailFragment;
 import com.example.lovelypets.models.Product;
+import com.example.lovelypets.viewmodels.SearchViewModel;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class SearchFragment extends Fragment implements OnProductClickListener, OnBackPressedListener {
     private SearchView searchView;
-    private List<Product> searchProductList;
+    private List<Product> searchProductList = new ArrayList<>();
     private RecyclerView searchRecycleView;
-    private DatabaseReference productsReference;
     private ProductAdapterForCategoryDetailFragment productAdapterForCategoryDetailFragment;
-    private final FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private TextView dataNotFoundTextView;
     private ImageButton filterImageButton;
     private BottomSheetDialog bottomSheetDialog;
+    private SearchViewModel searchViewModel;
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         View view = inflater.inflate(R.layout.fragment_search, container, false);
         searchView = view.findViewById(R.id.searchView);
         searchView.clearFocus();
 
         filterImageButton = view.findViewById(R.id.filter_image);
         dataNotFoundTextView = view.findViewById(R.id.data_not_found_text);
-
         searchRecycleView = view.findViewById(R.id.search_list_view);
-        searchProductList = loadListOfProducts();
+
+        searchViewModel = new ViewModelProvider(this).get(SearchViewModel.class);
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);  // 2 columns
         searchRecycleView.setLayoutManager(gridLayoutManager);
 
-        productAdapterForCategoryDetailFragment= new ProductAdapterForCategoryDetailFragment(getContext(), searchProductList, this);
+        productAdapterForCategoryDetailFragment = new ProductAdapterForCategoryDetailFragment(getContext(), searchProductList, this);
         searchRecycleView.setAdapter(productAdapterForCategoryDetailFragment);
+
+        // Observe the product list from the ViewModel
+        searchViewModel.getProducts().observe(getViewLifecycleOwner(), products -> {
+            searchProductList = products;
+            productAdapterForCategoryDetailFragment.setProducts(products);
+        });
+
+        searchViewModel.getFilteredProducts().observe(getViewLifecycleOwner(), filteredProducts -> {
+            if (filteredProducts.isEmpty()) {
+                dataNotFoundTextView.setVisibility(View.VISIBLE);
+            } else {
+                dataNotFoundTextView.setVisibility(View.GONE);
+            }
+            productAdapterForCategoryDetailFragment.setProducts(filteredProducts);
+        });
+
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -72,96 +86,78 @@ public class SearchFragment extends Fragment implements OnProductClickListener, 
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                filterList(newText, ProductType.ALL);
+                searchViewModel.filterProducts(newText);
                 return false;
             }
         });
 
-        filterImageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                filterImageButton.setColorFilter(ContextCompat.getColor(requireContext(), R.color.light_red_color), PorterDuff.Mode.SRC_IN);
-                final View dialogView = getLayoutInflater().inflate(R.layout.bottom_sheet_filter, null);
-                bottomSheetDialog = new BottomSheetDialog(requireContext());
-                bottomSheetDialog.setContentView(dialogView);
+        filterImageButton.setOnClickListener(v -> {
+            filterImageButton.setColorFilter(ContextCompat.getColor(requireContext(), R.color.light_red_color), PorterDuff.Mode.SRC_IN);
+            final View dialogView = getLayoutInflater().inflate(R.layout.bottom_sheet_filter, null);
+            bottomSheetDialog = new BottomSheetDialog(requireContext());
+            bottomSheetDialog.setContentView(dialogView);
 
-                CheckBox checkBoxFood = dialogView.findViewById(R.id.checkbox_food);
-                //TODO set filter
-                bottomSheetDialog.show();
-            }
+            CheckBox checkBoxFood = dialogView.findViewById(R.id.checkbox_food);
+            CheckBox checkBoxCagesFeedersBowls = dialogView.findViewById(R.id.checkbox_cages_feeders_bowls);
+            CheckBox checkBoxFillers = dialogView.findViewById(R.id.checkbox_fillers);
+            CheckBox checkBoxToys = dialogView.findViewById(R.id.checkbox_toys);
+            CheckBox checkBoxEquipment = dialogView.findViewById(R.id.checkbox_equipment);
+            CheckBox checkBoxMedicines = dialogView.findViewById(R.id.checkbox_medicines);
+            CheckBox checkBoxPets = dialogView.findViewById(R.id.checkbox_pets);
+            CheckBox checkBoxLeash = dialogView.findViewById(R.id.checkbox_leash);
+
+            checkBoxFood.setChecked(searchViewModel.isCheckBoxFoodChecked());
+            checkBoxCagesFeedersBowls.setChecked(searchViewModel.isCheckBoxCagesFeedersBowlsChecked());
+            checkBoxFillers.setChecked(searchViewModel.isCheckBoxFillersChecked());
+            checkBoxToys.setChecked(searchViewModel.isCheckBoxToysChecked());
+            checkBoxEquipment.setChecked(searchViewModel.isCheckBoxEquipmentChecked());
+            checkBoxMedicines.setChecked(searchViewModel.isCheckBoxMedicinesChecked());
+            checkBoxPets.setChecked(searchViewModel.isCheckBoxPetsChecked());
+            checkBoxLeash.setChecked(searchViewModel.isCheckBoxLeashChecked());
+
+            bottomSheetDialog.show();
+
+            dialogView.findViewById(R.id.button_apply_filter).setOnClickListener(v1 -> {
+                List<ProductType> selectedTypes = new ArrayList<>();
+                if (checkBoxFood.isChecked()) selectedTypes.add(ProductType.FOODS);
+                if (checkBoxCagesFeedersBowls.isChecked()) selectedTypes.add(ProductType.CAGES_FEEDERS_BOWLS);
+                if (checkBoxFillers.isChecked()) selectedTypes.add(ProductType.FILLERS);
+                if (checkBoxToys.isChecked()) selectedTypes.add(ProductType.TOYS);
+                if (checkBoxEquipment.isChecked()) selectedTypes.add(ProductType.EQUIPMENT);
+                if (checkBoxMedicines.isChecked()) selectedTypes.add(ProductType.MEDICINES);
+                if (checkBoxPets.isChecked()) selectedTypes.add(ProductType.PET);
+                if (checkBoxLeash.isChecked()) selectedTypes.add(ProductType.LEASH);
+
+                if (selectedTypes.isEmpty()) {
+                    selectedTypes.add(ProductType.ALL);
+                    filterImageButton.setColorFilter(ContextCompat.getColor(requireContext(), R.color.weak_black), PorterDuff.Mode.SRC_IN);
+                }
+
+                searchViewModel.setFilterSelections(
+                        checkBoxFood.isChecked(),
+                        checkBoxCagesFeedersBowls.isChecked(),
+                        checkBoxFillers.isChecked(),
+                        checkBoxToys.isChecked(),
+                        checkBoxEquipment.isChecked(),
+                        checkBoxMedicines.isChecked(),
+                        checkBoxPets.isChecked(),
+                        checkBoxLeash.isChecked()
+                );
+
+                searchViewModel.applyFilters(selectedTypes);
+
+                bottomSheetDialog.dismiss();
+            });
         });
-
 
         return view;
-    }
-
-    private void filterList(String newText, ProductType... productType) {
-        List<Product> filteredProductList = new ArrayList<>();
-
-        try {
-            for (Product p : searchProductList) {
-                if (p.getName().toLowerCase().contains(newText.toLowerCase())) {
-                    filteredProductList.add(p);
-                }
-            }
-
-            if (filteredProductList.isEmpty()) { //|| !searchProductList.isEmpty()
-                System.out.println(searchProductList.toString());
-                productAdapterForCategoryDetailFragment.clearList();
-                dataNotFoundTextView.setVisibility(View.VISIBLE);
-
-                if (searchProductList.isEmpty()) {
-                    searchProductList = loadListOfProducts();
-                    productAdapterForCategoryDetailFragment.setProducts(searchProductList);
-                    dataNotFoundTextView.setVisibility(View.GONE);
-                }
-            } else {
-                productAdapterForCategoryDetailFragment.setProducts(filteredProductList);
-                dataNotFoundTextView.setVisibility(View.GONE);
-            }
-        } catch (NullPointerException e) {
-            return;
-        }
-    }
-
-    private List<Product> loadListOfProducts() {
-        List<Product> productList = new ArrayList<>();
-        productsReference = firebaseDatabase.getReference().child("products");
-        productsReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                productList.clear();
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        Product product;
-                        product = new Product(
-                                Objects.requireNonNull(snapshot.child("iconName").getValue()).toString(),
-                                Objects.requireNonNull(snapshot.child("name").getValue()).toString(),
-                                Objects.requireNonNull(snapshot.child("description").getValue()).toString(),
-                                Objects.requireNonNull(snapshot.child("categoryId").getValue()).toString(),
-                                Long.parseLong((String.valueOf(snapshot.child("price").getValue()))));
-
-                        productList.add(product);
-                    }
-
-                if (searchRecycleView != null && searchRecycleView.getAdapter() != null) {
-                    searchRecycleView.getAdapter().notifyDataSetChanged();
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                // Handle possible errors.
-            }
-        });
-
-        return productList;
     }
 
     @Override
     public void onProductClicked(Product product) {
         ProductDetailFragment productDetailFragment = ProductDetailFragment.newInstance(
                 product.getIconName(), product.getName(), product.getDescription(),
-                product.getCategoryId(), product.getPrice());
+                product.getCategoryId(), product.getPrice(), product.getProductType());
         FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container, productDetailFragment);
         transaction.addToBackStack(null);

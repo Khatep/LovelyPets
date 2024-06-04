@@ -24,7 +24,7 @@ public class ProductAdapterForCategoryDetailFragment extends RecyclerView.Adapte
     private boolean isLiked = false;
     private final OnProductClickListener onProductClickListener;
 
-    public ProductAdapterForCategoryDetailFragment(Context context, List<Product> products, OnProductClickListener onProductClickListener ) {
+    public ProductAdapterForCategoryDetailFragment(Context context, List<Product> products, OnProductClickListener onProductClickListener) {
         this.context = context;
         this.products = products;
         this.onProductClickListener = onProductClickListener;

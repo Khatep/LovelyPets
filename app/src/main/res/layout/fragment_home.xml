@@ -1,14 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+
+<androidx.core.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/milk_color"
+    tools:context=".fragments.home.HomeFragment"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:layout_marginBottom="60dp">
+
+<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F3E9D2"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".fragments.home.HomeFragment">
+    android:orientation="vertical">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/partners_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="70dp">
@@ -32,7 +40,7 @@
             app:layout_constraintVertical_bias="0.0" />
 
         <androidx.core.widget.NestedScrollView
-            android:id="@+id/nested_scroll_view"
+            android:id="@+id/nested_scroll_view_partners"
             android:layout_width="match_parent"
             android:layout_height="110dp"
             android:layout_marginTop="10dp"
@@ -49,14 +57,182 @@
                 android:id="@+id/partners_list_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
+                android:layout_marginStart="10dp"
                 android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintBottom_toBottomOf="@+id/scrollView2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/category_name" />
+                app:layout_constraintTop_toBottomOf="@+id/nested_scroll_view_partners" />
 
         </androidx.core.widget.NestedScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/popular_products"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:fontFamily="@font/comfortaa"
+            android:gravity="start"
+            android:text="@string/popular"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.053"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/nested_scroll_view_products"
+            android:layout_width="match_parent"
+            android:layout_height="270dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/popular_products_background"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/popular_products"
+            app:layout_constraintVertical_bias="0.0">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/products_list_view"
+                android:layout_width="340dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="@+id/scrollView2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/nested_scroll_view_partners"
+                tools:listitem="@layout/product_item_for_category_detail" />
+
+        </androidx.core.widget.NestedScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/titleTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/why_you_have_to_chose_us"
+        android:textSize="20sp"
+        android:fontFamily="@font/comfortaa"
+        android:textStyle="bold"
+        android:paddingBottom="8dp" />
+
+    <TextView
+        android:id="@+id/high_quality_products_question"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="@string/high_quality_products"
+        android:textSize="18sp"
+        android:textColor="@color/light_red_color"
+        android:fontFamily="@font/comfortaa"
+        android:clickable="true"
+        android:focusable="true" />
+
+    <TextView
+        android:id="@+id/high_quality_products_question_answer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/high_quality_products_answer"
+        android:textSize="16sp"
+        android:fontFamily="@font/comfortaa"
+        android:visibility="gone"
+        android:paddingTop="8dp"
+        android:layout_marginBottom="20dp"/>
+
+    <TextView
+        android:id="@+id/convenient_service_question"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="@string/convenient_service_question"
+        android:textSize="18sp"
+        android:textColor="@color/light_red_color"
+        android:fontFamily="@font/comfortaa"
+        android:clickable="true"
+        android:focusable="true" />
+
+    <TextView
+        android:id="@+id/convenient_service_answer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/convenient_service_question_answer"
+        android:textSize="16sp"
+        android:fontFamily="@font/comfortaa"
+        android:visibility="gone"
+        android:paddingTop="8dp"
+        android:layout_marginBottom="20dp"/>
+
+    <TextView
+        android:id="@+id/discounts_from_partners_question"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="@string/discounts_from_partners_question"
+        android:textSize="18sp"
+        android:textColor="@color/light_red_color"
+        android:fontFamily="@font/comfortaa"
+        android:clickable="true"
+        android:focusable="true" />
+
+    <TextView
+        android:id="@+id/discounts_from_partners_answer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/convenient_service_question_answer"
+        android:textSize="16sp"
+        android:fontFamily="@font/comfortaa"
+        android:visibility="gone"
+        android:paddingTop="8dp"
+        android:layout_marginBottom="20dp"/>
+
+    <TextView
+        android:id="@+id/support_24_7_question"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="@string/support_24_7_question"
+        android:textSize="18sp"
+        android:textColor="@color/light_red_color"
+        android:fontFamily="@font/comfortaa"
+        android:clickable="true"
+        android:focusable="true" />
+
+    <TextView
+        android:id="@+id/support_24_7_answer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/support_24_7_answer"
+        android:textSize="16sp"
+        android:fontFamily="@font/comfortaa"
+        android:visibility="gone"
+        android:paddingTop="8dp"
+        android:layout_marginBottom="20dp"/>
 </LinearLayout>
+</androidx.core.widget.NestedScrollView>

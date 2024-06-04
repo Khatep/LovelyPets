@@ -21,15 +21,6 @@ public class Product {
         this.productType = productType;
     }
 
-    public Product(String iconName, String name, String description, String categoryId, Long price) {
-        this.iconName = iconName;
-        this.name = name;
-        this.description = description;
-        this.categoryId = categoryId;
-        this.price = price;
-    }
-
-
     public String getIconName() {
         return iconName;
     }

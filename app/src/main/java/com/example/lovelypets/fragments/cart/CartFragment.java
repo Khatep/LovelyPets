@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.lovelypets.R;
 import com.example.lovelypets.adapters.ProductAdapterForCartFragment;
+import com.example.lovelypets.enums.ProductType;
 import com.example.lovelypets.eventlisteners.OnBackPressedListener;
 import com.example.lovelypets.eventlisteners.OnDeleteIconClickListener;
 import com.example.lovelypets.eventlisteners.OnProductClickListener;
@@ -115,8 +116,9 @@ public class CartFragment extends Fragment implements OnProductClickListener, On
                             Objects.requireNonNull(snapshot.child("name").getValue()).toString(),
                             Objects.requireNonNull(snapshot.child("description").getValue()).toString(),
                             Objects.requireNonNull(snapshot.child("categoryId").getValue()).toString(),
-                            Long.parseLong((String.valueOf(snapshot.child("price").getValue()))));
-
+                            Long.parseLong((String.valueOf(snapshot.child("price").getValue()))),
+                            ProductType.valueOf(Objects.requireNonNull(snapshot.child("productType").getValue()).toString())
+                    );
                     productList.add(product);
                     totalPrice += product.getPrice();
                 }
@@ -155,7 +157,7 @@ public class CartFragment extends Fragment implements OnProductClickListener, On
     public void onProductClicked(Product product) {
         ProductDetailFragment productDetailFragment = ProductDetailFragment.newInstance(
                 product.getIconName(), product.getName(), product.getDescription(),
-                product.getCategoryId(), product.getPrice());
+                product.getCategoryId(), product.getPrice(), product.getProductType());
 
         FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container, productDetailFragment);

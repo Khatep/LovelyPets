@@ -113,7 +113,7 @@ public class OrderHistoryDetailFragment extends Fragment implements OnProductCli
     public void onProductClicked(Product product) {
         ProductDetailFragment productDetailFragment = ProductDetailFragment.newInstance(
                 product.getIconName(), product.getName(), product.getDescription(),
-                product.getCategoryId(), product.getPrice());
+                product.getCategoryId(), product.getPrice(), product.getProductType());
 
         FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container, productDetailFragment);

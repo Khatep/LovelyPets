@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.lovelypets.R;
+import com.example.lovelypets.enums.ProductType;
 import com.example.lovelypets.models.Product;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -35,11 +36,13 @@ public class ProductDetailFragment extends Fragment {
     private String description;
     private String categoryId;
     private Long price;
+    private ProductType productType;
     private static final String ARG_ICON_NAME = "icon_name";
     private static final String ARG_NAME = "name";
     private static final String ARG_DESCRIPTION = "description";
     private static final String ARG_CATEGORY_ID = "category_id";
     private static final String ARG_PRICE = "price";
+    private static final String ARG_PRODUCT_TYPE = "product_type";
     private boolean isLiked = false;
     private final String[] userId = {"default"};
     private final FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
@@ -56,7 +59,7 @@ public class ProductDetailFragment extends Fragment {
      *
      * @return A new instance of fragment ProductDetailFragment.
      */
-    public static ProductDetailFragment newInstance(String iconName, String name, String description, String categoryId, Long price) {
+    public static ProductDetailFragment newInstance(String iconName, String name, String description, String categoryId, Long price, ProductType productType) {
         ProductDetailFragment fragment = new ProductDetailFragment();
         Bundle args = new Bundle();
         args.putString(ARG_ICON_NAME, iconName);
@@ -64,6 +67,7 @@ public class ProductDetailFragment extends Fragment {
         args.putString(ARG_DESCRIPTION, description);
         args.putString(ARG_CATEGORY_ID, categoryId);
         args.putLong(ARG_PRICE, price);
+        args.putString(ARG_PRODUCT_TYPE, String.valueOf(productType));
         fragment.setArguments(args);
         return fragment;
     }
@@ -76,6 +80,7 @@ public class ProductDetailFragment extends Fragment {
             description = getArguments().getString(ARG_DESCRIPTION);
             categoryId = getArguments().getString(ARG_CATEGORY_ID);
             price = getArguments().getLong(ARG_PRICE);
+            productType = ProductType.valueOf(getArguments().getString(ARG_PRODUCT_TYPE));
         }
     }
 
@@ -120,10 +125,9 @@ public class ProductDetailFragment extends Fragment {
     public void addProductToCart(String userId) {
         Log.d("userId", userId);
         DatabaseReference cartRef = FirebaseDatabase.getInstance().getReference("users").child(userId).child("cart");
-        Product product = new Product(iconName, name, description, categoryId, price);
+        Product product = new Product(iconName, name, description, categoryId, price, productType);
         cartRef.push().setValue(product).addOnSuccessListener(unused -> {
             Log.d("add product to cart", "Successful");
-            return;
         }).addOnFailureListener(e -> {
             Log.d("onFailure","Failure");
             e.printStackTrace();

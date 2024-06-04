@@ -70,29 +70,6 @@
                 android:fontFamily="@font/comfortaa"
                 android:textColor="@color/black"
                 android:textSize="15sp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <CheckBox
-                android:id="@+id/checkbox_hygiene_cosmetics"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:textSize="12sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:fontFamily="@font/comfortaa"
-                android:text="@string/hygiene_cosmetics"
-                android:textColor="@color/black"
-                android:textSize="15sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -123,7 +100,7 @@
             android:orientation="horizontal">
 
             <CheckBox
-            android:id="@+id/checkbox_fillers_hay_sawdusters"
+            android:id="@+id/checkbox_fillers"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
@@ -134,10 +111,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:fontFamily="@font/comfortaa"
-                android:text="@string/fillers_hay_sawdusters"
+                android:text="@string/fillers"
                 android:textColor="@color/black"
                 android:textSize="15sp" />
-
         </LinearLayout>
 
         <LinearLayout
@@ -160,7 +136,6 @@
                 android:text="@string/toys"
                 android:textColor="@color/black"
                 android:textSize="15sp" />
-
         </LinearLayout>
 
         <LinearLayout
@@ -169,7 +144,7 @@
             android:orientation="horizontal">
 
             <CheckBox
-                android:id="@+id/checkbox_medicines_and_vitamins"
+                android:id="@+id/checkbox_equipment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
@@ -180,10 +155,96 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:fontFamily="@font/comfortaa"
-                android:text="@string/medicines_and_vitamins"
+                android:text="@string/equipment"
                 android:textColor="@color/black"
                 android:textSize="15sp" />
-
         </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/checkbox_medicines"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:fontFamily="@font/comfortaa"
+                android:text="@string/medicines"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/checkbox_pets"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:fontFamily="@font/comfortaa"
+                android:text="@string/pets"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/checkbox_leash"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:fontFamily="@font/comfortaa"
+                android:text="@string/leash"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_apply_filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:backgroundTint="@color/light_red_color"
+            android:fontFamily="@font/coiny"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:text="@string/apply"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:cornerRadius="12dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.556"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/product_price"
+            app:layout_constraintVertical_bias="1.0" />
     </LinearLayout>
 </LinearLayout>

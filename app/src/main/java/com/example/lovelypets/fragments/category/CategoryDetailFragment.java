@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.example.lovelypets.R;
 import com.example.lovelypets.adapters.ProductAdapterForCategoryDetailFragment;
+import com.example.lovelypets.enums.ProductType;
 import com.example.lovelypets.eventlisteners.OnProductClickListener;
 import com.example.lovelypets.fragments.productdetail.ProductDetailFragment;
 import com.example.lovelypets.models.Product;
@@ -34,6 +35,9 @@ public class CategoryDetailFragment extends Fragment implements OnProductClickLi
     private static final String ARG_ICON_ID = "icon_id";
     private static final String ARG_NAME = "name";
     private static final String ARG_DESCRIPTION = "description";
+    private int iconId;
+    private String name;
+    private String description;
     private ImageView backImageView;
     private final FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private DatabaseReference productsReference;
@@ -53,9 +57,9 @@ public class CategoryDetailFragment extends Fragment implements OnProductClickLi
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            int iconId = getArguments().getInt(ARG_ICON_ID);
-            String name = getArguments().getString(ARG_NAME);
-            String description = getArguments().getString(ARG_DESCRIPTION);
+            iconId = getArguments().getInt(ARG_ICON_ID);
+            name = getArguments().getString(ARG_NAME);
+            description = getArguments().getString(ARG_DESCRIPTION);
         }
     }
 
@@ -74,13 +78,12 @@ public class CategoryDetailFragment extends Fragment implements OnProductClickLi
         });
 
         if (getArguments() != null) {
-            int iconId = getArguments().getInt(ARG_ICON_ID);
-            String name = getArguments().getString(ARG_NAME);
-            String description = getArguments().getString(ARG_DESCRIPTION);
+            iconId = getArguments().getInt(ARG_ICON_ID);
+            name = getArguments().getString(ARG_NAME);
+            description = getArguments().getString(ARG_DESCRIPTION);
 
             imageView.setImageResource(iconId);
             nameView.setText(name);
-            //descriptionView.setText(description);
         }
 
         RecyclerView recyclerView = view.findViewById(R.id.recyclerview);
@@ -112,8 +115,9 @@ public class CategoryDetailFragment extends Fragment implements OnProductClickLi
                                     Objects.requireNonNull(snapshot.child("name").getValue()).toString(),
                                     Objects.requireNonNull(snapshot.child("description").getValue()).toString(),
                                     Objects.requireNonNull(snapshot.child("categoryId").getValue()).toString(),
-                                    Long.parseLong((String.valueOf(snapshot.child("price").getValue()))));
-
+                                    Long.parseLong((String.valueOf(snapshot.child("price").getValue()))),
+                                    ProductType.valueOf(Objects.requireNonNull(snapshot.child("productType").getValue()).toString())
+                            );
                             productList.add(product);
                         }
                     } catch (NullPointerException e) {
@@ -141,7 +145,7 @@ public class CategoryDetailFragment extends Fragment implements OnProductClickLi
     public void onProductClicked(Product product) {
         ProductDetailFragment productDetailFragment = ProductDetailFragment.newInstance(
                 product.getIconName(), product.getName(), product.getDescription(),
-                product.getCategoryId(), product.getPrice());
+                product.getCategoryId(), product.getPrice(), product.getProductType());
 
         FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container, productDetailFragment);
