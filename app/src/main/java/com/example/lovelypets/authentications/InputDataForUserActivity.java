@@ -188,9 +188,10 @@ public class InputDataForUserActivity extends AppCompatActivity {
         String password = getPassword();
         AuthProvider authProvider = getAuthProvider(password);
 
-        String nameAndSurname = getNameAndSurname();
+        String nameAndSurname =  Objects.requireNonNull(nameAndSurnameEditText.getText()).toString().trim() + " ";
         String name = getFirstName(nameAndSurname);
         String surname = getLastName(nameAndSurname);
+
         String birthDate = Objects.requireNonNull(birthDateEditText.getText()).toString().trim();
         String phoneNumber = getPhoneNumber();
         Gender gender = getGender();
@@ -258,14 +259,6 @@ public class InputDataForUserActivity extends AppCompatActivity {
         return DEFAULT_PASSWORD.equals(password) ? AuthProvider.GOOGLE : AuthProvider.EMAIL;
     }
 
-    /**
-     * Retrieves the name and surname from the EditText.
-     *
-     * @return The full name and surname of the user.
-     */
-    private String getNameAndSurname() {
-        return Objects.requireNonNull(nameAndSurnameEditText.getText()).toString().trim();
-    }
 
     /**
      * Extracts the first name from the full name.
@@ -284,8 +277,10 @@ public class InputDataForUserActivity extends AppCompatActivity {
      * @return The last name of the user.
      */
     private String getLastName(String nameAndSurname) {
-        String surname = nameAndSurname.substring(nameAndSurname.indexOf(" ") + 1);
-        return surname.isEmpty() ? " " : surname;
+        String surname = " ";
+        if (nameAndSurname.substring(nameAndSurname.indexOf(" ") + 1).length() > 0)
+            surname = nameAndSurname.substring(nameAndSurname.indexOf(" ") + 1) ;
+        return surname;
     }
 
     /**
