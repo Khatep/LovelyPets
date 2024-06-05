@@ -1,5 +1,7 @@
 package com.example.lovelypets.authentications;
 
+import static androidx.fragment.app.FragmentManager.TAG;
+
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -7,6 +9,7 @@ import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.style.StyleSpan;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -220,6 +223,7 @@ public class SignupActivity extends AppCompatActivity implements VerificationCod
      * Initiates the Google Sign-In process.
      */
     private void authenticationWithGoogle() {
+        showProgress(true);
         Intent signInIntent = googleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, 1000);
     }
@@ -243,6 +247,8 @@ public class SignupActivity extends AppCompatActivity implements VerificationCod
             firebaseAuthWithGoogle(account);
         } catch (ApiException e) {
             Toast.makeText(getApplicationContext(), "Google Sign-In failed", Toast.LENGTH_SHORT).show();
+            showProgress(false);
+            Log.e("Sign Up", "Google sign up failed", e);
         }
     }
 
@@ -260,10 +266,12 @@ public class SignupActivity extends AppCompatActivity implements VerificationCod
                         navigateToActivity(LovelyPetsApplicationActivity.class);
                     } else {
                         navigateToActivity(InputDataForUserActivity.class);
+                        showProgress(false);
                     }
                 });
             } else {
                 Toast.makeText(getApplicationContext(), "Firebase Authentication failed", Toast.LENGTH_SHORT).show();
+                showProgress(false);
             }
         });
     }
