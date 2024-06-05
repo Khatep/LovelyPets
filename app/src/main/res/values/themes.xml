@@ -30,4 +30,21 @@
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">50%</item>
     </style>
+
+    <style name="welcome_to_">
+        <item name="android:textSize">36sp</item>
+        <item name="android:textColor">#F3E9D2</item>
+    </style>
+    <style name="we_are_offe">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">#F3E9D2</item>
+    </style>
+    <style name="already_have">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">#F3E9D2</item>
+    </style>
+    <style name="sign_up">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">#E5938C</item>
+    </style>
 </resources>
