@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F3E9D2"
-    tools:context=".fragments.ProfileFragment">
+    tools:context=".fragments.profile.ProfileFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/avatar_layout"
@@ -40,8 +40,8 @@
             android:layout_marginTop="65sp"
             android:contentDescription="@string/cat"
             android:padding="5dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_baseline_woman"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_baseline_man"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"

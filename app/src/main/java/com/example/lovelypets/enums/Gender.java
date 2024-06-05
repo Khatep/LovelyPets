@@ -1,5 +1,16 @@
 package com.example.lovelypets.enums;
 
+/**
+ * Enum representing different genders of users.
+ */
 public enum Gender {
-    MALE, FEMALE
+    /**
+     * Represents a male gender.
+     */
+    MALE,
+
+    /**
+     * Represents a female gender.
+     */
+    FEMALE
 }

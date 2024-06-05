@@ -1,12 +1,8 @@
 package com.example.lovelypets;
 
-
-
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.TextView;
 
@@ -14,22 +10,19 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.MenuItemCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
 import com.example.lovelypets.authentications.LoginActivity;
 import com.example.lovelypets.enums.AuthProvider;
-import com.example.lovelypets.enums.ProductType;
 import com.example.lovelypets.enums.Gender;
 import com.example.lovelypets.eventlisteners.OnBackPressedListener;
-import com.example.lovelypets.fragments.AboutUsFragment;
+import com.example.lovelypets.fragments.aboutus.AboutUsFragment;
+import com.example.lovelypets.fragments.profile.ProfileFragment;
+import com.example.lovelypets.fragments.search.SearchFragment;
 import com.example.lovelypets.fragments.cart.CartFragment;
 import com.example.lovelypets.fragments.category.CategoryFragment;
 import com.example.lovelypets.fragments.home.HomeFragment;
-import com.example.lovelypets.fragments.ProfileFragment;
-import com.example.lovelypets.fragments.SearchFragment;
-import com.example.lovelypets.models.Product;
 import com.example.lovelypets.models.User;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
@@ -44,19 +37,18 @@ import com.google.firebase.database.ValueEventListener;
 import java.time.LocalDate;
 import java.util.Objects;
 
+/**
+ * The main activity class responsible for managing the application's navigation and user authentication.
+ */
 public class LovelyPetsApplicationActivity extends AppCompatActivity {
-    private FirebaseAuth mAuth;
-    private FirebaseUser userAuth;
     private User currentUser;
     private final FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-    private DatabaseReference currentUserRef;
-    private DatabaseReference usersRef;
-    private HomeFragment homeFragment = new HomeFragment();
-    private CategoryFragment categoryFragment = new CategoryFragment();
-    private SearchFragment searchFragment = new SearchFragment();
-    private CartFragment cartFragment = new CartFragment();
-    private ProfileFragment profileFragment = new ProfileFragment();
-    private AboutUsFragment aboutUsFragment = new AboutUsFragment();
+    private final HomeFragment homeFragment = new HomeFragment();
+    private final CategoryFragment categoryFragment = new CategoryFragment();
+    private final SearchFragment searchFragment = new SearchFragment();
+    private final CartFragment cartFragment = new CartFragment();
+    private final ProfileFragment profileFragment = new ProfileFragment();
+    private final AboutUsFragment aboutUsFragment = new AboutUsFragment();
     private NavigationView burgerNavigationView;
     private BottomNavigationView bottomNavigationView;
     private Toolbar toolbar;
@@ -72,8 +64,8 @@ public class LovelyPetsApplicationActivity extends AppCompatActivity {
                 .replace(R.id.fragment_container, homeFragment)
                 .commit();
 
-        mAuth = FirebaseAuth.getInstance();
-        userAuth = mAuth.getCurrentUser();
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        FirebaseUser userAuth = mAuth.getCurrentUser();
 
         setupBurgerNavigationMenu();
         setupBottomNavigationMenu();
@@ -84,12 +76,15 @@ public class LovelyPetsApplicationActivity extends AppCompatActivity {
                 findUserByEmail(email);
             }
         }
-
-        //createProducts();
     }
 
+    /**
+     * Retrieves user details from Firebase Database based on the provided email.
+     *
+     * @param userEmail The email of the user whose details are to be retrieved.
+     */
     private void findUserByEmail(String userEmail) {
-        usersRef = firebaseDatabase.getReference().child("users");
+        DatabaseReference usersRef = firebaseDatabase.getReference().child("users");
         usersRef.orderByChild("email").equalTo(userEmail).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -98,8 +93,8 @@ public class LovelyPetsApplicationActivity extends AppCompatActivity {
                         String userId = userSnapshot.getKey();
                         if (userId != null) {
                             getUserDetails(userId);
+                            break;  // We found the user, no need to continue the loop
                         }
-                        break;  // We found the user, no need to continue the loop
                     }
                 } else {
                     Log.d("Tag", "User not found");
@@ -113,21 +108,27 @@ public class LovelyPetsApplicationActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Retrieves detailed user information from Firebase Database.
+     *
+     * @param userId The ID of the user whose details are to be retrieved.
+     */
     private void getUserDetails(String userId) {
-        currentUserRef = firebaseDatabase.getReference().child("users").child(userId);
+        DatabaseReference currentUserRef = firebaseDatabase.getReference().child("users").child(userId);
         currentUserRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
+                    String birthDate = "birthDate";
                     currentUser = new User(
                             Objects.requireNonNull(snapshot.child("email").getValue()).toString(),
                             Objects.requireNonNull(snapshot.child("password").getValue()).toString(),
                             Objects.requireNonNull(snapshot.child("name").getValue()).toString(),
                             Objects.requireNonNull(snapshot.child("surname").getValue()).toString(),
                             LocalDate.of(
-                                    Integer.parseInt(Objects.requireNonNull(snapshot.child("birthDate").child("year").getValue()).toString()),
-                                    Integer.parseInt(Objects.requireNonNull(snapshot.child("birthDate").child("monthValue").getValue()).toString()),
-                                    Integer.parseInt(Objects.requireNonNull(snapshot.child("birthDate").child("dayOfMonth").getValue()).toString())
+                                    Integer.parseInt(Objects.requireNonNull(snapshot.child(birthDate).child("year").getValue()).toString()),
+                                    Integer.parseInt(Objects.requireNonNull(snapshot.child(birthDate).child("monthValue").getValue()).toString()),
+                                    Integer.parseInt(Objects.requireNonNull(snapshot.child(birthDate).child("dayOfMonth").getValue()).toString())
                             ),
                             Objects.requireNonNull(snapshot.child("phoneNumber").getValue()).toString(),
                             Gender.valueOf(Objects.requireNonNull(snapshot.child("gender").getValue()).toString()),
@@ -146,11 +147,18 @@ public class LovelyPetsApplicationActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Transfers the current user's information to the profile fragment.
+     */
     public void transferUserInformationToProfileFragment() {
         Bundle bundle = new Bundle();
         bundle.putParcelable("currentUser", currentUser);
         profileFragment.setArguments(bundle);
     }
+
+    /**
+     * Updates the UI with the current user's information.
+     */
     private void updateUserUI() {
         burgerNavigationView = findViewById(R.id.burger_nav_view);
         View headerView = burgerNavigationView.getHeaderView(0);
@@ -159,6 +167,9 @@ public class LovelyPetsApplicationActivity extends AppCompatActivity {
         Log.d("Tag", currentUser.toString());
     }
 
+    /**
+     * Sets up the navigation Burger menu for the drawer layout.
+     */
     public void setupBurgerNavigationMenu() {
         setSupportActionBar(toolbar);
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -169,21 +180,11 @@ public class LovelyPetsApplicationActivity extends AppCompatActivity {
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        //Шторка
         burgerNavigationView = findViewById(R.id.burger_nav_view);
 
-        //Шапка шторки
         View headerView = burgerNavigationView.getHeaderView(0);
         TextView navUsername = headerView.findViewById(R.id.textView);
         navUsername.setText(R.string.username);
-
-        //TextView в пунке меню
-        TextView mSlideTextView = (TextView) MenuItemCompat
-                .getActionView(burgerNavigationView.getMenu().findItem(R.id.nav_cart));
-        mSlideTextView.setText("5");
-        mSlideTextView.setGravity(Gravity.CENTER);
-        mSlideTextView.setTypeface(null, Typeface.BOLD);
-        mSlideTextView.setTextColor(getResources().getColor(R.color.light_red_color, getApplication().getTheme()));
 
         burgerNavigationView.setNavigationItemSelectedListener(item -> {
             Fragment f = null;
@@ -235,6 +236,9 @@ public class LovelyPetsApplicationActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Sets up the navigation Bottom menu for the drawer layout.
+     */
     public void setupBottomNavigationMenu() {
         bottomNavigationView = findViewById(R.id.bottom_nav_view);
         setTitle(R.string.title_home);
@@ -255,7 +259,6 @@ public class LovelyPetsApplicationActivity extends AppCompatActivity {
             } else if (item.getItemId() == R.id.menuItemProfile) {
                 f = profileFragment;
                 burgerNavigationView.setCheckedItem(R.id.menuItemProfile);
-                //toolbar.setNavigationIcon(null);
             }
             setTitle(item.getTitle());
 

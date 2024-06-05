@@ -3,6 +3,7 @@ package com.example.lovelypets.fragments.productdetail;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -26,23 +27,23 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.Objects;
 
 /**
- * A simple {@link Fragment} subclass.
- * Use the {@link ProductDetailFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * {@link Fragment} subclass that displays detailed information about a specific product.
  */
 public class ProductDetailFragment extends Fragment {
-    private String iconName;
-    private String name;
-    private String description;
-    private String categoryId;
-    private Long price;
-    private ProductType productType;
+    private static final String TAG = "ProductDetailFragment";
     private static final String ARG_ICON_NAME = "icon_name";
     private static final String ARG_NAME = "name";
     private static final String ARG_DESCRIPTION = "description";
     private static final String ARG_CATEGORY_ID = "category_id";
     private static final String ARG_PRICE = "price";
     private static final String ARG_PRODUCT_TYPE = "product_type";
+
+    private String iconName;
+    private String name;
+    private String description;
+    private String categoryId;
+    private Long price;
+    private ProductType productType;
     private boolean isLiked = false;
     private final String[] userId = {"default"};
     private final FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
@@ -53,10 +54,14 @@ public class ProductDetailFragment extends Fragment {
     }
 
     /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
+     * Creates a new instance of ProductDetailFragment.
      *
-     *
+     * @param iconName     The name of the product icon.
+     * @param name         The name of the product.
+     * @param description  The description of the product.
+     * @param categoryId   The ID of the product's category.
+     * @param price        The price of the product.
+     * @param productType  The type of the product.
      * @return A new instance of fragment ProductDetailFragment.
      */
     public static ProductDetailFragment newInstance(String iconName, String name, String description, String categoryId, Long price, ProductType productType) {
@@ -67,12 +72,13 @@ public class ProductDetailFragment extends Fragment {
         args.putString(ARG_DESCRIPTION, description);
         args.putString(ARG_CATEGORY_ID, categoryId);
         args.putLong(ARG_PRICE, price);
-        args.putString(ARG_PRODUCT_TYPE, String.valueOf(productType));
+        args.putString(ARG_PRODUCT_TYPE, productType.toString());
         fragment.setArguments(args);
         return fragment;
     }
+
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             iconName = getArguments().getString(ARG_ICON_NAME);
@@ -85,7 +91,7 @@ public class ProductDetailFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         setUserId();
         View view = inflater.inflate(R.layout.fragment_product_detail, container, false);
@@ -96,74 +102,91 @@ public class ProductDetailFragment extends Fragment {
         TextView priceTextView = view.findViewById(R.id.product_price);
         Button addToCartButton = view.findViewById(R.id.add_to_basket);
 
+        // Setting up the product details in the UI
         favouriteIconView.setImageResource(R.drawable.ic_baseline_favourite_default);
         nameTextView.setText(name);
         descriptionTextView.setText(description);
-        priceTextView.setText(price + " KZT");
+        priceTextView.setText(String.format("%d KZT", price));
 
-        int imageId = this.getMinmapResIdByName(iconName);
+        int imageId = getMinmapResIdByName(iconName);
         productImageView.setImageResource(imageId);
 
+        // Add to cart button click listener
         addToCartButton.setOnClickListener(v -> {
-            // Assuming userId is retrieved from a user session or similar method
-            if(!userId[0].equals("default")) {
+            if (!userId[0].equals("default")) {
                 addProductToCart(userId[0]);
             }
         });
 
+        // Favourite icon click listener to toggle like status
         favouriteIconView.setOnClickListener(v -> {
             isLiked = !isLiked;
-            if(isLiked) {
-                favouriteIconView.setImageResource(R.drawable.ic_baseline_favourite_default);
-            } else {
+            if (isLiked) {
                 favouriteIconView.setImageResource(R.drawable.ic_baseline_favourite_liked);
+            } else {
+                favouriteIconView.setImageResource(R.drawable.ic_baseline_favourite_default);
             }
         });
+
         return view;
     }
 
-    public void addProductToCart(String userId) {
-        Log.d("userId", userId);
-        DatabaseReference cartRef = FirebaseDatabase.getInstance().getReference("users").child(userId).child("cart");
+    /**
+     * Adds the current product to the user's cart in the Firebase database.
+     *
+     * @param userId The ID of the user.
+     */
+    private void addProductToCart(String userId) {
+        Log.d(TAG, "addProductToCart: userId=" + userId);
+        DatabaseReference cartRef = firebaseDatabase.getReference("users").child(userId).child("cart");
         Product product = new Product(iconName, name, description, categoryId, price, productType);
         cartRef.push().setValue(product).addOnSuccessListener(unused -> {
-            Log.d("add product to cart", "Successful");
+            Log.d(TAG, "addProductToCart: Product added to cart successfully.");
         }).addOnFailureListener(e -> {
-            Log.d("onFailure","Failure");
-            e.printStackTrace();
+            Log.e(TAG, "addProductToCart: Failed to add product to cart.", e);
         });
     }
+
+    /**
+     * Sets the user ID by retrieving it from the Firebase Authentication and Database.
+     */
     private void setUserId() {
         usersReference = firebaseDatabase.getReference().child("users");
         String userEmail = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getEmail();
-        assert userEmail != null;
-        Log.d("User Email", userEmail);
-        usersReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    assert snapshot != null;
-                    if (snapshot.exists() && Objects.equals(snapshot.child("email").getValue(), userEmail)) {
-                        Log.d("Snapshot get key", snapshot.getKey());
-                        userId[0] = snapshot.getKey();
-                        return;
+        if (userEmail != null) {
+            Log.d(TAG, "setUserId: userEmail=" + userEmail);
+            usersReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        if (snapshot.exists() && Objects.equals(snapshot.child("email").getValue(), userEmail)) {
+                            userId[0] = snapshot.getKey();
+                            Log.d(TAG, "setUserId: userId=" + userId[0]);
+                            return;
+                        }
                     }
                 }
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Log.d("ERROR", "Connecting to userReference is fault");
-            }
-        });
-        Log.d("After userReference listener", userId[0]);
-        // Replace with actual logic to get the user ID
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Log.e(TAG, "setUserId: Failed to connect to usersReference.", error.toException());
+                }
+            });
+        } else {
+            Log.e(TAG, "setUserId: userEmail is null.");
+        }
     }
 
+    /**
+     * Retrieves the resource ID for the given icon name.
+     *
+     * @param iconName The name of the icon.
+     * @return The resource ID of the icon.
+     */
     private int getMinmapResIdByName(String iconName) {
         String pkgName = requireContext().getPackageName();
         int resId = requireContext().getResources().getIdentifier(iconName, "mipmap", pkgName);
-        Log.i("CustomListView", "Res Name : " + iconName + "==> Res Id = " + resId);
+        Log.i(TAG, "getMinmapResIdByName: Res Name : " + iconName + " ==> Res Id = " + resId);
         return resId;
     }
 }

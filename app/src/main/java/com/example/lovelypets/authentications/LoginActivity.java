@@ -46,35 +46,58 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.Objects;
 
+/**
+ * Activity for handling user login via email/password and Google sign-in.
+ */
 public class LoginActivity extends AppCompatActivity implements UserExistenceChecker {
-    ImageView backImageView;
-    TextInputEditText editTextEmail, editTextPassword;
-    TextInputLayout emailLayout, passwordLayout;
-    Button loginButton;
-    ProgressBar progressBar;
-    TextView signupGoTextView, forgotPasswordTextView;
-    ConstraintLayout googleLayout;
-    FirebaseAuth mAuth;
-    FirebaseDatabase firebaseDatabase;
-    GoogleSignInOptions gso;
-    GoogleSignInClient googleSignInClient;
+    private static final String TAG = "LoginActivity";
+    private static final int GOOGLE_SIGN_IN_REQUEST_CODE = 1000;
+
+    private ImageView backImageView;
+    private TextInputEditText editTextEmail;
+    private TextInputEditText editTextPassword;
+    private TextInputLayout emailLayout;
+    private TextInputLayout passwordLayout;
+    private Button loginButton;
+    private ProgressBar progressBar;
+    private TextView signupGoTextView;
+    private TextView forgotPasswordTextView;
+    private ConstraintLayout googleLayout;
+    private FirebaseAuth mAuth;
+    private GoogleSignInClient googleSignInClient;
 
     @Override
     public void onStart() {
         super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser != null) {
-            Intent intent = new Intent(getApplicationContext(), LovelyPetsApplicationActivity.class);
-            startActivity(intent);
-            finish();
+        if (currentUser != null) {
+            navigateToActivity(LovelyPetsApplicationActivity.class);
         }
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        initViews();
+        setupGoogleSignIn();
+
+        signupGoTextView.setOnClickListener(v -> navigateToActivity(SignupActivity.class));
+        editTextEmail.setOnClickListener(v -> emailLayout.setError(null));
+        editTextPassword.setOnClickListener(v -> passwordLayout.setError(null));
+        forgotPasswordTextView.setOnClickListener(v -> navigateToActivity(PasswordResetActivity.class));
+        loginButton.setOnClickListener(v -> loginUser());
+        backImageView.setOnClickListener(v -> navigateToActivity(WelcomeActivity.class));
+        googleLayout.setOnClickListener(v -> startGoogleSignIn());
+
+        setSignUpTextStyle();
+    }
+
+    /**
+     * Initializes views from the layout.
+     */
+    private void initViews() {
         emailLayout = findViewById(R.id.email_layout);
         passwordLayout = findViewById(R.id.password_layout);
         editTextEmail = findViewById(R.id.login_email);
@@ -86,159 +109,180 @@ public class LoginActivity extends AppCompatActivity implements UserExistenceChe
         backImageView = findViewById(R.id.back_arrow);
         forgotPasswordTextView = findViewById(R.id.forgot_password);
         googleLayout = findViewById(R.id.google_frame_layout);
+    }
 
-        gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+    /**
+     * Sets up Google Sign-In options and initializes GoogleSignInClient.
+     */
+    private void setupGoogleSignIn() {
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail().build();
         googleSignInClient = GoogleSignIn.getClient(this, gso);
+    }
 
-        signupGoTextView.setOnClickListener(v -> {
-            Intent intent = new Intent(getApplicationContext(), SignupActivity.class);
-            startActivity(intent);
-            finish();
-        });
+    /**
+     * Handles user login with email and password.
+     */
+    private void loginUser() {
+        String email = Objects.requireNonNull(editTextEmail.getText()).toString();
+        String password = Objects.requireNonNull(editTextPassword.getText()).toString();
 
-        editTextEmail.setOnClickListener(v -> {
-            emailLayout.setError(null);
-        });
+        if (isInputInvalid(email, password)) return;
 
-        editTextPassword.setOnClickListener(v -> {
-            passwordLayout.setError(null);
-        });
+        showProgress(true);
 
-        forgotPasswordTextView.setOnClickListener(v -> {
-            Intent intent = new Intent(getApplicationContext(), PasswordResetActivity.class);
-            startActivity(intent);
-            finish();
-        });
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        showToast(getString(R.string.auth_success));
+                        navigateToActivity(LovelyPetsApplicationActivity.class);
+                    } else {
+                        showToast(getString(R.string.auth_failed));
+                        Log.w(TAG, "signInWithEmail:failure", task.getException());
+                        showProgress(false);
+                    }
+                });
+    }
 
-        loginButton.setOnClickListener(v -> {
-            String email, password;
-            email = Objects.requireNonNull(editTextEmail.getText()).toString();
-            password = Objects.requireNonNull(editTextPassword.getText()).toString();
+    /**
+     * Validates the email and password input fields.
+     *
+     * @param email    User's email
+     * @param password User's password
+     * @return true if input is invalid, false otherwise
+     */
+    private boolean isInputInvalid(String email, String password) {
+        if (TextUtils.isEmpty(email)) {
+            setError(emailLayout, R.string.error_email_empty);
+            return true;
+        }
 
-            if (TextUtils.isEmpty(email)) {
-                Toast.makeText(LoginActivity.this, "Email empty", Toast.LENGTH_LONG).show();
-                emailLayout.setError(getString(R.string.error_email_empty));
-                return;
-            }
+        if (TextUtils.isEmpty(password)) {
+            setError(passwordLayout, R.string.error_password_empty);
+            return true;
+        }
 
-            if (TextUtils.isEmpty(password)) {
-                Toast.makeText(LoginActivity.this, "Password empty", Toast.LENGTH_LONG).show();
-                passwordLayout.setError(getString(R.string.error_password_empty));
-                return;
-            }
+        if (!email.contains("@") || !email.contains(".")) {
+            setError(emailLayout, R.string.error_incorrect_email);
+            return true;
+        }
 
-            if (!email.contains("@") || !email.contains(".")) {
-                emailLayout.setError(getString(R.string.error_incorrect_email));
-                return;
-            }
+        if (password.length() < 6) {
+            setError(passwordLayout, R.string.error_incorrect_password_length);
+            return true;
+        }
 
-            if (password.length() < 6) {
-                Toast.makeText(LoginActivity.this, "Password empty", Toast.LENGTH_LONG).show();
-                editTextPassword.setError("Incorrect password length");
-                passwordLayout.setError(getString(R.string.error_incorrect_password_length));
-                return;
-            }
+        return false;
+    }
 
-            loginButton.setVisibility(View.GONE);
-            progressBar.setVisibility(View.VISIBLE);
+    /**
+     * Sets an error message on a TextInputLayout.
+     *
+     * @param layout           The TextInputLayout to set the error on
+     * @param errorMessageResId Resource ID of the error message
+     */
+    private void setError(TextInputLayout layout, int errorMessageResId) {
+        layout.setError(getString(errorMessageResId));
+    }
 
-            mAuth.signInWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(task -> {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            //Log.d(TAG, "signInWithEmail:success");
-                            //FirebaseUser user = mAuth.getCurrentUser();
-                            Toast.makeText(LoginActivity.this, "Authentication successful.",
-                                    Toast.LENGTH_SHORT).show();
+    /**
+     * Shows or hides the progress bar and login button.
+     *
+     * @param show true to show progress bar, false to hide it
+     */
+    private void showProgress(boolean show) {
+        progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
+        loginButton.setVisibility(show ? View.GONE : View.VISIBLE);
+    }
 
-                            Intent intent = new Intent(getApplicationContext(), LovelyPetsApplicationActivity.class);
-                            startActivity(intent);
-                            finish();
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w("TAG", "signInWithEmail:failure", task.getException());
-                            Toast.makeText(LoginActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
+    /**
+     * Navigates to the specified activity and finishes the current one.
+     *
+     * @param activityClass The class of the activity to navigate to
+     */
+    private void navigateToActivity(Class<?> activityClass) {
+        startActivity(new Intent(getApplicationContext(), activityClass));
+        finish();
+    }
 
-                            progressBar.setVisibility(View.GONE);
-                            loginButton.setVisibility(View.VISIBLE);
-                        }
-
-                    });
-        });
-
-        backImageView.setOnClickListener(v -> {
-            Intent intent = new Intent(getApplicationContext(), WelcomeActivity.class);
-            startActivity(intent);
-            finish();
-        });
-
-        googleLayout.setOnClickListener(v -> {
-            progressBar.setVisibility(View.VISIBLE);
-            loginButton.setVisibility(View.GONE);
-            authenticationWithGoogle();
-        });
-
+    /**
+     * Sets bold style to the "SIGN UP here" part of the signupGoTextView text.
+     */
+    private void setSignUpTextStyle() {
         String fullText = getResources().getString(R.string.dont_have_an_account_sign_up);
         SpannableString spannableString = new SpannableString(fullText);
         int startIndex = fullText.indexOf("SIGN UP here");
         if (startIndex != -1) {
             spannableString.setSpan(new StyleSpan(Typeface.BOLD), startIndex, startIndex + "SIGN UP here".length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
-        TextView textView = signupGoTextView;
-        textView.setText(spannableString);
+        signupGoTextView.setText(spannableString);
     }
 
-    private void authenticationWithGoogle() {
+    /**
+     * Initiates the Google Sign-In process.
+     */
+    private void startGoogleSignIn() {
+        showProgress(true);
         Intent signInIntent = googleSignInClient.getSignInIntent();
-        startActivityForResult(signInIntent, 1000);
+        startActivityForResult(signInIntent, GOOGLE_SIGN_IN_REQUEST_CODE);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1000) {
-            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            if(task.isSuccessful()) {
-                Toast.makeText(getApplicationContext(), "onActivityResult::task worked successful", Toast.LENGTH_SHORT).show();
-                try {
-                    GoogleSignInAccount account = task.getResult(ApiException.class);
-                    firebaseAuthWithGoogle(account);
-                } catch (ApiException e) {
-                    Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
-                }
-            } else {
-                Toast.makeText(getApplicationContext(), "onActivityResult::task didn't work successful", Toast.LENGTH_SHORT).show();
-            }
+        if (requestCode == GOOGLE_SIGN_IN_REQUEST_CODE) {
+            handleGoogleSignInResult(GoogleSignIn.getSignedInAccountFromIntent(data));
         }
     }
+
+    /**
+     * Handles the result of the Google Sign-In process.
+     *
+     * @param task The task containing the GoogleSignInAccount
+     */
+    private void handleGoogleSignInResult(Task<GoogleSignInAccount> task) {
+        try {
+            GoogleSignInAccount account = task.getResult(ApiException.class);
+            firebaseAuthWithGoogle(account);
+        } catch (ApiException e) {
+            showToast(getString(R.string.google_sign_in_failed));
+            showProgress(false);
+            Log.e(TAG, "Google sign in failed", e);
+        }
+    }
+
+    /**
+     * Authenticates the user with Firebase using Google credentials.
+     *
+     * @param acct The GoogleSignInAccount obtained from Google Sign-In
+     */
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
-        Task<AuthResult> authResultTask = mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            Toast.makeText(getApplicationContext(), "firebaseAuthWithGoogle::onComplete::task worked successful", Toast.LENGTH_SHORT).show();
-                            //Log.d("TAG", "signInWithCredential:success");
-
-                            checkIfUserExists(acct.getEmail(), exists -> {
-                                if (exists) {
-                                    startActivity(new Intent(LoginActivity.this, LovelyPetsApplicationActivity.class));
-                                } else {
-                                    startActivity(new Intent(LoginActivity.this, InputDataForUserActivity.class));
-                                }
-                            });
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Toast.makeText(getApplicationContext(), "firebaseAuthWithGoogle::onComplete::task didn't work successful", Toast.LENGTH_SHORT).show();
-                        }
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this, task -> {
+                    if (task.isSuccessful()) {
+                        checkIfUserExists(acct.getEmail(), exists -> {
+                            if (exists) {
+                                navigateToActivity(LovelyPetsApplicationActivity.class);
+                            } else {
+                                navigateToActivity(InputDataForUserActivity.class);
+                            }
+                        });
+                    } else {
+                        showToast(getString(R.string.auth_failed));
+                        showProgress(false);
+                        Log.e(TAG, "signInWithCredential:failure", task.getException());
                     }
                 });
     }
 
+    /**
+     * Checks if a user with the given email exists in the Firebase Realtime Database.
+     *
+     * @param email    The email of the user to check
+     * @param listener Listener to handle the result of the check
+     */
     @Override
     public void checkIfUserExists(String email, OnUserExistsListener listener) {
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("users");
@@ -247,11 +291,21 @@ public class LoginActivity extends AppCompatActivity implements UserExistenceChe
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 listener.onResult(dataSnapshot.exists());
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                // Handle possible errors.
                 listener.onResult(false);
+                Log.e(TAG, "Database error: " + databaseError.getMessage());
             }
         });
+    }
+
+    /**
+     * Displays a toast message.
+     *
+     * @param message The message to display
+     */
+    private void showToast(String message) {
+        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
     }
 }

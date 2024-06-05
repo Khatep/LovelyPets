@@ -33,20 +33,22 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * A simple {@link Fragment} subclass.
- * Use the {@link OrderHistoryFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * {@link Fragment} subclass that to display the order history of a user.
  */
 public class OrderHistoryFragment extends Fragment implements OnOrderClickListener {
     private RecyclerView orderRecycleView;
-    private List<Order> orders = new ArrayList<>();
-    private DatabaseReference ordersRef, usersReference;
+    private final List<Order> orders = new ArrayList<>();
     private final FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-    private String[] userId = {"default"};
-    public OrderHistoryFragment() {
-        // Required empty public constructor
-    }
+    private final String[] userId = {"default"};
 
+    /**
+     * Required empty public constructor
+     */
+    public OrderHistoryFragment() {}
+
+    /**
+     * Factory method to create a new instance of this fragment.
+     */
     public static OrderHistoryFragment newInstance() {
         return new OrderHistoryFragment();
     }
@@ -60,11 +62,13 @@ public class OrderHistoryFragment extends Fragment implements OnOrderClickListen
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        usersReference = firebaseDatabase.getReference().child("users");
+        DatabaseReference usersReference = firebaseDatabase.getReference().child("users");
         String userEmail = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getEmail();
         View view = inflater.inflate(R.layout.fragment_order_history, container, false);
 
         orderRecycleView = view.findViewById(R.id.order_list_view);
+
+        // Retrieve userId based on the user's email
         usersReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -81,14 +85,20 @@ public class OrderHistoryFragment extends Fragment implements OnOrderClickListen
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                //TODO
+                // Log error
+                Log.e("OrderHistoryFragment", "Error fetching user data: " + error.getMessage());
             }
         });
         return view;
     }
 
+    /**
+     * Loads the order list from the database for the current user.
+     */
     private void loadOrderList() {
-        ordersRef = firebaseDatabase.getReference("users").child(userId[0]).child("orders");
+        DatabaseReference ordersRef = firebaseDatabase.getReference("users").child(userId[0]).child("orders");
+
+        // Retrieve orders for the current user
         ordersRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -105,6 +115,7 @@ public class OrderHistoryFragment extends Fragment implements OnOrderClickListen
 
                     Order order = new Order(orderNumber, dateOfCreated, addressOfDelivery, totalPrice);
 
+                    // Fetch products for each order
                     DatabaseReference orderProductsRef = snapshot.child("products").getRef();
                     orderProductsRef.addValueEventListener(new ValueEventListener() {
                         @Override
@@ -130,7 +141,8 @@ public class OrderHistoryFragment extends Fragment implements OnOrderClickListen
 
                         @Override
                         public void onCancelled(@NonNull DatabaseError error) {
-                            //TODO
+                            // Log error
+                            Log.e("OrderHistoryFragment", "Error fetching products: " + error.getMessage());
                         }
                     });
                 }
@@ -139,11 +151,15 @@ public class OrderHistoryFragment extends Fragment implements OnOrderClickListen
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                // Handle possible errors.
+                // Log error
+                Log.e("OrderHistoryFragment", "Error fetching orders: " + error.getMessage());
             }
         });
     }
 
+    /**
+     * Sets up the RecyclerView for displaying the order list.
+     */
     private void setOrderRecycleView() {
         GridLayoutManager gridLayoutManager = new GridLayoutManager(requireContext(), 1);
         orderRecycleView.setLayoutManager(gridLayoutManager);
@@ -152,6 +168,7 @@ public class OrderHistoryFragment extends Fragment implements OnOrderClickListen
 
     @Override
     public void onOrderClicked(Order order) {
+        // Handle order click event and navigate to the order detail fragment
         OrderHistoryDetailFragment orderHistoryDetailFragment = OrderHistoryDetailFragment.newInstance(order);
         FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container, orderHistoryDetailFragment);

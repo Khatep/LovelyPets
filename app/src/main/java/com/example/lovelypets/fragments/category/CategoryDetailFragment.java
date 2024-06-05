@@ -1,6 +1,7 @@
 package com.example.lovelypets.fragments.category;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,18 +31,33 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * {@link Fragment} subclass representing the details of a specific category and the products under it.
+ * Implements the {@link OnProductClickListener} to handle product clicked.
+ */
 public class CategoryDetailFragment extends Fragment implements OnProductClickListener {
     private static final String ARG_CATEGORY_ID = "category_id";
     private static final String ARG_ICON_ID = "icon_id";
     private static final String ARG_NAME = "name";
     private static final String ARG_DESCRIPTION = "description";
+
     private int iconId;
     private String name;
     private String description;
     private ImageView backImageView;
+
     private final FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private DatabaseReference productsReference;
 
+    /**
+     * Creates a new instance of CategoryDetailFragment.
+     *
+     * @param categoryId   The ID of the category.
+     * @param iconId       The icon resource ID for the category.
+     * @param name         The name of the category.
+     * @param description  The description of the category.
+     * @return A new instance of fragment CategoryDetailFragment.
+     */
     public static CategoryDetailFragment newInstance(String categoryId, int iconId, String name, String description) {
         CategoryDetailFragment fragment = new CategoryDetailFragment();
         Bundle args = new Bundle();
@@ -72,10 +88,7 @@ public class CategoryDetailFragment extends Fragment implements OnProductClickLi
         //TextView descriptionView = view.findViewById(R.id.category_description);
 
         backImageView = view.findViewById(R.id.back_arrow);
-
-        backImageView.setOnClickListener(v -> {
-            requireActivity().getSupportFragmentManager().popBackStack();
-        });
+        backImageView.setOnClickListener(v -> requireActivity().getSupportFragmentManager().popBackStack());
 
         if (getArguments() != null) {
             iconId = getArguments().getInt(ARG_ICON_ID);
@@ -93,10 +106,14 @@ public class CategoryDetailFragment extends Fragment implements OnProductClickLi
         recyclerView.setLayoutManager(gridLayoutManager);
         recyclerView.setAdapter(new ProductAdapterForCategoryDetailFragment(getContext(), products, this));
 
-        //recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         return view;
     }
 
+    /**
+     * Loads the list of products under the specified category from the Firebase database.
+     *
+     * @return A list of products under the category.
+     */
     private List<Product> loadListOfProducts() {
         List<Product> productList = new ArrayList<>();
         productsReference = firebaseDatabase.getReference().child("products");
@@ -105,23 +122,20 @@ public class CategoryDetailFragment extends Fragment implements OnProductClickLi
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 productList.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    assert getArguments() != null;
-
                     try {
-                        if (snapshot.exists() && (Objects.requireNonNull(snapshot.child("categoryId").getValue()).toString()).equals( Objects.requireNonNull(requireArguments().getString(ARG_CATEGORY_ID)))) {
-                            Product product;
-                            product = new Product(
+                        if (snapshot.exists() && Objects.equals(snapshot.child("categoryId").getValue().toString(), requireArguments().getString(ARG_CATEGORY_ID))) {
+                            Product product = new Product(
                                     Objects.requireNonNull(snapshot.child("iconName").getValue()).toString(),
                                     Objects.requireNonNull(snapshot.child("name").getValue()).toString(),
                                     Objects.requireNonNull(snapshot.child("description").getValue()).toString(),
                                     Objects.requireNonNull(snapshot.child("categoryId").getValue()).toString(),
-                                    Long.parseLong((String.valueOf(snapshot.child("price").getValue()))),
+                                    Long.parseLong(Objects.requireNonNull(snapshot.child("price").getValue()).toString()),
                                     ProductType.valueOf(Objects.requireNonNull(snapshot.child("productType").getValue()).toString())
                             );
                             productList.add(product);
                         }
                     } catch (NullPointerException e) {
-                        return;
+                        Log.e("CategoryDetailFragment", "Error parsing product data", e);
                     }
                 }
 
@@ -134,7 +148,8 @@ public class CategoryDetailFragment extends Fragment implements OnProductClickLi
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                // Handle possible errors.
+                // Log database error
+                Log.e("CategoryDetailFragment", "Database error: " + databaseError.getMessage());
             }
         });
 

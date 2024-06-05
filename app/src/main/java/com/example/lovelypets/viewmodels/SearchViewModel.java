@@ -1,5 +1,7 @@
 package com.example.lovelypets.viewmodels;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -16,9 +18,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * ViewModel for managing product data and filtering in the search functionality.
+ */
 public class SearchViewModel extends ViewModel {
+
+    private static final String TAG = "SearchViewModel";
+
     private final MutableLiveData<List<Product>> products = new MutableLiveData<>(new ArrayList<>());
     private final MutableLiveData<List<Product>> filteredProducts = new MutableLiveData<>(new ArrayList<>());
+
     private boolean isCheckBoxFoodChecked = false;
     private boolean isCheckBoxCagesFeedersBowlsChecked = false;
     private boolean isCheckBoxFillersChecked = false;
@@ -28,18 +37,34 @@ public class SearchViewModel extends ViewModel {
     private boolean isCheckBoxPetsChecked = false;
     private boolean isCheckBoxLeashChecked = false;
 
+    /**
+     * Constructor that initializes the ViewModel and loads products from the database.
+     */
     public SearchViewModel() {
         loadProducts();
     }
 
+    /**
+     * Returns the list of all products as LiveData.
+     *
+     * @return LiveData containing the list of products.
+     */
     public LiveData<List<Product>> getProducts() {
         return products;
     }
 
+    /**
+     * Returns the list of filtered products as LiveData.
+     *
+     * @return LiveData containing the list of filtered products.
+     */
     public LiveData<List<Product>> getFilteredProducts() {
         return filteredProducts;
     }
 
+    /**
+     * Loads products from the Firebase database and updates the LiveData objects.
+     */
     public void loadProducts() {
         FirebaseDatabase.getInstance().getReference().child("products")
                 .addValueEventListener(new ValueEventListener() {
@@ -47,17 +72,18 @@ public class SearchViewModel extends ViewModel {
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         List<Product> productList = new ArrayList<>();
                         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                            Product product;
-                            product = new Product(
-                                    Objects.requireNonNull(snapshot.child("iconName").getValue()).toString(),
-                                    Objects.requireNonNull(snapshot.child("name").getValue()).toString(),
-                                    Objects.requireNonNull(snapshot.child("description").getValue()).toString(),
-                                    Objects.requireNonNull(snapshot.child("categoryId").getValue()).toString(),
-                                    Long.parseLong((String.valueOf(snapshot.child("price").getValue()))),
-                                    ProductType.valueOf(Objects.requireNonNull(snapshot.child("productType").getValue()).toString())
-                            );
-                            if (product != null) {
+                            try {
+                                Product product = new Product(
+                                        Objects.requireNonNull(snapshot.child("iconName").getValue()).toString(),
+                                        Objects.requireNonNull(snapshot.child("name").getValue()).toString(),
+                                        Objects.requireNonNull(snapshot.child("description").getValue()).toString(),
+                                        Objects.requireNonNull(snapshot.child("categoryId").getValue()).toString(),
+                                        Long.parseLong((String.valueOf(snapshot.child("price").getValue()))),
+                                        ProductType.valueOf(Objects.requireNonNull(snapshot.child("productType").getValue()).toString())
+                                );
                                 productList.add(product);
+                            } catch (Exception e) {
+                                Log.e(TAG, "Error parsing product data: " + e.getMessage());
                             }
                         }
                         products.setValue(productList);
@@ -66,11 +92,16 @@ public class SearchViewModel extends ViewModel {
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
-                        // Handle possible errors.
+                        Log.e(TAG, "Database error: " + databaseError.getMessage());
                     }
                 });
     }
 
+    /**
+     * Filters the list of products based on a search query and updates the filtered products LiveData.
+     *
+     * @param query The search query string.
+     */
     public void filterProducts(String query) {
         List<Product> productList = products.getValue();
         if (productList == null)
@@ -86,6 +117,11 @@ public class SearchViewModel extends ViewModel {
         filteredProducts.setValue(resultList);
     }
 
+    /**
+     * Applies filters to the product list based on selected product types and updates the filtered products LiveData.
+     *
+     * @param selectedTypes List of selected product types to filter by.
+     */
     public void applyFilters(List<ProductType> selectedTypes) {
         List<Product> productList = products.getValue();
         if (productList == null) return;
@@ -135,6 +171,18 @@ public class SearchViewModel extends ViewModel {
         return isCheckBoxLeashChecked;
     }
 
+    /**
+     * Sets the selection state of various filter checkboxes.
+     *
+     * @param isCheckBoxFoodChecked               Whether the "Food" checkbox is checked.
+     * @param isCheckBoxCagesFeedersBowlsChecked  Whether the "Cages, Feeders, Bowls" checkbox is checked.
+     * @param isCheckBoxFillersChecked            Whether the "Fillers" checkbox is checked.
+     * @param isCheckBoxToysChecked               Whether the "Toys" checkbox is checked.
+     * @param isCheckBoxEquipmentChecked          Whether the "Equipment" checkbox is checked.
+     * @param isCheckBoxMedicinesChecked          Whether the "Medicines" checkbox is checked.
+     * @param isCheckBoxPetsChecked               Whether the "Pets" checkbox is checked.
+     * @param isCheckBoxLeashChecked              Whether the "Leash" checkbox is checked.
+     */
     public void setFilterSelections(boolean isCheckBoxFoodChecked,
                                     boolean isCheckBoxCagesFeedersBowlsChecked,
                                     boolean isCheckBoxFillersChecked,

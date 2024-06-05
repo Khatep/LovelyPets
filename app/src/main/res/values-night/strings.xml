@@ -1,20 +1,117 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="we_are_offe">We are offering pets around the city. There are also delivery service. Additionally, you can find products for them.</string>
+    <string name="app_name" translatable="false">LovelyPets</string>
+    <string name="app_name_with_space" translatable="false">Lovely\nPets</string>
+    <string name="slogan">all for your little friends</string>
+
+    <string name="this_is_home_fragment">This is Home</string>
+    <string name="this_is_category_fragment">This is Category</string>
+    <string name="this_is_search_fragment">This is Search</string>
+    <string name="this_is_cart_fragment">This is Cart</string>
+    <string name="this_is_profile_fragment">This is Profile</string>
+
+    <string name="title_home">Home</string>
+    <string name="title_category">Category</string>
+    <string name="title_search">Search</string>
+    <string name="title_cart">Cart</string>
+    <string name="title_profile">Profile</string>
+
+    <string name="username">Username</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="students">Students</string>
+
+    <string name="title_settings">Settings</string>
+    <string name="title_share">Share</string>
+    <string name="title_aboutus">About Us</string>
+    <string name="title_logout">Log out</string>
+    <string name="login">Login</string>
+
+    <string name="password">Password</string>
+    <string name="email">Email</string>
+
+    <string name="signup">Sign up</string>
+    <string name="click_to_login">Click to login\n</string>
+    <string name="click_to_signup">Click to Sign up</string>
+    <string name="cancel">Cancel</string>
+    <string name="create_a_new_account">Create a new account</string>
+    <string name="create_account">Create account</string>
+    <string name="convention">I have read and accept the \n Terms of Use and Privacy Policy </string>
+    <string name="google">Google</string>
+    <string name="signup_with_google">Sign up with Google</string>
+    <string name="continue_with_email">Continue with email</string>
+    <string name="please_fill_form">Please fill form\n</string>
+    <string name="fill_form">Fill the form below</string>
+    <string name="name">Name</string>
+    <string name="age">Age</string>
+    <string name="birth_date">Birth date</string>
+    <string name="surname">Surname</string>
+    <string name="birth_date_format">Birth date</string>
+    <string name="phone_number">Phone number</string>
+    <string name="submit">Submit</string>
+    <string name="check_your_email_and_input_code">Check your email, and input code</string>
+    <string name="gender">Gender</string>
+
+    <string name="content_description_end_icon">Content description end icon\n</string>
+    <string name="login_nice_to_see_you_again">Nice to see you again!</string>
+    <string name="login_now">Login Now</string>
+    <string name="do_you_have_an_account_login">Do you have an account? Login</string>
+    <string name="dont_have_an_account_sign_up">Don\'t you have an account? SIGN UP here</string>
+    <string name="calendar">Calendar</string>
+    <string name="name_and_surname">Name Surname</string>
+
+
+    <string name="error_email_empty">Error: email is empty</string>
+    <string name="error_password_empty">Error: password is empty</string>
+    <string name="error_incorrect_email">Error: email is incorrect</string>
+    <string name="error_incorrect_password_length">Error: incorrect password length</string>
+    <string name="error_name_and_surname_empty">Error: Name and surname are empty</string>
+    <string name="error_birth_date_empty">Error: Birth date is empty</string>
+    <string name="error_phone_number_empty">Error: Phone number is empty</string>
+    <string name="error_gender_empty">Error: Gender is empty</string>
+    <string name="error_card_number_empty">Error: Card number is empty</string>
+    <string name="error_card_cardholder_name_empty">Error: Cardholder`s name is empty</string>
+    <string name="error_card_date_empty">Error: Card MM/YY is empty</string>
+    <string name="error_card_cvv_empty">Error: Card CVV is empty</string>
+
+    <string name="login_with_google">Login with google</string>
+    <string name="login_to_your_account_using_the_previously_selected_authorization_method">Login to your account with using the previously selected authorization method</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="back">Back</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="provide_your_account_s_email_for_which_you_want_to_reset_your_password">Provide your account\'s email for which you want to reset your password!</string>
+    <string name="error_user_already_exists">Error: user with this email already exists</string>
+    <string name="welcome_to_">Welcome to Lovely Pets</string>
+    <string name="we_are_offe">We are offering pets around the city.\n There are also delivery service.\n Additionally, you can find products\n for them.</string>
+    <string name="already_have">Already have an account?</string>
+    <string name="already_have_login_here">Already have an account? LOGIN here</string>
+    <string name="login_upper">LOGIN</string>
+    <string name="logotype">Logotype</string>
     <string name="or_login_with">Or login with</string>
     <string name="cat">Cat</string>
-    <string name="i_agree_with_Terms_and_conditions">I agree with Terms And Conditions</string>
+    <string name="i_agree_with_Terms_and_conditions">I agree with Terms and Conditions</string>
     <string name="or_signup_with">or sign up with</string>
     <string name="we_have_send_a_code">We have sent a code, please check your email</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="full_text_about_us">Welcome to “Lovely Pets” Pet Shop, your one-stop destination for all your pet needs! We have been dedicated to providing top-quality products and services to pet owners in our community. Our mission is to ensure that every pet has a happy, healthy, and fulfilling life. We were inspired by the idea that every pet could find its new home</string>
-    <string name="title_our_story">Our story\n</string>
+    <string name="title_our_story">Our story</string>
     <string name="full_text_our_story"><![CDATA[This mobile app was founded by Kalymova Zhansaya & Khatep Nurgali for Samsung Innovation Campus. In this project we included our acknowledge of Android developing. \nThank you all for amazing opportunity to gain education in java android development sphere.]]></string>
     <string name="social_media_text">Find us on social media</string>
     <string name="category_icon">category icon</string>
     <string name="example_text">"Example "</string>
     <string name="profile_name">Profile name</string>
     <string name="profile_email">Profile email</string>
-    <string name="whiskas_85_1">Корм Whiskas \\n кусочки в желе индейка \\n 85 г 1 шт</string>
+    <string name="empty_text"> </string>
+
+    <string name="price_label">%1$d KZT</string>
+    <string name="whiskas_85_1">Корм Whiskas\nкусочки в желе индейка 85 г 1 шт</string>
+    <string name="price">Price</string>
     <string name="favourite">Favourite</string>
     <string name="product_image">Product image</string>
     <string name="product_name">Product name</string>
@@ -43,13 +140,17 @@
     <string name="filter">Filter</string>
     <string name="filter_features">Filter features:</string>
     <string name="foods">Foods</string>
+    <string name="hygiene">Hygiene</string>
     <string name="cages_feeders_bowls">Cages, feeders, bowls</string>
+    <string name="fillers">Fillers</string>
     <string name="toys">Toys</string>
+    <string name="medicines">Medicines</string>
     <string name="order_status">Order Status</string>
-    <string name="order_number">order number</string>
-    <string name="order_detail">order detail</string>
+    <string name="order_number">order №number</string>
+    <string name="order_detail">Order detail</string>
     <string name="arrow_next">Next arrow icon</string>
     <string name="cart_is_empty">Cart is empty</string>
+    <string name="order_number_label">№ %1$d</string>
     <string name="history">History</string>
     <string name="you_purchased">You purchased</string>
     <string name="date">Date</string>
@@ -67,5 +168,10 @@
     <string name="convenient_service_question">Convenient service question</string>
     <string name="convenient_service_question_answer">Our app is intuitive and easy to use, allowing you to quickly find and order everything you need for your pets from home.</string>
     <string name="discounts_from_partners_question">Discounts from partners</string>
+    <string name="discounts_from_partners_answer">We partner with leading manufacturers and stores to offer you exclusive discounts and promotions on a wide range of products.</string>
     <string name="support_24_7_question">Support 24/7</string>
+    <string name="support_24_7_answer">Our support team is available around the clock to help you with any questions and provide the best experience using our app.</string>
+    <string name="auth_success">Authentication successful</string>
+    <string name="auth_failed">Authentication failed</string>
+    <string name="google_sign_in_failed">Google sign in failed</string>
 </resources>

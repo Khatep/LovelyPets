@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#F3E9D2"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".fragments.SearchFragment"
+    tools:context=".fragments.search.SearchFragment"
     android:orientation="vertical">
 
     <LinearLayout

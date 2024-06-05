@@ -1,4 +1,4 @@
-package com.example.lovelypets.fragments;
+package com.example.lovelypets.fragments.profile;
 
 import android.app.Activity;
 import android.content.Context;
@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -22,18 +21,22 @@ import com.bumptech.glide.Glide;
 import com.example.lovelypets.R;
 import com.example.lovelypets.eventlisteners.OnBackPressedListener;
 import com.example.lovelypets.exitalertdialog.ExitDialogActivity;
-import com.example.lovelypets.fragments.orderhistory.OrderHistoryDetailFragment;
 import com.example.lovelypets.fragments.orderhistory.OrderHistoryFragment;
 import com.example.lovelypets.models.User;
 
+/**
+ * {@link Fragment} subclass that displays and managing the user's profile.
+ */
 public class ProfileFragment extends Fragment implements OnBackPressedListener {
     private static final int PICK_IMAGE_REQUEST = 1;
     private static final String PROFILE_IMAGE_URI_KEY = "profile_image_uri";
+    private static final String TAG = "ProfileFragment";
+
     private User currentUser;
     private ImageView profileImageView;
-    private TextView profileNameTextView, profileEmailTextView;
+    private TextView profileNameTextView;
+    private TextView profileEmailTextView;
     private Uri profileImageUri;
-    private Button historyButton;
 
     @Nullable
     @Override
@@ -43,26 +46,21 @@ public class ProfileFragment extends Fragment implements OnBackPressedListener {
         profileImageView = view.findViewById(R.id.profile_image);
         profileNameTextView = view.findViewById(R.id.profile_name);
         profileEmailTextView = view.findViewById(R.id.profile_email);
-        historyButton = view.findViewById(R.id.history_button);
+        Button historyButton = view.findViewById(R.id.history_button);
 
+        // Load the current user data from arguments
         if (getArguments() != null) {
             currentUser = getArguments().getParcelable("currentUser");
             updateUI();
         }
 
+        // Set up profile image selection
         profileImageView.setOnClickListener(v -> selectImage());
 
         // Restore saved image URI
-        Context context = getContext();
-        if (context != null) {
-            String savedUriString = context.getSharedPreferences("ProfilePrefs", Context.MODE_PRIVATE)
-                    .getString(PROFILE_IMAGE_URI_KEY, null);
-            if (savedUriString != null) {
-                profileImageUri = Uri.parse(savedUriString);
-                loadImage(profileImageUri);
-            }
-        }
+        restoreImageUri();
 
+        // Set up order history button click listener
         historyButton.setOnClickListener(v -> {
             OrderHistoryFragment orderHistoryFragment = OrderHistoryFragment.newInstance();
             FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
@@ -74,6 +72,9 @@ public class ProfileFragment extends Fragment implements OnBackPressedListener {
         return view;
     }
 
+    /**
+     * Updates the UI elements with the current user data.
+     */
     private void updateUI() {
         if (currentUser != null) {
             profileNameTextView.setText(currentUser.getName());
@@ -81,6 +82,9 @@ public class ProfileFragment extends Fragment implements OnBackPressedListener {
         }
     }
 
+    /**
+     * Starts an intent to select an image from the device.
+     */
     private void selectImage() {
         Intent intent = new Intent();
         intent.setType("image/*");
@@ -98,17 +102,27 @@ public class ProfileFragment extends Fragment implements OnBackPressedListener {
         }
     }
 
+    /**
+     * Loads an image into the profile image view using Glide.
+     *
+     * @param imageUri The URI of the image to load.
+     */
     private void loadImage(Uri imageUri) {
         Context context = getContext();
         if (context != null) {
             Glide.with(context)
-                        .load(imageUri)
-                        .placeholder(R.drawable.ic_baseline_woman) // Укажите изображение-заполнитель
-                        .error(R.drawable.ic_baseline_woman) // Укажите изображение ошибки
-                        .into(profileImageView);
+                    .load(imageUri)
+                    .placeholder(R.drawable.ic_baseline_woman) // Set placeholder image
+                    .error(R.drawable.ic_baseline_woman) // Set error image
+                    .into(profileImageView);
         }
     }
 
+    /**
+     * Saves the URI of the profile image to shared preferences.
+     *
+     * @param uri The URI of the profile image.
+     */
     private void saveImageUri(Uri uri) {
         Context context = getContext();
         if (context != null) {
@@ -119,6 +133,24 @@ public class ProfileFragment extends Fragment implements OnBackPressedListener {
         }
     }
 
+    /**
+     * Restores the URI of the profile image from shared preferences.
+     */
+    private void restoreImageUri() {
+        Context context = getContext();
+        if (context != null) {
+            String savedUriString = context.getSharedPreferences("ProfilePrefs", Context.MODE_PRIVATE)
+                    .getString(PROFILE_IMAGE_URI_KEY, null);
+            if (savedUriString != null) {
+                profileImageUri = Uri.parse(savedUriString);
+                loadImage(profileImageUri);
+            }
+        }
+    }
+
+    /**
+     * Shows the exit dialog when the back button is pressed.
+     */
     public void showExitDialog() {
         ExitDialogActivity dialog = new ExitDialogActivity(requireContext());
         dialog.show();

@@ -5,7 +5,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -32,112 +31,131 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
+/**
+ * {@link Fragment} subclass representing the home screen of the app.
+ * This fragment displays a list of popular products and partner logos.
+ */
 public class HomeFragment extends Fragment implements OnBackPressedListener, OnProductClickListener {
+
+    private static final String TAG = "HomeFragment";
+
     private List<Product> popularProducts;
-    private  RecyclerView popularProductsRecyclerView;
-    private final String[] popularProductsIds = new String[] {
-              "-NzUB8tbmT7LAihsXULJ", "-NzUB8tfCsVGS4-Kq9YQ", "-NzUB8tn_l4CxvJ1b34o",
+    private RecyclerView popularProductsRecyclerView;
+
+    private static final String[] POPULAR_PRODUCT_IDS = {
+            "-NzUB8tbmT7LAihsXULJ", "-NzUB8tfCsVGS4-Kq9YQ", "-NzUB8tn_l4CxvJ1b34o",
             "-NzUB8uFj4DynjVX15Mo", "-NzUB8torE4MJPx8CC_0", "-NzUB8uDtaH7LBY4SRwh"
     };
 
-    private DatabaseReference productsReference;
     private final FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
 
     @Override
-    public View onCreateView(LayoutInflater inflater,
-                             ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        popularProducts = new ArrayList<>();
 
-        popularProducts = loadPopularProductList();
+        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
+        // Load and display partner logos
+        setupPartnersRecyclerView(view);
+
+        // Load and display popular products
+        setupPopularProductsRecyclerView(view);
+
+        // Setup question and answer toggle views
+        setupQuestionAnswerToggles(view);
+
+        // Load the popular product list from the database
+        loadPopularProductList();
+
+        return view;
+    }
+
+    /**
+     * Sets up the RecyclerView for displaying partner logos.
+     *
+     * @param view The parent view containing the RecyclerView.
+     */
+    private void setupPartnersRecyclerView(View view) {
         int[] images = {
-                R.drawable.life_planet,
-                R.drawable.samsung,
-                R.drawable.doctor_vet,
-                R.drawable.kaspi,
-                R.drawable.pet_care,
-                R.drawable.dr_pets,
-                R.drawable.iams,
-                R.drawable.bonnyville,
-                R.drawable.my_pets_kz,
-                R.drawable.iitu,
-                R.drawable.murkel
+                R.drawable.life_planet, R.drawable.samsung, R.drawable.doctor_vet,
+                R.drawable.kaspi, R.drawable.pet_care, R.drawable.dr_pets,
+                R.drawable.iams, R.drawable.bonnyville, R.drawable.my_pets_kz,
+                R.drawable.iitu, R.drawable.murkel
         };
 
         RecyclerView partnersRecyclerView = view.findViewById(R.id.partners_list_view);
         LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false);
         partnersRecyclerView.setLayoutManager(layoutManager);
+
         PartnersImageAdapter adapter = new PartnersImageAdapter(requireContext(), images);
         partnersRecyclerView.setAdapter(adapter);
         partnersRecyclerView.addItemDecoration(new SpacesItemDecoration(10));
-
-        popularProductsRecyclerView = view.findViewById(R.id.products_list_view);
-        LinearLayoutManager layoutManager1 = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false);
-        popularProductsRecyclerView.setLayoutManager(layoutManager1);
-
-        ProductAdapterForCategoryDetailFragment productAdapterForCategoryDetailFragment = new ProductAdapterForCategoryDetailFragment(requireContext(), popularProducts, this);
-        popularProductsRecyclerView.setAdapter(productAdapterForCategoryDetailFragment);
-
-        TextView highQualityQuestionTextView = view.findViewById(R.id.high_quality_products_question);
-        TextView highQualityAnswerTextView = view.findViewById(R.id.high_quality_products_question_answer);
-        TextView convenientServiceQuestionTextView = view.findViewById(R.id.convenient_service_question);
-        TextView convenientServiceAnswerTextView = view.findViewById(R.id.convenient_service_answer);
-        TextView discountsFromPartnersQuestionTextView = view.findViewById(R.id.discounts_from_partners_question);
-        TextView discountsFromPartnersAnswerTextView = view.findViewById(R.id.discounts_from_partners_answer);
-        TextView supportQuestionTextView = view.findViewById(R.id.support_24_7_question);
-        TextView supportAnswerTextView = view.findViewById(R.id.support_24_7_answer);
-
-
-        highQualityQuestionTextView.setOnClickListener(v -> {
-            if (highQualityAnswerTextView.getVisibility() == View.GONE) {
-                highQualityAnswerTextView.setVisibility(View.VISIBLE);
-            } else {
-                highQualityAnswerTextView.setVisibility(View.GONE);
-            }
-        });
-
-        convenientServiceQuestionTextView.setOnClickListener(v -> {
-            if (convenientServiceAnswerTextView.getVisibility() == View.GONE) {
-                convenientServiceAnswerTextView.setVisibility(View.VISIBLE);
-            } else {
-                convenientServiceAnswerTextView.setVisibility(View.GONE);
-            }
-        });
-
-        discountsFromPartnersQuestionTextView.setOnClickListener(v -> {
-            if (discountsFromPartnersAnswerTextView.getVisibility() == View.GONE) {
-                discountsFromPartnersAnswerTextView.setVisibility(View.VISIBLE);
-            } else {
-                discountsFromPartnersAnswerTextView.setVisibility(View.GONE);
-            }
-        });
-
-        supportQuestionTextView.setOnClickListener(v -> {
-            if (supportAnswerTextView.getVisibility() == View.GONE) {
-                supportAnswerTextView.setVisibility(View.VISIBLE);
-            } else {
-                supportAnswerTextView.setVisibility(View.GONE);
-            }
-        });
-
-        return view;
     }
 
-    private List<Product> loadPopularProductList() {
-        List<Product> products = new ArrayList<>();
+    /**
+     * Sets up the RecyclerView for displaying popular products.
+     *
+     * @param view The parent view containing the RecyclerView.
+     */
+    private void setupPopularProductsRecyclerView(View view) {
+        popularProductsRecyclerView = view.findViewById(R.id.products_list_view);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false);
+        popularProductsRecyclerView.setLayoutManager(layoutManager);
+
+        ProductAdapterForCategoryDetailFragment productAdapter = new ProductAdapterForCategoryDetailFragment(requireContext(), popularProducts, this);
+        popularProductsRecyclerView.setAdapter(productAdapter);
+    }
+
+    /**
+     * Sets up the question and answer toggle views.
+     *
+     * @param view The parent view containing the question and answer views.
+     */
+    private void setupQuestionAnswerToggles(View view) {
+        setupToggle(view, R.id.high_quality_products_question, R.id.high_quality_products_question_answer);
+        setupToggle(view, R.id.convenient_service_question, R.id.convenient_service_answer);
+        setupToggle(view, R.id.discounts_from_partners_question, R.id.discounts_from_partners_answer);
+        setupToggle(view, R.id.support_24_7_question, R.id.support_24_7_answer);
+    }
+
+    /**
+     * Sets up a toggle view for a question and answer pair.
+     *
+     * @param view The parent view containing the question and answer views.
+     * @param questionId The resource ID of the question TextView.
+     * @param answerId The resource ID of the answer TextView.
+     */
+    private void setupToggle(View view, int questionId, int answerId) {
+        TextView questionTextView = view.findViewById(questionId);
+        TextView answerTextView = view.findViewById(answerId);
+
+        questionTextView.setOnClickListener(v -> {
+            if (answerTextView.getVisibility() == View.GONE) {
+                answerTextView.setVisibility(View.VISIBLE);
+            } else {
+                answerTextView.setVisibility(View.GONE);
+            }
+        });
+    }
+
+    /**
+     * Loads the list of popular products from the Firebase database.
+     */
+    private void loadPopularProductList() {
         DatabaseReference productsReference = firebaseDatabase.getReference().child("products");
 
         productsReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (String id : popularProductsIds) {
+                popularProducts.clear();
+
+                for (String id : POPULAR_PRODUCT_IDS) {
                     DataSnapshot snapshot = dataSnapshot.child(id);
 
                     if (!snapshot.exists()) {
-                        Log.e("loadPopularProductList", "Product ID " + id + " does not exist in the database.");
+                        Log.e(TAG, "Product ID " + id + " does not exist in the database.");
                         continue;
                     }
 
@@ -149,7 +167,7 @@ public class HomeFragment extends Fragment implements OnBackPressedListener, OnP
                     String productTypeString = snapshot.child("productType").getValue(String.class);
 
                     if (iconName == null || name == null || description == null || categoryId == null || price == null || productTypeString == null) {
-                        Log.e("loadPopularProductList", "One of the fields for product ID " + id + " is null.");
+                        Log.e(TAG, "One of the fields for product ID " + id + " is null.");
                         continue;
                     }
 
@@ -157,29 +175,29 @@ public class HomeFragment extends Fragment implements OnBackPressedListener, OnP
                     try {
                         productType = ProductType.valueOf(productTypeString);
                     } catch (IllegalArgumentException e) {
-                        Log.e("loadPopularProductList", "Invalid product type for product ID " + id);
+                        Log.e(TAG, "Invalid product type for product ID " + id);
                         continue;
                     }
 
                     Product product = new Product(iconName, name, description, categoryId, price, productType);
-                    products.add(product);
+                    popularProducts.add(product);
                 }
 
-                if (popularProductsRecyclerView != null && popularProductsRecyclerView.getAdapter() != null) {
+                if (popularProductsRecyclerView.getAdapter() != null) {
                     popularProductsRecyclerView.getAdapter().notifyDataSetChanged();
                 }
-
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Log.e("loadPopularProductList", "Database error: " + error.getMessage());
+                Log.e(TAG, "Database error: " + error.getMessage());
             }
         });
-
-        return products;
     }
 
+    /**
+     * Shows the exit dialog when the back button is pressed.
+     */
     public void showExitDialog() {
         ExitDialogActivity dialog = new ExitDialogActivity(requireContext());
         dialog.show();
@@ -195,6 +213,7 @@ public class HomeFragment extends Fragment implements OnBackPressedListener, OnP
         ProductDetailFragment productDetailFragment = ProductDetailFragment.newInstance(
                 product.getIconName(), product.getName(), product.getDescription(),
                 product.getCategoryId(), product.getPrice(), product.getProductType());
+
         FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container, productDetailFragment);
         transaction.addToBackStack(null);

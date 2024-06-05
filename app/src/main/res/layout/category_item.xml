@@ -5,7 +5,7 @@
     android:layout_marginStart="12dp"
     android:layout_marginEnd="12dp"
     android:layout_marginVertical="10dp"
-    app:cardBackgroundColor="@color/blue_background"
+    app:cardBackgroundColor="@color/milk_color"
     android:layout_marginHorizontal="10dp"
 
     app:cardCornerRadius="20dp"

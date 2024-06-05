@@ -171,4 +171,7 @@
     <string name="discounts_from_partners_answer">We partner with leading manufacturers and stores to offer you exclusive discounts and promotions on a wide range of products.</string>
     <string name="support_24_7_question">Support 24/7</string>
     <string name="support_24_7_answer">Our support team is available around the clock to help you with any questions and provide the best experience using our app.</string>
+    <string name="auth_success">Authentication successful</string>
+    <string name="auth_failed">Authentication failed</string>
+    <string name="google_sign_in_failed">Google sign in failed</string>
 </resources>

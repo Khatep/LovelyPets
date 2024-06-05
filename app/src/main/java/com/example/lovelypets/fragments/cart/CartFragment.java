@@ -36,36 +36,52 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * {@link Fragment} subclass representing the "Cart" shopping cart section.
+ * Implements the  {@link OnProductClickListener} to handle product click presses,
+ * {@link OnDeleteIconClickListener} to handle delete icon presses.
+ * {@link CartProductListProvider} helps to transfer Cart products to another Fragments
+ * {@link OnBackPressedListener} to handle back button presses.
+ */
+
 public class CartFragment extends Fragment implements OnProductClickListener, OnDeleteIconClickListener, CartProductListProvider, OnBackPressedListener {
+
     private RecyclerView cartRecycleView;
     private TextView totalPriceTextView;
     private List<Product> cartProductList;
-    private DatabaseReference cartRef, usersReference;
-    private Button purchaseButton;
+    private DatabaseReference cartRef;
     private double totalPrice;
     private final FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-    private String[] userId = {"default"};
-    private List<Product> productList = new ArrayList<>();
+    private final String[] userId = {"default"};
+    private final List<Product> productList = new ArrayList<>();
     private TextView cartIsEmptyTextView;
 
+    /**
+     * Default constructor. Required for fragment subclasses.
+     */
     public CartFragment() {
         // Required empty public constructor
     }
 
+    /**
+     * Factory method to create a new instance of CartFragment.
+     *
+     * @return A new instance of fragment CartFragment.
+     */
     public static CartFragment newInstance() {
         return new CartFragment();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        usersReference = firebaseDatabase.getReference().child("users");
+        DatabaseReference usersReference = firebaseDatabase.getReference().child("users");
         String userEmail = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getEmail();
 
         View view = inflater.inflate(R.layout.fragment_cart, container, false);
         cartRecycleView = view.findViewById(R.id.cart_list_view);
         cartIsEmptyTextView = view.findViewById(R.id.cart_is_empty_text);
         totalPriceTextView = view.findViewById(R.id.total_price_text);
-        purchaseButton = view.findViewById(R.id.purchase_button);
+        Button purchaseButton = view.findViewById(R.id.purchase_button);
 
         usersReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -74,7 +90,7 @@ public class CartFragment extends Fragment implements OnProductClickListener, On
                     if (snapshot.exists() && Objects.equals(snapshot.child("email").getValue(), userEmail)) {
                         userId[0] = snapshot.getKey();
                         assert userId[0] != null;
-                        Log.d("User ID", userId[0]);
+                        Log.d("CartFragment", "User ID: " + userId[0]);
                         cartProductList = loadCartProductList();
                         setCartRecycleView();
                         return;
@@ -84,7 +100,8 @@ public class CartFragment extends Fragment implements OnProductClickListener, On
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                // Handle possible errors
+                Log.e("CartFragment", "Error fetching user data", error.toException());
             }
         });
 
@@ -95,12 +112,20 @@ public class CartFragment extends Fragment implements OnProductClickListener, On
         return view;
     }
 
+    /**
+     * Sets up the RecyclerView for displaying the cart products.
+     */
     public void setCartRecycleView() {
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 1);  // 2 columns
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 1);  // 1 column
         cartRecycleView.setLayoutManager(gridLayoutManager);
         cartRecycleView.setAdapter(new ProductAdapterForCartFragment(getContext(), cartProductList, this, this));
     }
 
+    /**
+     * Loads the cart product list from the database.
+     *
+     * @return The list of products in the cart.
+     */
     public List<Product> loadCartProductList() {
         cartRef = FirebaseDatabase.getInstance().getReference("users").child(userId[0]).child("cart");
         cartRef.addValueEventListener(new ValueEventListener() {
@@ -135,9 +160,11 @@ public class CartFragment extends Fragment implements OnProductClickListener, On
                     cartRecycleView.getAdapter().notifyDataSetChanged();
                 }
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                // Handle possible errors.
+                // Handle possible errors
+                Log.e("CartFragment", "Error loading cart products", error.toException());
             }
         });
 
@@ -153,6 +180,7 @@ public class CartFragment extends Fragment implements OnProductClickListener, On
     public double getTotalPrice() {
         return totalPrice;
     }
+
     @Override
     public void onProductClicked(Product product) {
         ProductDetailFragment productDetailFragment = ProductDetailFragment.newInstance(
@@ -176,7 +204,11 @@ public class CartFragment extends Fragment implements OnProductClickListener, On
                     if (cartProductName.equals(product.getName())) {
                         // Product found! Delete it.
                         childSnapshot.getRef().removeValue().addOnCompleteListener(task -> {
-                            // Handle completion as before (success/failure)
+                            if (task.isSuccessful()) {
+                                Log.d("CartFragment", "Product removed from cart: " + product.getName());
+                            } else {
+                                Log.e("CartFragment", "Failed to remove product from cart: " + product.getName());
+                            }
                         });
                         break; // Exit loop after finding the product
                     }
@@ -186,11 +218,14 @@ public class CartFragment extends Fragment implements OnProductClickListener, On
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 // Handle errors in reading data
-                Log.w("CartActivity", "Error reading cart data", error.toException());
+                Log.e("CartFragment", "Error reading cart data", error.toException());
             }
         });
     }
 
+    /**
+     * Shows a custom dialog for the payment process.
+     */
     public void showCustomDialog() {
         if (cartProductList.isEmpty()) {
             Toast.makeText(requireContext(), "Cart is empty", Toast.LENGTH_SHORT).show();
@@ -200,6 +235,9 @@ public class CartFragment extends Fragment implements OnProductClickListener, On
         }
     }
 
+    /**
+     * Shows an exit confirmation dialog.
+     */
     public void showExitDialog() {
         ExitDialogActivity dialog = new ExitDialogActivity(requireContext());
         dialog.show();

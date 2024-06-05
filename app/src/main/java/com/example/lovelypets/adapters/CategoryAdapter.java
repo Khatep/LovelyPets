@@ -1,6 +1,5 @@
 package com.example.lovelypets.adapters;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,20 +13,44 @@ import com.example.lovelypets.viewholders.CategoryViewHolder;
 
 import java.util.List;
 
+/**
+ * Adapter for displaying categories in a RecyclerView.
+ */
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryViewHolder> {
 
     private final List<Category> categories;
     private final OnItemClickListener listener;
 
+    /**
+     * Interface for handling category item clicks.
+     */
     public interface OnItemClickListener {
+        /**
+         * Called when a category item is clicked.
+         *
+         * @param category The clicked category.
+         */
         void onItemClick(Category category);
     }
 
-    public CategoryAdapter(Context context, List<Category> categories,  OnItemClickListener listener) {
+    /**
+     * Constructor for the CategoryAdapter.
+     *
+     * @param categories The list of categories to display.
+     * @param listener   The listener for handling item clicks.
+     */
+    public CategoryAdapter(List<Category> categories, OnItemClickListener listener) {
         this.categories = categories;
         this.listener = listener;
     }
 
+    /**
+     * Creates a new ViewHolder to hold the view for each category item.
+     *
+     * @param parent   The parent ViewGroup.
+     * @param viewType The view type of the new View.
+     * @return A new CategoryViewHolder.
+     */
     @NonNull
     @Override
     public CategoryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -35,6 +58,12 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryViewHolder> {
         return new CategoryViewHolder(view);
     }
 
+    /**
+     * Binds the data to the ViewHolder for a specific position.
+     *
+     * @param holder   The ViewHolder to bind data to.
+     * @param position The position of the data item in the list.
+     */
     @Override
     public void onBindViewHolder(@NonNull CategoryViewHolder holder, int position) {
         Category category = categories.get(position);
@@ -42,6 +71,11 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryViewHolder> {
         holder.bind(category, listener);
     }
 
+    /**
+     * Returns the total number of items in the data set held by the adapter.
+     *
+     * @return The total number of items in this adapter.
+     */
     @Override
     public int getItemCount() {
         return categories.size();

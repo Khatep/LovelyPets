@@ -18,7 +18,7 @@
 
     <fragment
         android:id="@+id/nav_search"
-        android:name="com.example.lovelypets.fragments.SearchFragment"
+        android:name="com.example.lovelypets.fragments.search.SearchFragment"
         android:label="Search"
         />
 
@@ -30,7 +30,7 @@
 
     <fragment
         android:id="@+id/nav_profile"
-        android:name="com.example.lovelypets.fragments.ProfileFragment"
+        android:name="com.example.lovelypets.fragments.profile.ProfileFragment"
         android:label="Profile"
         />
 

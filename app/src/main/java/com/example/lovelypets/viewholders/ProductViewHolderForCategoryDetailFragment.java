@@ -14,6 +14,9 @@ import com.example.lovelypets.models.Product;
 
 import java.util.List;
 
+/**
+ * ViewHolder class for displaying product items in the category detail fragment's RecyclerView.
+ */
 public class ProductViewHolderForCategoryDetailFragment extends RecyclerView.ViewHolder {
     Context context;
     List<Product> products;
@@ -22,11 +25,20 @@ public class ProductViewHolderForCategoryDetailFragment extends RecyclerView.Vie
     public TextView nameView;
     public TextView priceView;
     public CardView productCardViewForCategoryDetailFragment;
+
+    /**
+     * Constructor for initializing the ViewHolder with the product view and context.
+     *
+     * @param context The context from which the ViewHolder is created.
+     * @param products The list of products to be displayed in the category detail fragment.
+     * @param productView The view of the product item in the RecyclerView.
+     */
     public ProductViewHolderForCategoryDetailFragment(Context context, List<Product> products, @NonNull View productView) {
         super(productView);
         this.context = context;
         this.products = products;
 
+        // Initialize UI components by finding them from the productView.
         favouriteIconView = productView.findViewById(R.id.favourite);
         imageView = productView.findViewById(R.id.imageview);
         nameView = productView.findViewById(R.id.name);
