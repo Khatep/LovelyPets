@@ -40,7 +40,7 @@
             android:layout_marginTop="65sp"
             android:contentDescription="@string/cat"
             android:padding="5dp"
-            android:scaleType="fitXY"
+            android:scaleType="fitCenter"
             android:src="@drawable/ic_baseline_man"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
