@@ -49,3 +49,109 @@ Follow these steps to run the application:
 # Run project
 Click the “Run” button (green triangle) to build and run the application on the emulator or a connected Android device.
 ```
+
+## Project Structure
+
+```bash
+LovelyPets/
+├── app/
+│   ├── src/
+│   │   ├── main
+│   │   │   ├── java/com/example/lovelypets/
+│   │   │   │   ├── adapters/
+│   │   │   │   │   ├── CategoryAdapter.java
+│   │   │   │   │   ├── OrderAdapter.java
+│   │   │   │   │   ├── PartnersImageAdapter.java
+│   │   │   │   │   ├── ProductAdapterForCartFragment.java
+│   │   │   │   │   └── ProductAdapterForCategoryDetailFragment.java  
+│   │   │   │   ├── authentications/
+│   │   │   │   │   ├── InputDataForUserActivity.java
+│   │   │   │   │   ├── LoginActivity.java
+│   │   │   │   │   ├── OnUserExistsListener.java
+│   │   │   │   │   ├── PhoneNumberTextWather.java
+│   │   │   │   │   ├── SignupActivity.java
+│   │   │   │   │   └── UserExistenceChecker.java  
+│   │   │   │   ├── dtos/
+│   │   │   │   │   └── FirebaseAuthUserDTO.java
+│   │   │   │   ├── emailconfirmations/
+│   │   │   │   │   ├── EmailConfirmActivity.java
+│   │   │   │   │   └── GenericTextWatcher.java
+│   │   │   │   ├── emailsenders/
+│   │   │   │   │   ├── confirmcodegenerate/
+│   │   │   │   │   │   ├── SendCodeToEmailTask.java  
+│   │   │   │   │   │   └── VerificationCodeGeneratedListener.java
+│   │   │   │   │   ├── receiptgenerate/
+│   │   │   │   │   │   ├── ReceiptGeneratedListener.java
+│   │   │   │   │   │   └── SendReceiptToEmail.java
+│   │   │   │   ├── enums/
+│   │   │   │   │   ├── AuthProvider.java
+│   │   │   │   │   ├── Gender.java
+│   │   │   │   │   ├── OrderStatus.java
+│   │   │   │   │   └── ProductType.java
+│   │   │   │   ├── eventlisteners/
+│   │   │   │   │   ├── OnBackPressedListener.java
+│   │   │   │   │   ├── OnDeleteIconClickListener.java
+│   │   │   │   │   ├── OnOrderClickListener.java
+│   │   │   │   │   └── OnProductClickListener.java
+│   │   │   │   ├── exitalertdialog/
+│   │   │   │   │   └── ExitDialogActivity.java
+│   │   │   │   ├── fragments/
+│   │   │   │   │   ├── aboutus/
+│   │   │   │   │   │   └── AboutUsFragments.java
+│   │   │   │   │   ├── cart/
+│   │   │   │   │   │   ├── CartFragment.java
+│   │   │   │   │   │   └── CartProductListProvider.java
+│   │   │   │   │   ├── category/
+│   │   │   │   │   │   ├── CategoryDetailFragment.java
+│   │   │   │   │   │   └── CaregoryFragment.java
+│   │   │   │   │   ├── home/
+│   │   │   │   │   │   ├── HomeFragment.java
+│   │   │   │   │   │   └── SpacesItemDecoration.java
+│   │   │   │   │   ├── orderhistory/
+│   │   │   │   │   │   ├── OrderHistoryDetailFragment.java
+│   │   │   │   │   │   └── OrderHistoryFragment.java
+│   │   │   │   │   ├── productdetail/
+│   │   │   │   │   │   └── ProductDetailFragment.java
+│   │   │   │   │   ├── profile/
+│   │   │   │   │   │   └── ProfileFragment.java
+│   │   │   │   │   ├── search/
+│   │   │   │   │   │   └── SearchFragment.java
+│   │   │   │   ├── models/
+│   │   │   │   │   ├── Category.java
+│   │   │   │   │   ├── Order.java
+│   │   │   │   │   ├── Product.java
+│   │   │   │   │   └── User.java
+│   │   │   │   ├── passwordreset/
+│   │   │   │   │   └── PasswordResetActivity.java
+│   │   │   │   ├── payment/
+│   │   │   │   │   ├── CreditCardTextWatcher.java
+│   │   │   │   │   └── PaymentDialogActivity.java
+│   │   │   │   ├── viewholders/
+│   │   │   │   │   ├── CategoryViewHolder.java
+│   │   │   │   │   ├── OrderViewHolder.java
+│   │   │   │   │   ├── ProductViewHolderForCartFragment.java
+│   │   │   │   │   └── ProductViewHolderForCategoryDetailFragment.java 
+│   │   │   │   ├── viewmodels/
+│   │   │   │   │   └── SearchViewModel.java
+│   │   │   │   ├── welcomepage/
+│   │   │   │   │   └── WelcomeActivity.java
+│   │   │   │   └── LovelyPetsApplicationsActivity.java
+│   │   │   ├── res/...
+│   │   │   ├── AndroidManifest.xml
+│   │   │   └── ic_launcher-playstore.png
+└── README.md
+```
+
+
+## Roadmap
+
+Here are some features and improvements planned for future releases:
+
+Do you have ideas or suggestions for other features? Feel free to [open an issue](https://github.com/your-username/your-project/issues) or submit a pull request! or send me email nurgali.khatep@gmail.com 
+
+
+## Authors
+
+#### Khatep Nurgali
+#### Kalymova Zhansaya 
+
