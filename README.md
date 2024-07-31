@@ -147,6 +147,17 @@ LovelyPets/
 
 Here are some features and improvements planned for future releases:
 
+1.  🟢 Use Firebase Storage to store files.
+2.  🟢 Add Caching.
+3.  🟢 Add your own Java|Spring Backend.
+4.  🟢 Add the ability to change user's personal data.
+5.  🟡 Fix bug with authentication with google built .apk file.
+6.  🟡 Fix bug: need to change the app logic so that users who did not fill in their data after registration would not have access to the main part of the app. 
+7.  🟡 Minimize database queries.
+8.  🟡 Fix the bug with crashing out of the application when it has not yet had time to load data from the database.
+9.  🟡 Improve the adaptability of the layout.
+10. 🟡 Improve profile page design. 
+
 Do you have ideas or suggestions for other features? Feel free to [open an issue](https://github.com/your-username/your-project/issues) or submit a pull request! or send me email nurgali.khatep@gmail.com 
 
 
