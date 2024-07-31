@@ -1,3 +1,4 @@
+# IDE specific
 *.iml
 .gradle
 /local.properties
@@ -7,9 +8,36 @@
 /.idea/workspace.xml
 /.idea/navEditor.xml
 /.idea/assetWizardSettings.xml
+.vscode/
+*.swp
+*~
+
+# System files
 .DS_Store
+logs/
+*.log
+
+# Build output
 /build
 /captures
 .externalNativeBuild
 .cxx
+node_modules/
+
+# Environment variables
+.env
+
+# Backup & temporary files
+*.bak
+*.tmp
+
+# CI/CD
+.github/
+.circleci/
+.travis.yml
+
+# Local properties
 local.properties
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
