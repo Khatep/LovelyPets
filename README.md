@@ -4,12 +4,16 @@ Hello world! This is an online store mobile application created in Java. This is
 
 ## Table of Contents
 
+- [Illustration](#illustration)
 - [Tech Stack](#tech-stack)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Project Structure](#project-structure)
 - [Roadmap](#roadmap)
 - [Authors](#authors)
+
+## Illustration
+![image](https://github.com/user-attachments/assets/f71acb83-608c-4177-9268-b596da128b4e)
 
 ## Tech Stack
 
@@ -142,24 +146,26 @@ LovelyPets/
 └── README.md
 ```
 
-
 ## Roadmap
 
 Here are some features and improvements planned for future releases:
 
 1.  🟢 Use Firebase Storage to store files.
-2.  🟢 Add Caching.
+2.  🟢 Add caching.
 3.  🟢 Add your own Java|Spring Backend.
-4.  🟢 Add the ability to change user's personal data.
-5.  🟡 Fix bug with authentication with google built .apk file.
-6.  🟡 Fix bug: need to change the app logic so that users who did not fill in their data after registration would not have access to the main part of the app. 
-7.  🟡 Minimize database queries.
-8.  🟡 Fix the bug with crashing out of the application when it has not yet had time to load data from the database.
-9.  🟡 Improve the adaptability of the layout.
-10. 🟡 Improve profile page design. 
+4.  🟢 Add the ability to change the user's personal data.
+5.  🟢 Add a wish list, add/remove by like icon
+6.  🟢 Add sorting for the search page
+7.  🟡Fix the authentication error using the built-in Google .apk file.
+8.  🟡 Bug fixed: it is necessary to change the logic of the application so that users who have not entered their data after registration do not have access to the main part of the application. 
+9.  🟡 Minimize database queries.
+10. 🟡 Fixed an error with the shutdown of the application when it has not yet had time to download data from the database.
+11. 🟡 Improved the adaptability of the layout.
+12. 🟡 Improve the design of the profile page.
+13. 🟡 Improve the design of the Home page.
+14. 🟡 Fix the password reset, do it yourself.
 
 Do you have ideas or suggestions for other features? Feel free to [open an issue](https://github.com/your-username/your-project/issues) or submit a pull request! or send me email nurgali.khatep@gmail.com 
-
 
 ## Authors
 
