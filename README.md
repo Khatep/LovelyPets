@@ -18,7 +18,7 @@ Hello world! This is an online store mobile application created in Java. This is
 ## Tech Stack
 
 - Java
-- XML
+- Android View (XML)
 - Material 2
 - Gradle
 - Firebase: realtime database, authentication 
